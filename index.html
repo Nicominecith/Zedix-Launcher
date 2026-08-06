@@ -196,6 +196,26 @@
             font-size: 1.2rem;
         }
 
+        /* Hinweis-Box für CurseForge */
+        .notice-box {
+            background-color: rgba(255, 165, 0, 0.1);
+            border: 1px solid rgba(255, 165, 0, 0.3);
+            color: #ffcc00;
+            padding: 15px 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            max-width: 650px;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-align: left;
+        }
+
+        .notice-box i {
+            font-size: 1.5rem;
+        }
+
         /* Features Section */
         .features {
             display: grid;
@@ -270,13 +290,12 @@
     <!-- Header -->
     <header>
         <div class="brand">
-            <!-- Hier wurde der Name zu logo.png korrigiert -->
             <img src="logo.png" alt="Zedix Launcher Logo" class="brand-logo-img">
             <div class="logo">ZEDIX<span>LAUNCHER</span></div>
         </div>
         <ul class="nav-links">
             <li><a href="#features">Features</a></li>
-            <li><a href="https://github.com/DEIN-GITHUB-BENUTZERNAME/zedix-launcher" target="_blank"><i class="fab fa-github"></i> GitHub</a></li>
+            <li><a href="https://github.com/Nicominecith/Zedix-Launcher" target="_blank"><i class="fab fa-github"></i> GitHub</a></li>
         </ul>
     </header>
 
@@ -285,24 +304,30 @@
         <h1>Der moderne Minecraft Launcher für <span>Linux & Windows</span></h1>
         <p>Erlebe Minecraft neu mit dem Zedix Launcher v0.65.1. Schnell, anpassbar, ressourcenschonend und Open Source.</p>
         
-        <!-- Download Buttons mit deinen echten Dateinamen -->
+        <!-- Wichtiger Hinweis -->
+        <div class="notice-box">
+            <i class="fas fa-exclamation-triangle"></i>
+            <div><strong>Hinweis zu v0.65.1:</strong> CurseForge-Mods funktionieren in dieser Version noch nicht und werden in einem kommenden Update nachgereicht!</div>
+        </div>
+
+        <!-- Download Buttons mit deinen Release-URLs -->
         <div class="download-section">
             <!-- Windows -->
             <div class="os-group">
-                <a href="zedix-launcher-0.65.1-setup.exe" class="btn btn-windows">
+                <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/Minecraft/zedix-launcher-0.65.1-setup-Windows.exe" class="btn btn-windows">
                     <i class="fab fa-windows"></i> Windows Setup (.exe)
                 </a>
             </div>
             
-            <!-- Linux (AMD64, ARM64, AppImage) -->
+            <!-- Linux -->
             <div class="os-group">
-                <a href="zedix-launcher-0.65.1-amd64.deb" class="btn btn-linux">
-                    <i class="fab fa-linux"></i> Linux (.deb / x64)
+                <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/Minecraft/zedix-launcher-0.65.1-amd64-Linux.deb" class="btn btn-linux">
+                    <i class="fab fa-linux"></i> Linux (.deb / AMD64)
                 </a>
-                <a href="zedix-launcher-0.65.1-arm64.deb" class="btn btn-linux">
+                <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/Minecraft/zedix-launcher-0.65.1-arm64-Linux.deb" class="btn btn-linux">
                     <i class="fab fa-linux"></i> Linux (.deb / ARM64)
                 </a>
-                <a href="zedix-launcher-0.65.1-arm64.AppImage" class="btn btn-linux">
+                <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/Minecraft/zedix-launcher-0.65.1-arm64-Linux.AppImage" class="btn btn-linux">
                     <i class="fab fa-linux"></i> Linux (.AppImage)
                 </a>
             </div>
@@ -324,7 +349,7 @@
         <div class="feature-card">
             <i class="fas fa-users-cog"></i>
             <h3>Community-fokussiert</h3>
-            <p>Entwickelt von Spielern für Spieler. Wir hören auf das Feedback der Community.</p>
+            <p>Entwickelt von Spielern für Spieler. Wir hören auf das Feedback der Community und liefern bald Updates nach.</p>
         </div>
     </section>
 
