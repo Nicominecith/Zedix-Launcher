@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zedix Launcher - Der ultimative Minecraft Launcher</title>
+    <!-- Google Fonts & FontAwesome für Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: #131825;
+            /* Angepasste Farben basierend auf dem Logo-Verlauf */
+            --logo-blue-start: #0077ff; 
+            --logo-blue-end: #00c6ff;
+            --accent-blue: var(--logo-blue-end); /* Das helle Blau als Akzentfarbe */
+            --glow-color: rgba(0, 198, 255, 0.3); /* Sanfteres Glühen */
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow-x: hidden;
+        }
+
+        /* Hintergrund-Effekt (angepasst) */
+        .bg-glow {
+            position: absolute;
+            top: -150px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 700px;
+            height: 350px;
+            background: radial-gradient(circle, var(--glow-color) 0%, transparent 70%);
+            opacity: 0.8;
+            z-index: -1;
+        }
+
+        /* Header / Navbar */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(11, 15, 25, 0.9); /* Leicht transparent für Scroll-Effekt */
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* Logo Styling */
+        .brand-logo-img {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px; /* Passt sich dem runden Quadrat des Logos an */
+            object-fit: cover;
+            box-shadow: 0 0 15px rgba(0, 119, 255, 0.5);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--text-main);
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            /* Farbverlauf des Logos im Text */
+            background: linear-gradient(135deg, var(--logo-blue-start), var(--logo-blue-end));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--logo-blue-end);
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 100px 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--logo-blue-start), var(--logo-blue-end));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 50px;
+            max-width: 650px;
+        }
+
+        /* Download Buttons Container */
+        .download-container {
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 60px;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 32px;
+            border-radius: 14px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        /* Primary Button: Helles Logo-Blau mit leichtem Schatten */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--logo-blue-start), var(--logo-blue-end));
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 198, 255, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 198, 255, 0.6);
+        }
+
+        /* Secondary Button: Dunkel mit hellem Rand und Text */
+        .btn-secondary {
+            background-color: var(--card-bg);
+            color: var(--text-main);
+            border: 2px solid var(--logo-blue-end); /* Rand in hellem Logo-Blau */
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(0, 198, 255, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .btn i {
+            font-size: 1.3rem;
+        }
+
+        /* Features Section */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 80px 8%;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .feature-card {
+            background-color: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            border-radius: 20px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Hover Effekt: Subtiler blauer Rand */
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--logo-blue-end);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Kleiner Akzent-Balken oben auf der Karte */
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--logo-blue-start), var(--logo-blue-end));
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-card i {
+            font-size: 2.5rem;
+            /* Verlauf auch auf die Icons angewendet */
+            background: linear-gradient(135deg, var(--logo-blue-start), var(--logo-blue-end));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 25px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--text-main);
+        }
+
+        .feature-card p {
+            font-size: 1rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            background-color: var(--card-bg);
+        }
+
+        footer a {
+            color: var(--logo-blue-end);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        footer a:hover {
+            color: var(--logo-blue-start);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 5%;
+            }
+            .nav-links {
+                gap: 15px;
+                font-size: 0.9rem;
+            }
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            .hero p {
+                font-size: 1rem;
+            }
+            .features {
+                padding: 50px 5%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-glow"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="brand">
+            <!-- Das Logo wurde hier eingefügt -->
+            <img src="image_0.png" alt="Zedix Launcher Logo" class="brand-logo-img">
+            <div class="logo">ZEDIX<span>LAUNCHER</span></div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#features">Features</a></li>
+            <li><a href="https://github.com/DEIN-GITHUB-BENUTZERNAME/zedix-launcher" target="_blank"><i class="fab fa-github"></i> GitHub</a></li>
+        </ul>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Der moderne Minecraft Launcher für <span>Linux & Windows</span></h1>
+        <p>Erlebe Minecraft neu mit dem Zedix Launcher. Schnell, anpassbar, ressourcenschonend und Open Source.</p>
+        
+        <!-- Download Buttons (Passe hier die GitHub-Links an!) -->
+        <div class="download-container">
+            <a href="https://github.com/DEIN-GITHUB-BENUTZERNAME/zedix-launcher/releases/latest/download/Zedix-Launcher-Setup.exe" class="btn btn-primary">
+                <i class="fab fa-windows"></i> Für Windows
+            </a>
+            <a href="https://github.com/DEIN-GITHUB-BENUTZERNAME/zedix-launcher/releases/latest/download/zedix-launcher.AppImage" class="btn btn-secondary">
+                <i class="fab fa-linux"></i> Für Linux
+            </a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="feature-card">
+            <i class="fas fa-tachometer-alt"></i> <!-- Geändert zu Tachometer für Geschwindigkeit -->
+            <h3>Unschlagbare Performance</h3>
+            <p>Optimiert für maximale FPS und minimale Ladezeiten. Genieße ein flüssigeres Gameplay.</p>
+        </div>
+        <div class="feature-card">
+            <i class="fas fa-code-branch"></i> <!-- Passenderes Icon für Open Source -->
+            <h3>Open Source & Sicher</h3>
+            <p>Der Quellcode ist öffentlich auf GitHub einsehbar. Volle Transparenz und keine versteckten Prozesse.</p>
+        </div>
+        <div class="feature-card">
+            <i class="fas fa-users-cog"></i> <!-- Icon für Community & Einstellungen -->
+            <h3>Community-fokussiert</h3>
+            <p>Entwickelt von Spielern für Spieler. Wir hören auf das Feedback der Community.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Zedix Launcher. Nicht offiziell von Mojang oder Microsoft unterstützt.</p>
+        <p>Powered by <a href="https://github.com" target="_blank">GitHub</a></p>
+    </footer>
+
+</body>
+</html>
