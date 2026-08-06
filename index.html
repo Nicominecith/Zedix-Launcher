@@ -101,10 +101,20 @@
             text-decoration: none;
             font-weight: 500;
             transition: color 0.3s;
+            cursor: pointer;
         }
 
         .nav-links a:hover {
             color: var(--logo-blue-end);
+        }
+
+        .page-section {
+            display: none;
+            flex: 1;
+        }
+
+        .page-section.active {
+            display: block;
         }
 
         .hero {
@@ -197,11 +207,11 @@
             font-size: 1.2rem;
         }
 
-        /* Hinweis-Box für CurseForge */
+        /* Hinweis-Box für CurseForge (jetzt verfügbar) */
         .notice-box {
-            background-color: rgba(255, 165, 0, 0.1);
-            border: 1px solid rgba(255, 165, 0, 0.3);
-            color: #ffcc00;
+            background-color: rgba(0, 198, 255, 0.1);
+            border: 1px solid rgba(0, 198, 255, 0.3);
+            color: var(--logo-blue-end);
             padding: 15px 25px;
             border-radius: 12px;
             margin-bottom: 30px;
@@ -399,132 +409,160 @@
             <div class="logo">ZEDIX<span>LAUNCHER</span></div>
         </div>
         <ul class="nav-links">
-            <li><a href="#versions">Versionen</a></li>
-            <li><a href="#features">Features</a></li>
+            <li><a onclick="switchPage('home')">Startseite</a></li>
+            <li><a onclick="switchPage('versions')">Versionen</a></li>
             <li><a href="https://github.com/Nicominecith/Zedix-Launcher" target="_blank"><i class="fab fa-github"></i> GitHub</a></li>
         </ul>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <h1>Der moderne Minecraft Launcher für <span>Linux & Windows</span></h1>
-        <p>Erlebe Minecraft neu mit dem Zedix Launcher v1.0.0. Schnell, anpassbar, ressourcenschonend und Open Source.</p>
-        
-        <!-- Wichtiger Hinweis -->
-        <div class="notice-box">
-            <i class="fas fa-exclamation-triangle"></i>
-            <div><strong>Hinweis:</strong> Entdecke alle Neuerungen in der brandneuen Version v1.0.0 direkt weiter unten!</div>
-        </div>
-
-        <!-- Haupt-Download Button (v1.0.0 Windows) -->
-        <div class="download-section">
-            <div class="os-group">
-                <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/update/zedix-launcher-1.0.0-setup-Windows.exe" class="btn btn-windows">
-                    <i class="fab fa-windows"></i> Zedix Launcher v1.0.0 herunterladen (.exe)
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Versionen / Updates Sektion (Neu) -->
-    <section class="versions-section" id="versions">
-        <h2 class="section-title">Alle <span>Versionen & Updates</span></h2>
-
-        <!-- Version 1.0.0 (Neu) -->
-        <div class="version-card latest">
-            <div class="version-header">
-                <div class="version-title-wrapper">
-                    <h3>v1.0.0</h3>
-                    <span class="badge-latest">Neuestes Update</span>
-                </div>
-                <span class="version-date">Aktuelle Version</span>
-            </div>
+    <!-- SEITE 1: Startseite (Aktuellste Version v1.0.0) -->
+    <div id="page-home" class="page-section active">
+        <section class="hero">
+            <h1>Der moderne Minecraft Launcher für <span>Linux & Windows</span></h1>
+            <p>Erlebe Minecraft neu mit dem Zedix Launcher v1.0.0. Schnell, anpassbar, ressourcenschonend und Open Source.</p>
             
-            <ul class="version-changelog">
-                <li><i class="fas fa-check-circle"></i> <strong>Discord-Integration:</strong> Zeige deinen Freunden jetzt direkt in Discord, was du spielst.</li>
-                <li><i class="fas fa-check-circle"></i> <strong>Automatisches Updaten:</strong> Der Launcher hält sich ab sofort von alleine auf dem neuesten Stand.</li>
-                <li><i class="fas fa-check-circle"></i> <strong>In-App Bug-Reporting:</strong> Melde Bugs und Crashes unkompliziert direkt aus dem Launcher heraus.</li>
-                <li><i class="fas fa-check-circle"></i> <strong>Design-Verbesserungen:</strong> Komplett polierte und modernisierte Benutzeroberfläche.</li>
-            </ul>
+            <!-- Hinweis: CurseForge ist jetzt verfügbar -->
+            <div class="notice-box">
+                <i class="fas fa-check-circle"></i>
+                <div><strong>Neu in v1.0.0:</strong> CurseForge-Integration ist jetzt voll verfügbar! Durchsuche und installiere Mods direkt im Launcher.</div>
+            </div>
 
-            <div class="version-downloads">
-                <h4>Downloads für v1.0.0:</h4>
-                <div class="os-group" style="justify-content: flex-start;">
+            <!-- Download Buttons für v1.0.0 -->
+            <div class="download-section">
+                <div class="os-group">
                     <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/update/zedix-launcher-1.0.0-setup-Windows.exe" class="btn btn-windows">
                         <i class="fab fa-windows"></i> Windows Setup (.exe)
                     </a>
+                </div>
+                
+                <div class="os-group">
                     <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/update/zedix-launcher-1.0.0-amd64_Linux.deb" class="btn btn-linux">
                         <i class="fab fa-linux"></i> Linux (.deb / AMD64)
-                    </a>
-                    <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/update/zedix-launcher-1.0.0-x86_64-Linux.AppImage" class="btn btn-linux">
-                        <i class="fab fa-linux"></i> Linux (AppImage x86_64)
                     </a>
                     <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/update/zedix-launcher-1.0.0-arm64-Linux.deb" class="btn btn-linux">
                         <i class="fab fa-linux"></i> Linux (.deb / ARM64)
                     </a>
-                    <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/update/zedix-launcher-1.0.0-arm64-Linux.AppImage" class="btn btn-linux">
-                        <i class="fab fa-linux"></i> Linux (AppImage ARM64)
+                    <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/update/zedix-launcher-1.0.0-x86_64-Linux.AppImage" class="btn btn-linux">
+                        <i class="fab fa-linux"></i> Linux (AppImage)
                     </a>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <!-- Ältere Version (v0.65.1) -->
-        <div class="version-card">
-            <div class="version-header">
-                <div class="version-title-wrapper">
-                    <h3>v0.65.1</h3>
-                </div>
-                <span class="version-date">Ältere Version</span>
+        <!-- Features Section -->
+        <section class="features" id="features">
+            <div class="feature-card">
+                <i class="fas fa-tachometer-alt"></i>
+                <h3>Unschlagbare Performance</h3>
+                <p>Optimiert für maximale FPS und minimale Ladezeiten. Genieße ein flüssigeres Gameplay.</p>
             </div>
-            
-            <ul class="version-changelog">
-                <li><i class="fas fa-info-circle"></i> Initiale Release-Basis für Windows & Linux mit grundlegender Performance-Optimierung.</li>
-            </ul>
+            <div class="feature-card">
+                <i class="fas fa-code-branch"></i>
+                <h3>Open Source & Sicher</h3>
+                <p>Der Quellcode ist öffentlich auf GitHub einsehbar. Volle Transparenz und keine versteckten Prozesse.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-users-cog"></i>
+                <h3>Community-fokussiert</h3>
+                <p>Entwickelt von Spielern für Spieler. Wir hören auf das Feedback der Community.</p>
+            </div>
+        </section>
+    </div>
 
-            <div class="version-downloads">
-                <h4>Downloads für v0.65.1:</h4>
-                <div class="os-group" style="justify-content: flex-start;">
-                    <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/Minecraft/zedix-launcher-0.65.1-setup-Windows.exe" class="btn btn-linux">
-                        <i class="fab fa-windows"></i> Windows Setup (.exe)
-                    </a>
-                    <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/Minecraft/zedix-launcher-0.65.1-amd64-Linux.deb" class="btn btn-linux">
-                        <i class="fab fa-linux"></i> Linux (.deb / AMD64)
-                    </a>
-                    <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/Minecraft/zedix-launcher-0.65.1-arm64-Linux.deb" class="btn btn-linux">
-                        <i class="fab fa-linux"></i> Linux (.deb / ARM64)
-                    </a>
-                    <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/Minecraft/zedix-launcher-0.65.1-arm64-Linux.AppImage" class="btn btn-linux">
-                        <i class="fab fa-linux"></i> Linux (.AppImage)
-                    </a>
+    <!-- SEITE 2: Alle Versionen -->
+    <div id="page-versions" class="page-section">
+        <section class="versions-section">
+            <h2 class="section-title">Alle <span>Versionen & Updates</span></h2>
+
+            <!-- Version 1.0.0 -->
+            <div class="version-card latest">
+                <div class="version-header">
+                    <div class="version-title-wrapper">
+                        <h3>v1.0.0</h3>
+                        <span class="badge-latest">Neuestes Update</span>
+                    </div>
+                    <span class="version-date">Aktuelle Version</span>
+                </div>
+                
+                <ul class="version-changelog">
+                    <li><i class="fas fa-check-circle"></i> <strong>CurseForge-Integration:</strong> Jetzt verfügbar! Mod-Suche und Installation direkt im Launcher.</li>
+                    <li><i class="fas fa-check-circle"></i> <strong>Discord-Integration:</strong> Zeige deinen Freunden jetzt direkt in Discord, was du spielst.</li>
+                    <li><i class="fas fa-check-circle"></i> <strong>Automatisches Updaten:</strong> Der Launcher hält sich ab sofort von alleine auf dem neuesten Stand.</li>
+                    <li><i class="fas fa-check-circle"></i> <strong>In-App Bug-Reporting:</strong> Melde Bugs und Crashes unkompliziert direkt aus dem Launcher heraus.</li>
+                    <li><i class="fas fa-check-circle"></i> <strong>Design-Verbesserungen:</strong> Komplett polierte und modernisierte Benutzeroberfläche.</li>
+                </ul>
+
+                <div class="version-downloads">
+                    <h4>Downloads für v1.0.0:</h4>
+                    <div class="os-group" style="justify-content: flex-start;">
+                        <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/update/zedix-launcher-1.0.0-setup-Windows.exe" class="btn btn-windows">
+                            <i class="fab fa-windows"></i> Windows Setup (.exe)
+                        </a>
+                        <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/update/zedix-launcher-1.0.0-amd64_Linux.deb" class="btn btn-linux">
+                            <i class="fab fa-linux"></i> Linux (.deb / AMD64)
+                        </a>
+                        <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/update/zedix-launcher-1.0.0-x86_64-Linux.AppImage" class="btn btn-linux">
+                            <i class="fab fa-linux"></i> Linux (AppImage x86_64)
+                        </a>
+                        <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/update/zedix-launcher-1.0.0-arm64-Linux.deb" class="btn btn-linux">
+                            <i class="fab fa-linux"></i> Linux (.deb / ARM64)
+                        </a>
+                        <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/update/zedix-launcher-1.0.0-arm64-Linux.AppImage" class="btn btn-linux">
+                            <i class="fab fa-linux"></i> Linux (AppImage ARM64)
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Features Section -->
-    <section class="features" id="features">
-        <div class="feature-card">
-            <i class="fas fa-tachometer-alt"></i>
-            <h3>Unschlagbare Performance</h3>
-            <p>Optimiert für maximale FPS und minimale Ladezeiten. Genieße ein flüssigeres Gameplay.</p>
-        </div>
-        <div class="feature-card">
-            <i class="fas fa-code-branch"></i>
-            <h3>Open Source & Sicher</h3>
-            <p>Der Quellcode ist öffentlich auf GitHub einsehbar. Volle Transparenz und keine versteckten Prozesse.</p>
-        </div>
-        <div class="feature-card">
-            <i class="fas fa-users-cog"></i>
-            <h3>Community-fokussiert</h3>
-            <p>Entwickelt von Spielern für Spieler. Wir hören auf das Feedback der Community.</p>
-        </div>
-    </section>
+            <!-- Version 0.65.1 -->
+            <div class="version-card">
+                <div class="version-header">
+                    <div class="version-title-wrapper">
+                        <h3>v0.65.1</h3>
+                    </div>
+                    <span class="version-date">Ältere Version</span>
+                </div>
+                
+                <ul class="version-changelog">
+                    <li><i class="fas fa-info-circle"></i> Initiale Release-Basis für Windows & Linux mit grundlegender Performance-Optimierung.</li>
+                </ul>
+
+                <div class="version-downloads">
+                    <h4>Downloads für v0.65.1:</h4>
+                    <div class="os-group" style="justify-content: flex-start;">
+                        <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/Minecraft/zedix-launcher-0.65.1-setup-Windows.exe" class="btn btn-linux">
+                            <i class="fab fa-windows"></i> Windows Setup (.exe)
+                        </a>
+                        <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/Minecraft/zedix-launcher-0.65.1-amd64-Linux.deb" class="btn btn-linux">
+                            <i class="fab fa-linux"></i> Linux (.deb / AMD64)
+                        </a>
+                        <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/Minecraft/zedix-launcher-0.65.1-arm64-Linux.deb" class="btn btn-linux">
+                            <i class="fab fa-linux"></i> Linux (.deb / ARM64)
+                        </a>
+                        <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/Minecraft/zedix-launcher-0.65.1-arm64-Linux.AppImage" class="btn btn-linux">
+                            <i class="fab fa-linux"></i> Linux (.AppImage)
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 
     <!-- Footer -->
     <footer>
         <p>&copy; 2026 Zedix Launcher. Nicht offiziell von Mojang oder Microsoft unterstützt.</p>
     </footer>
+
+    <!-- JavaScript für die Seiten-Umschaltung ohne Neuladen -->
+    <script>
+        function switchPage(pageId) {
+            document.querySelectorAll('.page-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById('page-' + pageId).classList.add('active');
+            window.scrollTo(0, 0);
+        }
+    </script>
 
 </body>
 </html>
