@@ -25,6 +25,7 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
         }
 
         body {
@@ -111,7 +112,7 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
-            padding: 80px 20px;
+            padding: 80px 20px 40px 20px;
             max-width: 900px;
             margin: 0 auto;
         }
@@ -143,7 +144,7 @@
             flex-direction: column;
             align-items: center;
             gap: 20px;
-            margin-bottom: 50px;
+            margin-bottom: 30px;
         }
 
         .os-group {
@@ -216,12 +217,116 @@
             font-size: 1.5rem;
         }
 
+        /* Versions / Changelog Sektion */
+        .versions-section {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .section-title span {
+            background: linear-gradient(135deg, var(--logo-blue-start), var(--logo-blue-end));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .version-card {
+            background-color: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 18px;
+            padding: 35px;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .version-card.latest {
+            border-color: var(--logo-blue-end);
+            box-shadow: 0 0 25px rgba(0, 198, 255, 0.15);
+        }
+
+        .version-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .version-title-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .version-card h3 {
+            font-size: 1.5rem;
+            color: var(--text-main);
+        }
+
+        .badge-latest {
+            background: linear-gradient(135deg, var(--logo-blue-start), var(--logo-blue-end));
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .version-date {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .version-changelog {
+            list-style: none;
+            margin-bottom: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .version-changelog li {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .version-changelog li i {
+            color: var(--logo-blue-end);
+        }
+
+        .version-downloads {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 20px;
+        }
+
+        .version-downloads h4 {
+            font-size: 1rem;
+            color: var(--text-main);
+            margin-bottom: 5px;
+        }
+
         /* Features Section */
         .features {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 25px;
-            padding: 60px 8%;
+            padding: 40px 8% 60px 8%;
             max-width: 1200px;
             margin: 0 auto;
             width: 100%;
@@ -294,6 +399,7 @@
             <div class="logo">ZEDIX<span>LAUNCHER</span></div>
         </div>
         <ul class="nav-links">
+            <li><a href="#versions">Versionen</a></li>
             <li><a href="#features">Features</a></li>
             <li><a href="https://github.com/Nicominecith/Zedix-Launcher" target="_blank"><i class="fab fa-github"></i> GitHub</a></li>
         </ul>
@@ -302,34 +408,96 @@
     <!-- Hero Section -->
     <section class="hero">
         <h1>Der moderne Minecraft Launcher für <span>Linux & Windows</span></h1>
-        <p>Erlebe Minecraft neu mit dem Zedix Launcher v0.65.1. Schnell, anpassbar, ressourcenschonend und Open Source.</p>
+        <p>Erlebe Minecraft neu mit dem Zedix Launcher v1.0.0. Schnell, anpassbar, ressourcenschonend und Open Source.</p>
         
         <!-- Wichtiger Hinweis -->
         <div class="notice-box">
             <i class="fas fa-exclamation-triangle"></i>
-            <div><strong>Hinweis zu v0.65.1:</strong> CurseForge-Mods funktionieren in dieser Version noch nicht und werden in einem kommenden Update nachgereicht!</div>
+            <div><strong>Hinweis:</strong> Entdecke alle Neuerungen in der brandneuen Version v1.0.0 direkt weiter unten!</div>
         </div>
 
-        <!-- Download Buttons mit deinen Release-URLs -->
+        <!-- Haupt-Download Button (v1.0.0 Windows) -->
         <div class="download-section">
-            <!-- Windows -->
             <div class="os-group">
-                <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/Minecraft/zedix-launcher-0.65.1-setup-Windows.exe" class="btn btn-windows">
-                    <i class="fab fa-windows"></i> Windows Setup (.exe)
+                <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/update/zedix-launcher-1.0.0-setup-Windows.exe" class="btn btn-windows">
+                    <i class="fab fa-windows"></i> Zedix Launcher v1.0.0 herunterladen (.exe)
                 </a>
             </div>
+        </div>
+    </section>
+
+    <!-- Versionen / Updates Sektion (Neu) -->
+    <section class="versions-section" id="versions">
+        <h2 class="section-title">Alle <span>Versionen & Updates</span></h2>
+
+        <!-- Version 1.0.0 (Neu) -->
+        <div class="version-card latest">
+            <div class="version-header">
+                <div class="version-title-wrapper">
+                    <h3>v1.0.0</h3>
+                    <span class="badge-latest">Neuestes Update</span>
+                </div>
+                <span class="version-date">Aktuelle Version</span>
+            </div>
             
-            <!-- Linux -->
-            <div class="os-group">
-                <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/Minecraft/zedix-launcher-0.65.1-amd64-Linux.deb" class="btn btn-linux">
-                    <i class="fab fa-linux"></i> Linux (.deb / AMD64)
-                </a>
-                <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/Minecraft/zedix-launcher-0.65.1-arm64-Linux.deb" class="btn btn-linux">
-                    <i class="fab fa-linux"></i> Linux (.deb / ARM64)
-                </a>
-                <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/Minecraft/zedix-launcher-0.65.1-arm64-Linux.AppImage" class="btn btn-linux">
-                    <i class="fab fa-linux"></i> Linux (.AppImage)
-                </a>
+            <ul class="version-changelog">
+                <li><i class="fas fa-check-circle"></i> <strong>Discord-Integration:</strong> Zeige deinen Freunden jetzt direkt in Discord, was du spielst.</li>
+                <li><i class="fas fa-check-circle"></i> <strong>Automatisches Updaten:</strong> Der Launcher hält sich ab sofort von alleine auf dem neuesten Stand.</li>
+                <li><i class="fas fa-check-circle"></i> <strong>In-App Bug-Reporting:</strong> Melde Bugs und Crashes unkompliziert direkt aus dem Launcher heraus.</li>
+                <li><i class="fas fa-check-circle"></i> <strong>Design-Verbesserungen:</strong> Komplett polierte und modernisierte Benutzeroberfläche.</li>
+            </ul>
+
+            <div class="version-downloads">
+                <h4>Downloads für v1.0.0:</h4>
+                <div class="os-group" style="justify-content: flex-start;">
+                    <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/update/zedix-launcher-1.0.0-setup-Windows.exe" class="btn btn-windows">
+                        <i class="fab fa-windows"></i> Windows Setup (.exe)
+                    </a>
+                    <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/update/zedix-launcher-1.0.0-amd64_Linux.deb" class="btn btn-linux">
+                        <i class="fab fa-linux"></i> Linux (.deb / AMD64)
+                    </a>
+                    <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/update/zedix-launcher-1.0.0-x86_64-Linux.AppImage" class="btn btn-linux">
+                        <i class="fab fa-linux"></i> Linux (AppImage x86_64)
+                    </a>
+                    <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/update/zedix-launcher-1.0.0-arm64-Linux.deb" class="btn btn-linux">
+                        <i class="fab fa-linux"></i> Linux (.deb / ARM64)
+                    </a>
+                    <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/update/zedix-launcher-1.0.0-arm64-Linux.AppImage" class="btn btn-linux">
+                        <i class="fab fa-linux"></i> Linux (AppImage ARM64)
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ältere Version (v0.65.1) -->
+        <div class="version-card">
+            <div class="version-header">
+                <div class="version-title-wrapper">
+                    <h3>v0.65.1</h3>
+                </div>
+                <span class="version-date">Ältere Version</span>
+            </div>
+            
+            <ul class="version-changelog">
+                <li><i class="fas fa-info-circle"></i> Initiale Release-Basis für Windows & Linux mit grundlegender Performance-Optimierung.</li>
+            </ul>
+
+            <div class="version-downloads">
+                <h4>Downloads für v0.65.1:</h4>
+                <div class="os-group" style="justify-content: flex-start;">
+                    <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/Minecraft/zedix-launcher-0.65.1-setup-Windows.exe" class="btn btn-linux">
+                        <i class="fab fa-windows"></i> Windows Setup (.exe)
+                    </a>
+                    <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/Minecraft/zedix-launcher-0.65.1-amd64-Linux.deb" class="btn btn-linux">
+                        <i class="fab fa-linux"></i> Linux (.deb / AMD64)
+                    </a>
+                    <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/Minecraft/zedix-launcher-0.65.1-arm64-Linux.deb" class="btn btn-linux">
+                        <i class="fab fa-linux"></i> Linux (.deb / ARM64)
+                    </a>
+                    <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/Minecraft/zedix-launcher-0.65.1-arm64-Linux.AppImage" class="btn btn-linux">
+                        <i class="fab fa-linux"></i> Linux (.AppImage)
+                    </a>
+                </div>
             </div>
         </div>
     </section>
@@ -349,7 +517,7 @@
         <div class="feature-card">
             <i class="fas fa-users-cog"></i>
             <h3>Community-fokussiert</h3>
-            <p>Entwickelt von Spielern für Spieler. Wir hören auf das Feedback der Community und liefern bald Updates nach.</p>
+            <p>Entwickelt von Spielern für Spieler. Wir hören auf das Feedback der Community.</p>
         </div>
     </section>
 
