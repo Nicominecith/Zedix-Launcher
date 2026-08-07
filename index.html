@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zedix Launcher - Showcase Section</title>
-
+    <title>Zedix Launcher - Next-Gen Minecraft Client</title>
+    
     <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,11 +13,13 @@
 
     <style>
         :root {
-            --bg-dark: #05080e;
-            --card-bg: rgba(12, 17, 29, 0.65);
+            --bg-color: #05080e;
+            --bg-card: rgba(12, 17, 29, 0.7);
             --card-border: rgba(0, 240, 255, 0.2);
-            --accent-cyan: #00f0ff;
-            --accent-glow: rgba(0, 240, 255, 0.35);
+            --mc-cyan: #00f0ff;
+            --mc-emerald: #55ff55;
+            --mc-gold: #ffaa00;
+            --glow-color: rgba(0, 240, 255, 0.35);
             --text-main: #f1f5f9;
             --text-muted: #94a3b8;
             --font-pixel: 'Pixelify Sans', sans-serif;
@@ -28,31 +30,278 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            scroll-behavior: smooth;
         }
 
         body {
-            background-color: var(--bg-dark);
+            background-color: var(--bg-color);
             color: var(--text-main);
             font-family: var(--font-body);
             min-height: 100vh;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 40px 20px;
-            background-image: 
-                radial-gradient(circle at 50% 20%, rgba(0, 240, 255, 0.08) 0%, transparent 60%),
-                linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-            background-size: 100% 100%, 30px 30px, 30px 30px;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow-x: hidden;
+            position: relative;
         }
 
-        /* --- SHOWCASE CARD CONTAINER --- */
-        .showcase-card {
+        /* --- BACKGROUND ANIMATIONS & GRID --- */
+        .bg-grid {
+            position: fixed;
+            inset: 0;
+            background-image: 
+                linear-gradient(to right, rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+            background-size: 35px 35px;
+            z-index: -3;
+            animation: gridMove 35s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 35px 35px; }
+        }
+
+        .bg-glow-orb {
+            position: fixed;
+            top: -150px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(0, 240, 255, 0.18) 0%, rgba(0, 119, 255, 0.03) 60%, transparent 80%);
+            filter: blur(100px);
+            z-index: -2;
+            pointer-events: none;
+            animation: orbPulse 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes orbPulse {
+            0% { transform: translateX(-50%) scale(0.9); opacity: 0.5; }
+            100% { transform: translateX(-50%) scale(1.1); opacity: 0.85; }
+        }
+
+        /* Pixel Floating Particles */
+        .pixel-particles {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--mc-cyan);
+            box-shadow: 0 0 8px var(--mc-cyan);
+            opacity: 0.6;
+            animation: floatUp 12s linear infinite;
+        }
+
+        .particle:nth-child(2n) { background: var(--mc-emerald); box-shadow: 0 0 8px var(--mc-emerald); animation-duration: 8s; }
+        .particle:nth-child(3n) { background: var(--mc-gold); box-shadow: 0 0 8px var(--mc-gold); animation-duration: 15s; }
+
+        @keyframes floatUp {
+            0% { transform: translateY(105vh) rotate(0deg); opacity: 0; }
+            20% { opacity: 0.8; }
+            80% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Scanlines Overlay */
+        .scanlines {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.25) 51%);
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 999;
+            opacity: 0.4;
+        }
+
+        /* --- HEADER & HUD NAV BAR --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 8%;
+            border-bottom: 1px solid var(--card-border);
+            background: rgba(5, 8, 14, 0.8);
+            backdrop-filter: blur(20px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+
+        .brand i {
+            font-size: 1.8rem;
+            color: var(--mc-cyan);
+            filter: drop-shadow(0 0 10px var(--glow-color));
+        }
+
+        .logo {
+            font-family: var(--font-pixel);
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, var(--mc-cyan), #0077ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hud-monitor {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--card-border);
+            padding: 8px 18px;
+            border-radius: 999px;
+            font-family: var(--font-pixel);
+            font-size: 0.85rem;
+        }
+
+        .hud-stat {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-muted);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--mc-emerald);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--mc-emerald);
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+        .nav-links {
+            display: flex;
+            gap: 12px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-family: var(--font-pixel);
+            font-size: 0.95rem;
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: 1px solid transparent;
+            background: rgba(0, 0, 0, 0.4);
+            transition: all 0.25s ease;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+            border-color: var(--mc-cyan);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+            background: rgba(0, 240, 255, 0.1);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 60px 20px 30px 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-family: var(--font-pixel);
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 18px;
+            text-shadow: 0 0 30px rgba(0, 240, 255, 0.3);
+        }
+
+        .hero .subtitle {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        /* Border Beam Button */
+        .cta-wrapper {
+            position: relative;
+            padding: 2px;
+            border-radius: 14px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.25);
+            margin-bottom: 20px;
+        }
+
+        .cta-wrapper::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: conic-gradient(transparent 0deg, transparent 280deg, var(--mc-cyan) 340deg, #ffffff 360deg);
+            animation: rotateBeam 4s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes rotateBeam {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .btn-primary {
+            position: relative;
+            z-index: 1;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, #0088cc 0%, #004499 100%);
+            color: #ffffff;
+            font-family: var(--font-pixel);
+            font-size: 1.25rem;
+            text-decoration: none;
+            padding: 16px 36px;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #00aaff 0%, #0066cc 100%);
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        /* --- SHOWCASE SECTION --- */
+        .showcase-container {
             width: 100%;
             max-width: 1100px;
-            background: var(--card-bg);
+            margin: 40px auto 60px auto;
+            padding: 0 20px;
+        }
+
+        .showcase-card {
+            background: var(--bg-card);
             backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
             border: 1px solid var(--card-border);
             border-radius: 20px;
             padding: 40px;
@@ -60,31 +309,8 @@
             grid-template-columns: 1fr 1.15fr;
             gap: 40px;
             align-items: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 0 30px rgba(0, 240, 255, 0.05);
             position: relative;
-            box-shadow: 
-                0 20px 50px rgba(0, 0, 0, 0.6),
-                inset 0 1px 1px rgba(255, 255, 255, 0.1),
-                0 0 40px rgba(0, 240, 255, 0.08);
-            transition: border-color 0.3s ease;
-        }
-
-        .showcase-card::before {
-            content: '';
-            position: absolute;
-            top: -1px;
-            left: 10%;
-            right: 10%;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
-            opacity: 0.8;
-        }
-
-        /* --- LEFT CONTENT PANEL --- */
-        .content-panel {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            min-height: 320px;
         }
 
         .tag-badge {
@@ -94,7 +320,7 @@
             font-family: var(--font-pixel);
             font-size: 0.95rem;
             letter-spacing: 2px;
-            color: var(--accent-cyan);
+            color: var(--mc-cyan);
             text-transform: uppercase;
             margin-bottom: 12px;
         }
@@ -103,9 +329,8 @@
             content: '';
             width: 6px;
             height: 6px;
-            background-color: var(--accent-cyan);
-            box-shadow: 0 0 8px var(--accent-cyan);
-            border-radius: 1px;
+            background-color: var(--mc-cyan);
+            box-shadow: 0 0 8px var(--mc-cyan);
         }
 
         .showcase-title {
@@ -113,8 +338,6 @@
             font-size: 2.8rem;
             line-height: 1.1;
             margin-bottom: 16px;
-            letter-spacing: 0.5px;
-            text-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
         }
 
         .showcase-description {
@@ -126,7 +349,6 @@
             transition: opacity 0.25s ease;
         }
 
-        /* --- NAVIGATION PILLS --- */
         .pill-nav {
             display: flex;
             flex-wrap: wrap;
@@ -150,7 +372,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.25s ease;
         }
 
         .pill-btn .dot {
@@ -158,7 +380,6 @@
             height: 6px;
             background: rgba(255, 255, 255, 0.2);
             border-radius: 50%;
-            transition: all 0.25s ease;
         }
 
         .pill-btn:hover {
@@ -168,34 +389,31 @@
 
         .pill-btn.active {
             background: rgba(0, 240, 255, 0.12);
-            color: var(--accent-cyan);
+            color: var(--mc-cyan);
             border-color: rgba(0, 240, 255, 0.4);
             box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
         }
 
         .pill-btn.active .dot {
-            background: var(--accent-cyan);
-            box-shadow: 0 0 8px var(--accent-cyan);
+            background: var(--mc-cyan);
+            box-shadow: 0 0 8px var(--mc-cyan);
         }
 
-        /* --- RIGHT PREVIEW FRAME --- */
+        /* --- PREVIEW WINDOW FRAME --- */
         .preview-window {
             background: rgba(5, 8, 14, 0.9);
             border: 1px solid var(--card-border);
             border-radius: 14px;
             overflow: hidden;
-            box-shadow: 
-                0 15px 35px rgba(0, 0, 0, 0.8),
-                0 0 30px rgba(0, 240, 255, 0.1);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 240, 255, 0.1);
             aspect-ratio: 16 / 10;
             display: flex;
             flex-direction: column;
             position: relative;
         }
 
-        /* Mock Window Header */
         .window-header {
-            background: rgba(15, 22, 36, 0.8);
+            background: rgba(15, 22, 36, 0.85);
             padding: 10px 14px;
             display: flex;
             align-items: center;
@@ -208,12 +426,7 @@
             gap: 6px;
         }
 
-        .dot-btn {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-        }
-
+        .dot-btn { width: 10px; height: 10px; border-radius: 50%; }
         .dot-close { background: #ff5f56; }
         .dot-min { background: #ffbd2e; }
         .dot-max { background: #27c93f; }
@@ -222,174 +435,291 @@
             font-family: var(--font-pixel);
             font-size: 0.85rem;
             color: var(--text-muted);
-            letter-spacing: 1px;
         }
 
         .window-body {
             flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             position: relative;
             overflow: hidden;
-            background: radial-gradient(circle at center, rgba(0, 240, 255, 0.05) 0%, transparent 70%);
         }
 
-        .preview-content {
-            text-align: center;
-            transition: all 0.3s ease;
+        .preview-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.3s ease, transform 0.3s ease;
             opacity: 1;
             transform: scale(1);
         }
 
-        .preview-content.fade {
+        .preview-img.fade {
             opacity: 0;
-            transform: scale(0.95);
+            transform: scale(0.97);
         }
 
-        .preview-icon {
-            font-size: 3rem;
-            color: var(--accent-cyan);
-            margin-bottom: 12px;
-            filter: drop-shadow(0 0 12px var(--accent-glow));
-        }
-
-        .preview-label {
-            font-family: var(--font-pixel);
-            font-size: 1.2rem;
-            color: var(--text-main);
-        }
-
-        /* Grid scanlines overlay on preview */
-        .scanlines {
+        .preview-overlay {
             position: absolute;
-            inset: 0;
-            background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.3) 51%);
-            background-size: 100% 4px;
-            pointer-events: none;
-            opacity: 0.6;
+            bottom: 0;
+            inset-x: 0;
+            padding: 15px;
+            background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+            font-family: var(--font-pixel);
+            font-size: 1.05rem;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* --- DOWNLOAD BUTTONS SECTION --- */
+        .downloads-grid {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 60px;
+        }
+
+        .btn-os {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 24px;
+            border-radius: 10px;
+            font-family: var(--font-pixel);
+            font-size: 1.05rem;
+            text-decoration: none;
+            border: 1px solid var(--card-border);
+            background: rgba(0, 0, 0, 0.5);
+            color: var(--text-main);
+            transition: all 0.25s ease;
+            cursor: pointer;
+        }
+
+        .btn-os:hover {
+            border-color: var(--mc-cyan);
+            background: rgba(0, 240, 255, 0.15);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 240, 255, 0.25);
+        }
+
+        footer {
+            text-align: center;
+            padding: 24px;
+            border-top: 1px solid var(--card-border);
+            color: var(--text-muted);
+            font-family: var(--font-pixel);
+            font-size: 0.9rem;
+            background: rgba(5, 8, 14, 0.9);
         }
 
         @media (max-width: 850px) {
-            .showcase-card {
-                grid-template-columns: 1fr;
-                padding: 24px;
-            }
-            .showcase-title {
-                font-size: 2.2rem;
-            }
+            .showcase-card { grid-template-columns: 1fr; padding: 24px; }
+            .hero h1 { font-size: 2.5rem; }
         }
     </style>
 </head>
 <body>
 
-    <div class="showcase-card">
-        <!-- Left Panel: Texts & Pill Tabs -->
-        <div class="content-panel">
-            <div>
+    <!-- Background Animations -->
+    <div class="scanlines"></div>
+    <div class="bg-grid"></div>
+    <div class="bg-glow-orb"></div>
+    <div class="pixel-particles">
+        <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
+        <div class="particle" style="left: 25%; animation-delay: 2s;"></div>
+        <div class="particle" style="left: 45%; animation-delay: 4s;"></div>
+        <div class="particle" style="left: 70%; animation-delay: 1s;"></div>
+        <div class="particle" style="left: 85%; animation-delay: 3s;"></div>
+    </div>
+
+    <!-- Header / Nav -->
+    <header>
+        <div class="brand" onmouseenter="playHover()" onclick="playClick()">
+            <i class="fa-solid fa-cube"></i>
+            <span class="logo">ZEDIX</span>
+        </div>
+
+        <div class="hud-monitor">
+            <div class="hud-stat">
+                <span class="status-dot"></span>
+                <span>STATUS: <strong style="color:#55ff55;">ONLINE</strong></span>
+            </div>
+            <div class="hud-stat">
+                <i class="fa-solid fa-users" style="color:var(--mc-cyan);"></i>
+                <span>PLAYERS: <strong style="color:#ffffff;">1,420</strong></span>
+            </div>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="#showcase" onmouseenter="playHover()" onclick="playClick()"><i class="fa-solid fa-compass"></i> Overview</a></li>
+            <li><a href="#download" onmouseenter="playHover()" onclick="playClick()"><i class="fa-solid fa-download"></i> Download</a></li>
+        </ul>
+    </header>
+
+    <!-- Main Hero Section -->
+    <section class="hero">
+        <h1>NEXT-GEN MINECRAFT LAUNCHER</h1>
+        <p class="subtitle">Experience high performance, instant modpack deployment, and unified social integration in one sleek cyberpunk desktop launcher.</p>
+
+        <div class="cta-wrapper">
+            <a href="#download" class="btn-primary" onmouseenter="playHover()" onclick="playClick()">
+                <i class="fa-solid fa-bolt"></i> GET ZEDIX LAUNCHER
+            </a>
+        </div>
+    </section>
+
+    <!-- Showcase Section -->
+    <section class="showcase-container" id="showcase">
+        <div class="showcase-card">
+            <!-- Left Info Panel -->
+            <div class="content-panel">
                 <div class="tag-badge" id="tab-tag">Home</div>
                 <h2 class="showcase-title" id="tab-title">Your launcher.<br>At a glance.</h2>
                 <p class="showcase-description" id="tab-desc">
-                    Direct overview of all your Minecraft instances (e.g., Fabulously Optimized, AxolotlClient, VerityPack), Microsoft account status, cape selector, Java Realms news, and integrated friends list.
+                    Direct overview of all your Minecraft instances (e.g. Fabulously Optimized, AxolotlClient, VerityPack), Microsoft account status, cape selector, Java Realms news, and integrated friends list.
                 </p>
-            </div>
 
-            <div class="pill-nav">
-                <button class="pill-btn active" onclick="switchTab('home', this)">
-                    <span class="dot"></span> Home
-                </button>
-                <button class="pill-btn" onclick="switchTab('mods', this)">
-                    <span class="dot"></span> Mods
-                </button>
-                <button class="pill-btn" onclick="switchTab('network', this)">
-                    <span class="dot"></span> Network
-                </button>
-                <button class="pill-btn" onclick="switchTab('settings', this)">
-                    <span class="dot"></span> Settings
-                </button>
-            </div>
-        </div>
-
-        <!-- Right Panel: Mock Window Frame -->
-        <div class="preview-window">
-            <div class="window-header">
-                <div class="window-dots">
-                    <span class="dot-btn dot-close"></span>
-                    <span class="dot-btn dot-min"></span>
-                    <span class="dot-btn dot-max"></span>
-                </div>
-                <span class="window-title" id="window-status">Zedix Launcher — Home</span>
-                <div style="width: 38px;"></div>
-            </div>
-            
-            <div class="window-body">
-                <div class="scanlines"></div>
-                <div class="preview-content" id="preview-box">
-                    <i class="fa-solid fa-house-laptop preview-icon"></i>
-                    <div class="preview-label">Instance Dashboard & News</div>
+                <!-- Navigation Pills -->
+                <div class="pill-nav">
+                    <button class="pill-btn active" onmouseenter="playHover()" onclick="switchTab('home', this)">
+                        <span class="dot"></span> Home
+                    </button>
+                    <button class="pill-btn" onmouseenter="playHover()" onclick="switchTab('mods', this)">
+                        <span class="dot"></span> Mods
+                    </button>
+                    <button class="pill-btn" onmouseenter="playHover()" onclick="switchTab('network', this)">
+                        <span class="dot"></span> Network
+                    </button>
+                    <button class="pill-btn" onmouseenter="playHover()" onclick="switchTab('settings', this)">
+                        <span class="dot"></span> Settings
+                    </button>
                 </div>
             </div>
-        </div>
-    </div>
 
+            <!-- Right Window Preview Frame -->
+            <div class="preview-window">
+                <div class="window-header">
+                    <div class="window-dots">
+                        <span class="dot-btn dot-close"></span>
+                        <span class="dot-btn dot-min"></span>
+                        <span class="dot-btn dot-max"></span>
+                    </div>
+                    <span class="window-title" id="window-status">Zedix Launcher — Home</span>
+                    <div style="width: 38px;"></div>
+                </div>
+
+                <div class="window-body">
+                    <img id="preview-img" class="preview-img" src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1000&auto=format&fit=crop" alt="Zedix Preview">
+                    <div class="preview-overlay">
+                        <i class="fa-solid fa-circle-play" style="color: var(--mc-cyan);"></i>
+                        <span id="preview-label">Instance Dashboard & News Feed</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Downloads Section -->
+    <section id="download" class="downloads-grid">
+        <a href="#" class="btn-os" onmouseenter="playHover()" onclick="playClick()">
+            <i class="fa-brands fa-windows" style="color:#00aaff;"></i> Download for Windows (.exe)
+        </a>
+        <a href="#" class="btn-os" onmouseenter="playHover()" onclick="playClick()">
+            <i class="fa-brands fa-linux" style="color:#ffcc00;"></i> Download for Linux (.AppImage / .deb)
+        </a>
+        <a href="#" class="btn-os" onmouseenter="playHover()" onclick="playClick()">
+            <i class="fa-brands fa-apple" style="color:#ffffff;"></i> Download for macOS (.dmg)
+        </a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Zedix Launcher. Not affiliated with Mojang Studios or Microsoft.</p>
+    </footer>
+
+    <!-- Interactive Script & Web Audio Synth -->
     <script>
+        // Web Audio API Sound Generator
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        function playSound(freq, type, duration) {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = type;
+            osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + duration);
+        }
+
+        function playHover() {
+            playSound(520, 'sine', 0.05);
+        }
+
+        function playClick() {
+            playSound(880, 'square', 0.08);
+        }
+
+        // Tab Switching Logic with Image Previews
         const tabData = {
             home: {
                 tag: "Home",
                 title: "Your launcher.<br>At a glance.",
-                desc: "Direct overview of all your Minecraft instances (e.g., Fabulously Optimized, AxolotlClient, VerityPack), Microsoft account status, cape selector, Java Realms news, and integrated friends list.",
-                icon: "fa-solid fa-house-laptop",
-                label: "Instance Dashboard & News"
+                desc: "Direct overview of all your Minecraft instances (e.g. Fabulously Optimized, AxolotlClient, VerityPack), Microsoft account status, cape selector, Java Realms news, and integrated friends list.",
+                img: "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1000&auto=format&fit=crop",
+                label: "Instance Dashboard & News Feed"
             },
             mods: {
                 tag: "Mods",
-                title: "Instant mod<br>management.",
-                desc: "Search, update, and toggle your Fabric, Forge, or NeoForge mods directly inside the client without touching your .minecraft folder.",
-                icon: "fa-solid fa-cubes-stacked",
+                title: "Instant modpack<br>installer.",
+                desc: "Search, install, and update Fabric, Forge, or NeoForge mods directly inside the client without manually managing your files.",
+                img: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?q=80&w=1000&auto=format&fit=crop",
                 label: "Modpack & Dependency Manager"
             },
             network: {
                 tag: "Network",
-                title: "Stay connected<br>with friends.",
-                desc: "See who's online, send party invites, join multiplayer servers together with one click, and check live server status alerts.",
-                icon: "fa-solid fa-network-wired",
+                title: "Seamless multiplayer<br>connectivity.",
+                desc: "Connect directly with your friends, send party invites, join custom SMP servers instantly, and view active ping performance.",
+                img: "https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1000&auto=format&fit=crop",
                 label: "Live Friends & Server Network"
             },
             settings: {
                 tag: "Settings",
                 title: "Full control over<br>performance.",
-                desc: "Tune your Java RAM allocation, custom JVM arguments, display resolution, client themes, and auto-update preferences effortlessly.",
-                icon: "fa-solid fa-sliders",
-                label: "System & Java Configuration"
+                desc: "Allocate Java RAM, configure custom JVM launch parameters, pick custom launcher themes, and enable high FPS optimizations.",
+                img: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1000&auto=format&fit=crop",
+                label: "System & Java Memory Configuration"
             }
         };
 
         function switchTab(key, btn) {
-            // Update active pill button
+            playClick();
+
             document.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
 
             const data = tabData[key];
-            const previewBox = document.getElementById('preview-box');
-            const tabDesc = document.getElementById('tab-desc');
+            const imgElem = document.getElementById('preview-img');
+            const descElem = document.getElementById('tab-desc');
 
-            // Quick fade effect
-            previewBox.classList.add('fade');
-            tabDesc.style.opacity = '0';
+            imgElem.classList.add('fade');
+            descElem.style.opacity = '0';
 
             setTimeout(() => {
                 document.getElementById('tab-tag').innerText = data.tag;
                 document.getElementById('tab-title').innerHTML = data.title;
-                tabDesc.innerText = data.desc;
+                descElem.innerText = data.desc;
                 document.getElementById('window-status').innerText = `Zedix Launcher — ${data.tag}`;
+                document.getElementById('preview-label').innerText = data.label;
+                imgElem.src = data.img;
 
-                previewBox.innerHTML = `
-                    <i class="${data.icon} preview-icon"></i>
-                    <div class="preview-label">${data.label}</div>
-                `;
-
-                previewBox.classList.remove('fade');
-                tabDesc.style.opacity = '1';
+                imgElem.classList.remove('fade');
+                descElem.style.opacity = '1';
             }, 180);
         }
     </script>
