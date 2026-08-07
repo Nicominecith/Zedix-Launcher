@@ -3,654 +3,395 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zedix Launcher - Next-Gen Minecraft Launcher</title>
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="logo.png">
-    <link rel="shortcut icon" href="logo.png" type="image/png">
+    <title>Zedix Launcher - Showcase Section</title>
 
-    <!-- Google Fonts & FontAwesome -->
+    <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Pixelify+Sans:wght@400..700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <style>
         :root {
-            --bg-color: #07090e;
-            --bg-card: rgba(13, 17, 26, 0.7);
-            --card-border: rgba(0, 240, 255, 0.18);
-            --mc-diamond: #00f0ff;
-            --mc-emerald: #55ff55;
-            --mc-gold: #ffaa00;
-            --glow-color: rgba(0, 240, 255, 0.4);
-            --text-main: #ffffff;
+            --bg-dark: #05080e;
+            --card-bg: rgba(12, 17, 29, 0.65);
+            --card-border: rgba(0, 240, 255, 0.2);
+            --accent-cyan: #00f0ff;
+            --accent-glow: rgba(0, 240, 255, 0.35);
+            --text-main: #f1f5f9;
             --text-muted: #94a3b8;
             --font-pixel: 'Pixelify Sans', sans-serif;
-            --font-title: 'Archivo Black', sans-serif;
-            --font-body: 'Poppins', sans-serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            scroll-behavior: smooth;
         }
 
         body {
-            background-color: var(--bg-color);
+            background-color: var(--bg-dark);
             color: var(--text-main);
             font-family: var(--font-body);
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        /* --- BACKGROUND GLOW ORBS & MESH GRID --- */
-        .bg-glow-orb-1 {
-            position: fixed;
-            top: -150px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 800px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(0, 240, 255, 0.22) 0%, rgba(0, 119, 255, 0.05) 60%, transparent 80%);
-            filter: blur(100px);
-            z-index: -2;
-            pointer-events: none;
-            animation: orbPulse 8s ease-in-out infinite alternate;
-        }
-
-        .bg-glow-orb-2 {
-            position: fixed;
-            bottom: -200px;
-            right: -100px;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(124, 58, 237, 0.15) 0%, transparent 70%);
-            filter: blur(120px);
-            z-index: -2;
-            pointer-events: none;
-        }
-
-        @keyframes orbPulse {
-            0% { transform: translateX(-50%) scale(0.9); opacity: 0.6; }
-            100% { transform: translateX(-50%) scale(1.1); opacity: 0.9; }
-        }
-
-        .scanlines {
-            position: fixed;
-            inset: 0;
-            background: linear-gradient(
-                to bottom,
-                rgba(255,255,255,0),
-                rgba(255,255,255,0) 50%,
-                rgba(0, 0, 0, 0.25) 50%,
-                rgba(0, 0, 0, 0.25)
-            );
-            background-size: 100% 4px;
-            pointer-events: none;
-            z-index: 999;
-            opacity: 0.4;
-        }
-
-        .bg-grid {
-            position: fixed;
-            inset: 0;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
             background-image: 
-                linear-gradient(to right, rgba(0, 240, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
-            background-size: 40px 40px;
-            z-index: -3;
-            animation: gridMove 35s linear infinite;
+                radial-gradient(circle at 50% 20%, rgba(0, 240, 255, 0.08) 0%, transparent 60%),
+                linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 30px 30px, 30px 30px;
         }
 
-        @keyframes gridMove {
-            0% { background-position: 0 0; }
-            100% { background-position: 40px 40px; }
-        }
-
-        /* Pixel Floating Particles */
-        .pixel-particles {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: -1;
-            overflow: hidden;
-        }
-
-        .particle {
-            position: absolute;
-            width: 5px;
-            height: 5px;
-            background: var(--mc-diamond);
-            box-shadow: 0 0 10px var(--mc-diamond);
-            opacity: 0.6;
-            animation: floatUp 10s linear infinite;
-            border-radius: 1px;
-        }
-
-        .particle:nth-child(2n) { background: var(--mc-emerald); box-shadow: 0 0 10px var(--mc-emerald); animation-duration: 7s; }
-        .particle:nth-child(3n) { background: var(--mc-gold); box-shadow: 0 0 10px var(--mc-gold); animation-duration: 12s; }
-
-        @keyframes floatUp {
-            0% { transform: translateY(105vh) rotate(0deg); opacity: 0; }
-            20% { opacity: 0.8; }
-            80% { opacity: 0.8; }
-            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
-        }
-
-        /* --- HEADER & GLASS HUD TOP BAR --- */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 8%;
-            border-bottom: 1px solid rgba(0, 240, 255, 0.2);
-            background: rgba(7, 9, 14, 0.75);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            cursor: pointer;
-            transition: transform 0.2s ease;
-        }
-
-        .brand:hover {
-            transform: scale(1.03);
-        }
-
-        .brand-logo-img {
-            width: 42px;
-            height: 42px;
-            border-radius: 8px;
-            border: 2px solid var(--mc-diamond);
-            box-shadow: 0 0 18px rgba(0, 240, 255, 0.5);
-        }
-
-        .logo {
-            font-family: var(--font-pixel);
-            font-size: 1.8rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-        }
-
-        .text-gradient {
-            background: linear-gradient(135deg, var(--mc-diamond), #0077ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* LIVE HUD MONITOR BAR */
-        .hud-monitor {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            background: rgba(0, 0, 0, 0.6);
-            border: 1px solid var(--card-border);
-            padding: 8px 20px;
-            border-radius: 999px;
-            font-family: var(--font-pixel);
-            font-size: 0.85rem;
-            backdrop-filter: blur(10px);
-            box-shadow: inset 0 0 10px rgba(0, 240, 255, 0.08);
-        }
-
-        .hud-stat {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            color: var(--text-muted);
-        }
-
-        .hud-stat span {
-            color: var(--mc-emerald);
-        }
-
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--mc-emerald);
-            border-radius: 50%;
-            box-shadow: 0 0 10px var(--mc-emerald);
-            animation: blink 1.5s infinite;
-        }
-
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-
-        .nav-links {
-            display: flex;
-            gap: 10px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-family: var(--font-pixel);
-            font-size: 1rem;
-            transition: all 0.25s ease;
-            cursor: pointer;
-            padding: 8px 16px;
-            border-radius: 8px;
-            border: 1px solid transparent;
-            background: rgba(0, 0, 0, 0.4);
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .nav-links a:hover {
-            color: #ffffff;
-            border-color: var(--mc-diamond);
-            box-shadow: 0 0 20px rgba(0, 240, 255, 0.35);
-            background: rgba(0, 240, 255, 0.1);
-            transform: translateY(-2px);
-        }
-
-        /* --- PAGE SWITCHING SYSTEM --- */
-        .page-section {
-            display: none;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .page-section.active {
-            display: block;
-            opacity: 1;
-        }
-
-        /* --- HERO SECTION --- */
-        .hero {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            padding: 50px 20px 20px 20px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .hero h1 {
-            font-family: var(--font-pixel);
-            font-size: 3.6rem;
-            line-height: 1.1;
-            margin-bottom: 18px;
-            text-shadow: 0 0 40px rgba(0, 240, 255, 0.35);
-        }
-
-        .hero .subtitle {
-            font-size: 1.05rem;
-            color: var(--text-muted);
-            margin-bottom: 25px;
-            max-width: 720px;
-            line-height: 1.6;
-            background: rgba(13, 17, 26, 0.6);
-            backdrop-filter: blur(12px);
-            padding: 16px 26px;
-            border-radius: 12px;
-            border: 1px solid var(--card-border);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
-
-        /* BORDER BEAM CTA BUTTON */
-        .center-cta-wrapper {
-            position: relative;
-            margin: 10px 0 30px 0;
-            padding: 2px;
-            border-radius: 14px;
-            overflow: hidden;
-            background: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 0 30px rgba(0, 240, 255, 0.25);
-        }
-
-        .center-cta-wrapper::before {
-            content: '';
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            top: -50%;
-            left: -50%;
-            background: conic-gradient(
-                transparent 0deg,
-                transparent 280deg,
-                var(--mc-diamond) 340deg,
-                #ffffff 360deg
-            );
-            animation: rotateBeam 4s linear infinite;
-            z-index: 0;
-        }
-
-        @keyframes rotateBeam {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .btn-mc-primary {
-            position: relative;
-            z-index: 1;
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            background: linear-gradient(135deg, #0088cc 0%, #004499 100%);
-            color: #ffffff;
-            font-family: var(--font-pixel);
-            font-size: 1.35rem;
-            text-decoration: none;
-            padding: 18px 38px;
-            border-radius: 12px;
-            border: none;
-            cursor: pointer;
-            text-transform: uppercase;
-            transition: all 0.25s ease;
-            user-select: none;
-        }
-
-        .btn-mc-primary:hover {
-            background: linear-gradient(135deg, #00aaff 0%, #0066cc 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 0 35px rgba(0, 240, 255, 0.6);
-        }
-
-        /* GLASS HUD CARDS */
-        .hud-card {
-            background: var(--bg-card);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--card-border);
-            border-radius: 14px;
-            position: relative;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
-            transition: all 0.3s ease;
-        }
-
-        /* --- DYNAMIC SHOWCASE SECTION --- */
-        .showcase-section {
+        /* --- SHOWCASE CARD CONTAINER --- */
+        .showcase-card {
             width: 100%;
-            max-width: 1200px;
-            margin: 40px auto 70px auto;
-            padding: 0 20px;
-        }
-
-        .showcase-grid {
-            display: grid;
-            grid-template-columns: 1fr 1.3fr;
-            gap: 40px;
-            align-items: center;
-            padding: 40px;
-            background: rgba(10, 14, 23, 0.75);
+            max-width: 1100px;
+            background: var(--card-bg);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
             border: 1px solid var(--card-border);
             border-radius: 20px;
-            backdrop-filter: blur(20px);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), inset 0 0 30px rgba(0, 240, 255, 0.05);
+            padding: 40px;
+            display: grid;
+            grid-template-columns: 1fr 1.15fr;
+            gap: 40px;
+            align-items: center;
+            position: relative;
+            box-shadow: 
+                0 20px 50px rgba(0, 0, 0, 0.6),
+                inset 0 1px 1px rgba(255, 255, 255, 0.1),
+                0 0 40px rgba(0, 240, 255, 0.08);
+            transition: border-color 0.3s ease;
         }
 
-        .showcase-info {
+        .showcase-card::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 10%;
+            right: 10%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+            opacity: 0.8;
+        }
+
+        /* --- LEFT CONTENT PANEL --- */
+        .content-panel {
             display: flex;
             flex-direction: column;
-            align-items: flex-start;
-            text-align: left;
+            justify-content: space-between;
+            min-height: 320px;
         }
 
-        .showcase-tag {
+        .tag-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
             font-family: var(--font-pixel);
-            font-size: 1rem;
-            color: var(--mc-diamond);
-            letter-spacing: 3px;
+            font-size: 0.95rem;
+            letter-spacing: 2px;
+            color: var(--accent-cyan);
             text-transform: uppercase;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+        }
+
+        .tag-badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background-color: var(--accent-cyan);
+            box-shadow: 0 0 8px var(--accent-cyan);
+            border-radius: 1px;
         }
 
         .showcase-title {
             font-family: var(--font-pixel);
             font-size: 2.8rem;
-            line-height: 1.15;
+            line-height: 1.1;
             margin-bottom: 16px;
-            color: #ffffff;
+            letter-spacing: 0.5px;
+            text-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
         }
 
-        .showcase-desc {
-            font-size: 0.98rem;
+        .showcase-description {
+            font-size: 0.95rem;
+            line-height: 1.65;
             color: var(--text-muted);
-            line-height: 1.7;
             margin-bottom: 30px;
-            min-height: 85px;
+            min-height: 80px;
+            transition: opacity 0.25s ease;
         }
 
-        /* Dynamic Pill Nav Buttons */
-        .showcase-pills {
+        /* --- NAVIGATION PILLS --- */
+        .pill-nav {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
-            background: rgba(0, 0, 0, 0.4);
-            padding: 8px 12px;
-            border-radius: 999px;
-            border: 1px solid var(--card-border);
+            gap: 10px;
+            background: rgba(0, 0, 0, 0.35);
+            padding: 8px;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            width: fit-content;
         }
 
         .pill-btn {
             background: transparent;
-            border: none;
+            border: 1px solid transparent;
             color: var(--text-muted);
             font-family: var(--font-pixel);
             font-size: 0.95rem;
             padding: 8px 18px;
-            border-radius: 999px;
+            border-radius: 10px;
             cursor: pointer;
-            transition: all 0.25s ease;
             display: flex;
             align-items: center;
             gap: 8px;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .pill-btn .dot {
             width: 6px;
             height: 6px;
-            background: var(--text-muted);
+            background: rgba(255, 255, 255, 0.2);
             border-radius: 50%;
             transition: all 0.25s ease;
         }
 
         .pill-btn:hover {
             color: #ffffff;
+            background: rgba(255, 255, 255, 0.04);
         }
 
         .pill-btn.active {
-            background: rgba(0, 240, 255, 0.15);
-            color: var(--mc-diamond);
-            border: 1px solid var(--mc-diamond);
-            box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+            background: rgba(0, 240, 255, 0.12);
+            color: var(--accent-cyan);
+            border-color: rgba(0, 240, 255, 0.4);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
         }
 
         .pill-btn.active .dot {
-            background: var(--mc-diamond);
-            box-shadow: 0 0 8px var(--mc-diamond);
+            background: var(--accent-cyan);
+            box-shadow: 0 0 8px var(--accent-cyan);
         }
 
-        /* Screenshot Preview Frame */
-        .showcase-frame {
-            position: relative;
+        /* --- RIGHT PREVIEW FRAME --- */
+        .preview-window {
+            background: rgba(5, 8, 14, 0.9);
+            border: 1px solid var(--card-border);
             border-radius: 14px;
             overflow: hidden;
-            border: 1px solid rgba(0, 240, 255, 0.3);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 240, 255, 0.2);
-            background: #000000;
-            aspect-ratio: 16 / 9;
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.8),
+                0 0 30px rgba(0, 240, 255, 0.1);
+            aspect-ratio: 16 / 10;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* Mock Window Header */
+        .window-header {
+            background: rgba(15, 22, 36, 0.8);
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .window-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .dot-btn {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .dot-close { background: #ff5f56; }
+        .dot-min { background: #ffbd2e; }
+        .dot-max { background: #27c93f; }
+
+        .window-title {
+            font-family: var(--font-pixel);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+        }
+
+        .window-body {
+            flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: radial-gradient(circle at center, rgba(0, 240, 255, 0.05) 0%, transparent 70%);
         }
 
-        .showcase-frame img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: opacity 0.35s ease, transform 0.35s ease;
+        .preview-content {
+            text-align: center;
+            transition: all 0.3s ease;
             opacity: 1;
             transform: scale(1);
         }
 
-        .showcase-frame img.fading {
+        .preview-content.fade {
             opacity: 0;
-            transform: scale(0.97);
+            transform: scale(0.95);
         }
 
-        /* DOWNLOAD BUTTONS */
-        .download-section {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-            margin-top: 10px;
+        .preview-icon {
+            font-size: 3rem;
+            color: var(--accent-cyan);
+            margin-bottom: 12px;
+            filter: drop-shadow(0 0 12px var(--accent-glow));
         }
 
-        .os-group {
-            display: flex;
-            gap: 14px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .btn-os {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 14px 24px;
-            border-radius: 10px;
+        .preview-label {
             font-family: var(--font-pixel);
-            font-size: 1.05rem;
-            text-decoration: none;
-            transition: all 0.25s ease;
-            cursor: pointer;
-            border: 1px solid var(--card-border);
-            background: rgba(0, 0, 0, 0.5);
+            font-size: 1.2rem;
             color: var(--text-main);
-            backdrop-filter: blur(8px);
         }
 
-        .btn-os:hover {
-            border-color: var(--mc-diamond);
-            background: rgba(0, 240, 255, 0.15);
-            transform: translateY(-3px);
-            color: #ffffff;
-            box-shadow: 0 8px 25px rgba(0, 240, 255, 0.3);
+        /* Grid scanlines overlay on preview */
+        .scanlines {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.3) 51%);
+            background-size: 100% 4px;
+            pointer-events: none;
+            opacity: 0.6;
         }
 
-        .btn-os.btn-win {
-            border-color: var(--mc-diamond);
-            background: rgba(0, 119, 255, 0.2);
-        }
-
-        /* --- VERSIONS PAGE --- */
-        .versions-section {
-            max-width: 950px;
-            margin: 40px auto;
-            padding: 0 20px;
-            width: 100%;
-        }
-
-        .section-title {
-            font-family: var(--font-pixel);
-            font-size: 2.8rem;
-            margin-bottom: 35px;
-            text-align: center;
-        }
-
-        .version-card {
-            padding: 32px;
-            margin-bottom: 30px;
-        }
-
-        .version-card.latest {
-            border-color: var(--mc-diamond);
-            box-shadow: 0 0 35px rgba(0, 240, 255, 0.22);
-        }
-
-        .version-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 18px;
-            flex-wrap: wrap;
-            gap: 12px;
-            border-bottom: 1px dashed var(--card-border);
-            padding-bottom: 16px;
-        }
-
-        .version-title-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .version-card h3 {
-            font-family: var(--font-pixel);
-            font-size: 1.9rem;
-            color: var(--mc-diamond);
-        }
-
-        .badge-latest {
-            background: var(--mc-emerald);
-            color: #000000;
-            padding: 4px 12px;
-            border-radius: 6px;
-            font-family: var(--font-pixel);
-            font-size: 0.85rem;
-            font-weight: 700;
-        }
-
-        .version-changelog {
-            list-style: none;
-            margin-bottom: 24px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .version-changelog li {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .version-changelog li i {
-            color: var(--mc-emerald);
-        }
-
-        .version-downloads h4 {
-            font-family: var(--font-pixel);
-            font-size: 1.1rem;
-            color: var(--text-main);
-            margin-bottom: 14px;
-        }
-
-        footer {
-            text-align: center;
-            padding: 26px;
-            border-top: 1px solid var(--card-border);
-            color: var(--text-muted);
-            font-family: var(--font-pixel);
-            font-size: 0.9rem;
-            background: rgba(5, 7, 10, 0.9);
-            backdrop-filter: blur(10px);
-        }
-
-        @media (max-width: 900px) {
-            .showcase-grid {
+        @media (max-width: 850px) {
+            .showcase-card {
                 grid-template-columns: 1fr;
-                padding: Understood — switching to English! How can I help you today?
+                padding: 24px;
+            }
+            .showcase-title {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="showcase-card">
+        <!-- Left Panel: Texts & Pill Tabs -->
+        <div class="content-panel">
+            <div>
+                <div class="tag-badge" id="tab-tag">Home</div>
+                <h2 class="showcase-title" id="tab-title">Your launcher.<br>At a glance.</h2>
+                <p class="showcase-description" id="tab-desc">
+                    Direct overview of all your Minecraft instances (e.g., Fabulously Optimized, AxolotlClient, VerityPack), Microsoft account status, cape selector, Java Realms news, and integrated friends list.
+                </p>
+            </div>
+
+            <div class="pill-nav">
+                <button class="pill-btn active" onclick="switchTab('home', this)">
+                    <span class="dot"></span> Home
+                </button>
+                <button class="pill-btn" onclick="switchTab('mods', this)">
+                    <span class="dot"></span> Mods
+                </button>
+                <button class="pill-btn" onclick="switchTab('network', this)">
+                    <span class="dot"></span> Network
+                </button>
+                <button class="pill-btn" onclick="switchTab('settings', this)">
+                    <span class="dot"></span> Settings
+                </button>
+            </div>
+        </div>
+
+        <!-- Right Panel: Mock Window Frame -->
+        <div class="preview-window">
+            <div class="window-header">
+                <div class="window-dots">
+                    <span class="dot-btn dot-close"></span>
+                    <span class="dot-btn dot-min"></span>
+                    <span class="dot-btn dot-max"></span>
+                </div>
+                <span class="window-title" id="window-status">Zedix Launcher — Home</span>
+                <div style="width: 38px;"></div>
+            </div>
+            
+            <div class="window-body">
+                <div class="scanlines"></div>
+                <div class="preview-content" id="preview-box">
+                    <i class="fa-solid fa-house-laptop preview-icon"></i>
+                    <div class="preview-label">Instance Dashboard & News</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const tabData = {
+            home: {
+                tag: "Home",
+                title: "Your launcher.<br>At a glance.",
+                desc: "Direct overview of all your Minecraft instances (e.g., Fabulously Optimized, AxolotlClient, VerityPack), Microsoft account status, cape selector, Java Realms news, and integrated friends list.",
+                icon: "fa-solid fa-house-laptop",
+                label: "Instance Dashboard & News"
+            },
+            mods: {
+                tag: "Mods",
+                title: "Instant mod<br>management.",
+                desc: "Search, update, and toggle your Fabric, Forge, or NeoForge mods directly inside the client without touching your .minecraft folder.",
+                icon: "fa-solid fa-cubes-stacked",
+                label: "Modpack & Dependency Manager"
+            },
+            network: {
+                tag: "Network",
+                title: "Stay connected<br>with friends.",
+                desc: "See who's online, send party invites, join multiplayer servers together with one click, and check live server status alerts.",
+                icon: "fa-solid fa-network-wired",
+                label: "Live Friends & Server Network"
+            },
+            settings: {
+                tag: "Settings",
+                title: "Full control over<br>performance.",
+                desc: "Tune your Java RAM allocation, custom JVM arguments, display resolution, client themes, and auto-update preferences effortlessly.",
+                icon: "fa-solid fa-sliders",
+                label: "System & Java Configuration"
+            }
+        };
+
+        function switchTab(key, btn) {
+            // Update active pill button
+            document.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const data = tabData[key];
+            const previewBox = document.getElementById('preview-box');
+            const tabDesc = document.getElementById('tab-desc');
+
+            // Quick fade effect
+            previewBox.classList.add('fade');
+            tabDesc.style.opacity = '0';
+
+            setTimeout(() => {
+                document.getElementById('tab-tag').innerText = data.tag;
+                document.getElementById('tab-title').innerHTML = data.title;
+                tabDesc.innerText = data.desc;
+                document.getElementById('window-status').innerText = `Zedix Launcher — ${data.tag}`;
+
+                previewBox.innerHTML = `
+                    <i class="${data.icon} preview-icon"></i>
+                    <div class="preview-label">${data.label}</div>
+                `;
+
+                previewBox.classList.remove('fade');
+                tabDesc.style.opacity = '1';
+            }, 180);
+        }
+    </script>
+</body>
+</html>
