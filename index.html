@@ -81,7 +81,6 @@
             100% { transform: translateX(-50%) scale(1.1); opacity: 0.85; }
         }
 
-        /* Pixel Floating Particles */
         .pixel-particles {
             position: fixed;
             inset: 0;
@@ -110,7 +109,6 @@
             100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
         }
 
-        /* Scanlines Overlay */
         .scanlines {
             position: fixed;
             inset: 0;
@@ -142,10 +140,11 @@
             cursor: pointer;
         }
 
-        .brand i {
-            font-size: 1.8rem;
-            color: var(--mc-cyan);
-            filter: drop-shadow(0 0 10px var(--glow-color));
+        .brand-img {
+            height: 38px;
+            width: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 0 8px var(--glow-color));
         }
 
         .logo {
@@ -239,7 +238,6 @@
             line-height: 1.6;
         }
 
-        /* Border Beam Button */
         .cta-wrapper {
             position: relative;
             padding: 2px;
@@ -310,7 +308,6 @@
             gap: 40px;
             align-items: center;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 0 30px rgba(0, 240, 255, 0.05);
-            position: relative;
         }
 
         .tag-badge {
@@ -399,7 +396,7 @@
             box-shadow: 0 0 8px var(--mc-cyan);
         }
 
-        /* --- PREVIEW WINDOW FRAME --- */
+        /* PREVIEW FRAME */
         .preview-window {
             background: rgba(5, 8, 14, 0.9);
             border: 1px solid var(--card-border);
@@ -421,11 +418,7 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .window-dots {
-            display: flex;
-            gap: 6px;
-        }
-
+        .window-dots { display: flex; gap: 6px; }
         .dot-btn { width: 10px; height: 10px; border-radius: 50%; }
         .dot-close { background: #ff5f56; }
         .dot-min { background: #ffbd2e; }
@@ -471,6 +464,68 @@
             gap: 10px;
         }
 
+        /* --- VERSIONS SECTION --- */
+        .versions-section {
+            max-width: 1100px;
+            margin: 20px auto 60px auto;
+            padding: 0 20px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .section-header h2 {
+            font-family: var(--font-pixel);
+            font-size: 2.2rem;
+            color: var(--text-main);
+        }
+
+        .version-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .version-card {
+            background: var(--bg-card);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 24px;
+            backdrop-filter: blur(16px);
+            transition: all 0.25s ease;
+        }
+
+        .version-card:hover {
+            border-color: var(--mc-cyan);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0, 240, 255, 0.15);
+        }
+
+        .version-tag {
+            font-family: var(--font-pixel);
+            font-size: 0.85rem;
+            color: var(--mc-emerald);
+            background: rgba(85, 255, 85, 0.1);
+            padding: 4px 10px;
+            border-radius: 6px;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+
+        .version-title {
+            font-family: var(--font-pixel);
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+        }
+
+        .version-desc {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
         /* --- DOWNLOAD BUTTONS SECTION --- */
         .downloads-grid {
             display: flex;
@@ -478,19 +533,23 @@
             gap: 16px;
             flex-wrap: wrap;
             margin-bottom: 60px;
+            max-width: 1100px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 20px;
         }
 
         .btn-os {
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            padding: 14px 24px;
-            border-radius: 10px;
+            padding: 16px 28px;
+            border-radius: 12px;
             font-family: var(--font-pixel);
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             text-decoration: none;
             border: 1px solid var(--card-border);
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.6);
             color: var(--text-main);
             transition: all 0.25s ease;
             cursor: pointer;
@@ -536,7 +595,7 @@
     <!-- Header / Nav -->
     <header>
         <div class="brand" onmouseenter="playHover()" onclick="playClick()">
-            <i class="fa-solid fa-cube"></i>
+            <img src="logo.png" alt="Zedix Logo" class="brand-img">
             <span class="logo">ZEDIX</span>
         </div>
 
@@ -553,6 +612,7 @@
 
         <ul class="nav-links">
             <li><a href="#showcase" onmouseenter="playHover()" onclick="playClick()"><i class="fa-solid fa-compass"></i> Overview</a></li>
+            <li><a href="#versions" onmouseenter="playHover()" onclick="playClick()"><i class="fa-solid fa-code-branch"></i> Versions</a></li>
             <li><a href="#download" onmouseenter="playHover()" onclick="playClick()"><i class="fa-solid fa-download"></i> Download</a></li>
         </ul>
     </header>
@@ -620,15 +680,40 @@
         </div>
     </section>
 
+    <!-- Versions Section -->
+    <section id="versions" class="versions-section">
+        <div class="section-header">
+            <h2>SUPPORTED VERSIONS & BUILDS</h2>
+            <p style="color: var(--text-muted);">Compatible with standard Minecraft releases and custom loaders</p>
+        </div>
+        <div class="version-grid">
+            <div class="version-card">
+                <span class="version-tag">LATEST RELEASE</span>
+                <h3 class="version-title">Minecraft 1.21.x</h3>
+                <p class="version-desc">Full Fabric, Forge and NeoForge integration with instant shader pack support and native RAM optimization.</p>
+            </div>
+            <div class="version-card">
+                <span class="version-tag">STABLE</span>
+                <h3 class="version-title">Minecraft 1.20.4</h3>
+                <p class="version-desc">Optimized for PvP clients, custom crosshairs, and low-latency multiplayer network profiles.</p>
+            </div>
+            <div class="version-card">
+                <span class="version-tag">RETRO & PVP</span>
+                <h3 class="version-title">Minecraft 1.8.9</h3>
+                <p class="version-desc">Built-in legacy fixes, hit delay patches, custom HUD modules, and smooth animation hooks.</p>
+            </div>
+        </div>
+    </section>
+
     <!-- Downloads Section -->
     <section id="download" class="downloads-grid">
-        <a href="#" class="btn-os" onmouseenter="playHover()" onclick="playClick()">
+        <a href="zedix-setup.exe" download class="btn-os" onmouseenter="playHover()" onclick="playClick()">
             <i class="fa-brands fa-windows" style="color:#00aaff;"></i> Download for Windows (.exe)
         </a>
-        <a href="#" class="btn-os" onmouseenter="playHover()" onclick="playClick()">
-            <i class="fa-brands fa-linux" style="color:#ffcc00;"></i> Download for Linux (.AppImage / .deb)
+        <a href="zedix.AppImage" download class="btn-os" onmouseenter="playHover()" onclick="playClick()">
+            <i class="fa-brands fa-linux" style="color:#ffcc00;"></i> Download for Linux (.AppImage)
         </a>
-        <a href="#" class="btn-os" onmouseenter="playHover()" onclick="playClick()">
+        <a href="zedix.dmg" download class="btn-os" onmouseenter="playHover()" onclick="playClick()">
             <i class="fa-brands fa-apple" style="color:#ffffff;"></i> Download for macOS (.dmg)
         </a>
     </section>
@@ -640,7 +725,6 @@
 
     <!-- Interactive Script & Web Audio Synth -->
     <script>
-        // Web Audio API Sound Generator
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
         function playSound(freq, type, duration) {
@@ -657,15 +741,9 @@
             osc.stop(audioCtx.currentTime + duration);
         }
 
-        function playHover() {
-            playSound(520, 'sine', 0.05);
-        }
+        function playHover() { playSound(520, 'sine', 0.05); }
+        function playClick() { playSound(880, 'square', 0.08); }
 
-        function playClick() {
-            playSound(880, 'square', 0.08);
-        }
-
-        // Tab Switching Logic with Local Image References
         const tabData = {
             home: {
                 tag: "Home",
