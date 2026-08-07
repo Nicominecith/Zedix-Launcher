@@ -1,36 +1,33 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zedix Launcher - Der ultimative Minecraft Launcher</title>
+    <title>Zedix Launcher - Ultimate Minecraft Launcher</title>
     
-    <!-- Tab Logo / Favicon -->
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="shortcut icon" href="logo.png" type="image/png">
 
-    <!-- Google Fonts (Pixelify Sans, Archivo Black, Luckiest Guy & Poppins) -->
+    <!-- Google Fonts & FontAwesome -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Luckiest+Guy&family=Pixelify+Sans:wght@400..700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Pixelify+Sans:wght@400..700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --bg-color: #050811;
-            --card-bg: rgba(12, 18, 32, 0.85);
-            --card-border: rgba(0, 238, 255, 0.2);
-            --mc-diamond: #55ffff;
+            --bg-color: #020306;
+            --bg-card: rgba(8, 11, 18, 0.95);
+            --card-border: rgba(0, 240, 255, 0.22);
+            --mc-diamond: #00f0ff;
             --mc-emerald: #55ff55;
             --mc-gold: #ffaa00;
-            --logo-blue-start: #0077ff; 
-            --logo-blue-end: #00f0ff;
-            --glow-color: rgba(0, 240, 255, 0.25);
+            --glow-color: rgba(0, 240, 255, 0.35);
             --text-main: #ffffff;
-            --text-muted: #a3b8cc;
+            --text-muted: #8ca0b8;
             --font-pixel: 'Pixelify Sans', sans-serif;
             --font-title: 'Archivo Black', sans-serif;
-            --font-fun: 'Luckiest Guy', cursive;
             --font-body: 'Poppins', sans-serif;
         }
 
@@ -53,42 +50,52 @@
             position: relative;
         }
 
-        /* --- ANIMIERTER HINTERGRUND & HUD-RASTER --- */
+        /* --- CRT SCANLINE & OBSIDIAN GRID FX --- */
+        .scanlines {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,0),
+                rgba(255,255,255,0) 50%,
+                rgba(0, 0, 0, 0.3) 50%,
+                rgba(0, 0, 0, 0.3)
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 999;
+            opacity: 0.6;
+        }
+
         .bg-grid {
             position: fixed;
             inset: 0;
             background-image: 
-                linear-gradient(to right, rgba(0, 240, 255, 0.05) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(0, 240, 255, 0.05) 1px, transparent 1px);
-            background-size: 40px 40px;
+                linear-gradient(to right, rgba(0, 240, 255, 0.04) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 240, 255, 0.04) 1px, transparent 1px);
+            background-size: 36px 36px;
             z-index: -2;
-            animation: gridMove 20s linear infinite;
+            animation: gridMove 30s linear infinite;
         }
 
         @keyframes gridMove {
             0% { background-position: 0 0; }
-            100% { background-position: 40px 40px; }
+            100% { background-position: 36px 36px; }
         }
 
         .bg-glow {
             position: fixed;
-            top: -150px;
+            top: -250px;
             left: 50%;
             transform: translateX(-50%);
-            width: 900px;
+            width: 1000px;
             height: 600px;
-            background: radial-gradient(circle, rgba(0, 198, 255, 0.2) 0%, transparent 70%);
-            filter: blur(80px);
+            background: radial-gradient(circle, rgba(0, 240, 255, 0.18) 0%, rgba(0, 102, 255, 0.05) 50%, transparent 80%);
+            filter: blur(100px);
             z-index: -2;
-            animation: pulseGlow 6s ease-in-out infinite alternate;
         }
 
-        @keyframes pulseGlow {
-            0% { transform: translateX(-50%) scale(1); opacity: 0.5; }
-            100% { transform: translateX(-50%) scale(1.2); opacity: 0.9; }
-        }
-
-        /* Minecraft Pixel-Partikel Animation */
+        /* Pixel Floating Particles */
         .pixel-particles {
             position: fixed;
             inset: 0;
@@ -99,27 +106,16 @@
 
         .particle {
             position: absolute;
-            width: 8px;
-            height: 8px;
+            width: 6px;
+            height: 6px;
             background: var(--mc-diamond);
             box-shadow: 0 0 10px var(--mc-diamond);
             opacity: 0.6;
-            animation: floatUp 12s linear infinite;
+            animation: floatUp 10s linear infinite;
         }
 
-        .particle:nth-child(2n) {
-            background: var(--mc-emerald);
-            box-shadow: 0 0 10px var(--mc-emerald);
-            animation-duration: 8s;
-            animation-delay: 2s;
-        }
-
-        .particle:nth-child(3n) {
-            background: var(--mc-gold);
-            box-shadow: 0 0 10px var(--mc-gold);
-            animation-duration: 15s;
-            animation-delay: 4s;
-        }
+        .particle:nth-child(2n) { background: var(--mc-emerald); box-shadow: 0 0 10px var(--mc-emerald); animation-duration: 7s; }
+        .particle:nth-child(3n) { background: var(--mc-gold); box-shadow: 0 0 10px var(--mc-gold); animation-duration: 12s; }
 
         @keyframes floatUp {
             0% { transform: translateY(105vh) rotate(0deg); opacity: 0; }
@@ -128,75 +124,76 @@
             100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
         }
 
-        /* HUD Overlay Linien & Filter */
-        .scanlines {
-            position: fixed;
-            inset: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
-            background-size: 100% 4px;
-            pointer-events: none;
-            z-index: 99;
-            opacity: 0.4;
-        }
-
-        /* --- HEADER & HUD BARS --- */
+        /* --- HEADER & HUD TOP BAR --- */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 16px 8%;
-            border-bottom: 2px solid var(--card-border);
-            background: rgba(5, 8, 17, 0.85);
+            padding: 14px 8%;
+            border-bottom: 2px solid rgba(0, 240, 255, 0.2);
+            background: rgba(2, 4, 8, 0.95);
             backdrop-filter: blur(16px);
             position: sticky;
             top: 0;
             z-index: 100;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
         }
 
         .brand {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .brand:hover {
+            transform: scale(1.03);
         }
 
         .brand-logo-img {
-            width: 46px;
-            height: 46px;
-            border-radius: 8px;
+            width: 44px;
+            height: 44px;
+            border-radius: 6px;
             border: 2px solid var(--mc-diamond);
             box-shadow: 0 0 15px rgba(0, 240, 255, 0.5);
-            transition: transform 0.3s ease;
-        }
-
-        .brand:hover .brand-logo-img {
-            transform: scale(1.1) rotate(4deg);
         }
 
         .logo {
             font-family: var(--font-pixel);
-            font-size: 2rem;
+            font-size: 1.9rem;
             font-weight: 700;
             letter-spacing: 2px;
-            text-transform: uppercase;
         }
 
         .text-gradient {
             background: linear-gradient(135deg, var(--mc-diamond), #0077ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
         }
 
-        .hud-status-badge {
-            display: inline-flex;
+        /* LIVE HUD MONITOR BAR */
+        .hud-monitor {
+            display: flex;
             align-items: center;
-            gap: 8px;
-            background: rgba(0, 240, 255, 0.08);
+            gap: 20px;
+            background: #000000;
             border: 1px solid var(--card-border);
-            padding: 5px 12px;
+            padding: 6px 18px;
             border-radius: 4px;
             font-family: var(--font-pixel);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            box-shadow: inset 0 0 8px rgba(0, 240, 255, 0.1);
+        }
+
+        .hud-stat {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-muted);
+        }
+
+        .hud-stat span {
             color: var(--mc-emerald);
         }
 
@@ -209,14 +206,11 @@
             animation: blink 1.5s infinite;
         }
 
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
         .nav-links {
             display: flex;
-            gap: 25px;
+            gap: 12px;
             list-style: none;
         }
 
@@ -224,33 +218,32 @@
             color: var(--text-muted);
             text-decoration: none;
             font-family: var(--font-pixel);
-            font-size: 1.15rem;
-            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            transition: all 0.2s ease;
             cursor: pointer;
-            padding: 6px 12px;
+            padding: 6px 14px;
             border: 1px solid transparent;
+            background: #000000;
+            display: inline-block;
         }
 
         .nav-links a:hover {
             color: var(--mc-diamond);
-            border-color: rgba(0, 240, 255, 0.4);
-            background: rgba(0, 240, 255, 0.05);
-            box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+            border-color: var(--mc-diamond);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+            transform: translateY(-2px);
         }
 
-        /* --- PAGES & TRANSITIONS --- */
+        /* --- PAGE SWITCHING SYSTEM --- */
         .page-section {
             display: none;
-            flex: 1;
             opacity: 0;
-            transform: translateY(15px);
-            transition: opacity 0.4s ease, transform 0.4s ease;
+            transition: opacity 0.3s ease;
         }
 
         .page-section.active {
             display: block;
             opacity: 1;
-            transform: translateY(0);
         }
 
         /* --- HERO SECTION --- */
@@ -259,7 +252,7 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
-            padding: 60px 20px 40px 20px;
+            padding: 50px 20px 30px 20px;
             max-width: 950px;
             margin: 0 auto;
         }
@@ -267,78 +260,74 @@
         .hero h1 {
             font-family: var(--font-pixel);
             font-size: 3.5rem;
-            line-height: 1.15;
-            margin-bottom: 18px;
-            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8), 0 0 25px rgba(0, 240, 255, 0.3);
+            line-height: 1.1;
+            margin-bottom: 16px;
+            text-shadow: 0 0 30px rgba(0, 240, 255, 0.4);
         }
 
         .hero .subtitle {
-            font-size: 1.15rem;
+            font-size: 1.05rem;
             color: var(--text-muted);
             margin-bottom: 25px;
             max-width: 720px;
-            line-height: 1.7;
-            background: rgba(12, 18, 32, 0.6);
-            padding: 12px 24px;
-            border-left: 3px solid var(--mc-diamond);
-            border-right: 3px solid var(--mc-diamond);
-            backdrop-filter: blur(8px);
+            line-height: 1.6;
+            background: #000000;
+            padding: 14px 22px;
+            border: 1px solid var(--card-border);
+            border-left: 4px solid var(--mc-diamond);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.8);
         }
 
-        /* Central Minecraft HUD Button to Switch Pages */
+        /* MINECRAFT STYLE HUD BUTTON */
         .center-cta-wrapper {
-            margin: 30px 0 40px 0;
-            position: relative;
+            margin: 25px 0 35px 0;
         }
 
         .btn-mc-primary {
             display: inline-flex;
             align-items: center;
             gap: 14px;
-            background: linear-gradient(180deg, #00aaff 0%, #0055cc 100%);
+            background: linear-gradient(180deg, #0088cc 0%, #004499 100%);
             color: #ffffff;
             font-family: var(--font-pixel);
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             text-decoration: none;
-            padding: 18px 42px;
+            padding: 18px 40px;
             border: 3px solid #55ffff;
             box-shadow: 
-                0 0 0 3px #002244,
-                0 8px 0 3px #001122,
+                0 0 0 3px #000000,
+                0 8px 0 3px #000000,
                 0 0 30px rgba(0, 240, 255, 0.5);
             cursor: pointer;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.15s ease;
-            position: relative;
+            transition: all 0.1s ease;
             user-select: none;
         }
 
         .btn-mc-primary:hover {
+            background: linear-gradient(180deg, #00aaff 0%, #0066cc 100%);
             transform: translateY(-2px);
-            background: linear-gradient(180deg, #33bbff 0%, #0066ff 100%);
             box-shadow: 
-                0 0 0 3px #003366,
-                0 10px 0 3px #001122,
+                0 0 0 3px #000000,
+                0 10px 0 3px #000000,
                 0 0 45px rgba(0, 240, 255, 0.8);
         }
 
         .btn-mc-primary:active {
             transform: translateY(6px);
             box-shadow: 
-                0 0 0 3px #002244,
-                0 2px 0 3px #001122,
-                0 0 20px rgba(0, 240, 255, 0.4);
+                0 0 0 3px #000000,
+                0 2px 0 3px #000000;
         }
 
-        /* Minecraft HUD Corner Brackets for Cards */
+        /* OBSIDIAN BLACK HUD CARDS */
         .hud-card {
-            background: var(--card-bg);
+            background: var(--bg-card);
             border: 1px solid var(--card-border);
             border-radius: 4px;
             position: relative;
-            backdrop-filter: blur(12px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.95);
+            transition: all 0.25 ease;
         }
 
         .hud-card::before, .hud-card::after {
@@ -351,55 +340,110 @@
             pointer-events: none;
         }
 
-        .hud-card::before {
-            top: -2px;
-            left: -2px;
-            border-width: 2px 0 0 2px;
+        .hud-card::before { top: -2px; left: -2px; border-width: 2px 0 0 2px; }
+        .hud-card::after { bottom: -2px; right: -2px; border-width: 0 2px 2px 0; }
+
+        .hud-card:hover {
+            border-color: var(--mc-diamond);
+            box-shadow: 0 12px 35px rgba(0, 240, 255, 0.15);
         }
 
-        .hud-card::after {
-            bottom: -2px;
-            right: -2px;
-            border-width: 0 2px 2px 0;
-        }
-
-        /* Notice Box */
+        /* NOTICE BOX */
         .notice-box {
-            padding: 18px 24px;
-            margin-bottom: 35px;
-            max-width: 750px;
-            font-size: 0.95rem;
+            padding: 16px 22px;
+            margin-bottom: 30px;
+            max-width: 780px;
+            font-size: 0.92rem;
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 15px;
             text-align: left;
-            color: var(--text-main);
+            background: #000000;
         }
 
         .notice-box i {
             font-size: 1.8rem;
             color: var(--mc-gold);
-            text-shadow: 0 0 10px var(--mc-gold);
         }
 
         .notice-box strong {
             color: var(--mc-diamond);
             font-family: var(--font-pixel);
-            font-size: 1.1rem;
+            font-size: 1.05rem;
         }
 
-        /* Download Section Buttons */
+        /* PRESET SHOWCASE WIDGET */
+        .preset-showcase {
+            width: 100%;
+            max-width: 900px;
+            margin: 20px auto 40px auto;
+            padding: 25px;
+            background: #000000;
+            border: 1px solid var(--card-border);
+            text-align: left;
+        }
+
+        .preset-header {
+            font-family: var(--font-pixel);
+            font-size: 1.3rem;
+            color: var(--mc-diamond);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .preset-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .preset-tab {
+            padding: 10px 18px;
+            background: #090d14;
+            border: 1px solid var(--card-border);
+            font-family: var(--font-pixel);
+            font-size: 1rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .preset-tab:hover {
+            color: #ffffff;
+            border-color: var(--mc-diamond);
+        }
+
+        .preset-tab.active {
+            background: var(--mc-diamond);
+            color: #000000;
+            font-weight: bold;
+            border-color: #ffffff;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+        }
+
+        .preset-content {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            background: rgba(12, 18, 28, 0.7);
+            padding: 18px;
+            border-left: 4px solid var(--mc-emerald);
+        }
+
+        /* DOWNLOAD BUTTONS */
         .download-section {
             width: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 20px;
+            gap: 15px;
         }
 
         .os-group {
             display: flex;
-            gap: 15px;
+            gap: 12px;
             flex-wrap: wrap;
             justify-content: center;
         }
@@ -413,70 +457,63 @@
             font-family: var(--font-pixel);
             font-size: 1.05rem;
             text-decoration: none;
-            transition: all 0.25s ease;
+            transition: all 0.2s ease;
             cursor: pointer;
             border: 1px solid var(--card-border);
-            background: rgba(15, 23, 42, 0.8);
+            background: #000000;
             color: var(--text-main);
         }
 
         .btn-os:hover {
             border-color: var(--mc-diamond);
-            background: rgba(0, 240, 255, 0.15);
+            background: rgba(0, 240, 255, 0.12);
             transform: translateY(-3px);
-            box-shadow: 0 5px 20px rgba(0, 240, 255, 0.3);
             color: #ffffff;
+            box-shadow: 0 5px 20px rgba(0, 240, 255, 0.25);
         }
 
         .btn-os.btn-win {
-            background: linear-gradient(135deg, rgba(0, 119, 255, 0.3), rgba(0, 240, 255, 0.2));
             border-color: var(--mc-diamond);
+            background: rgba(0, 119, 255, 0.18);
         }
 
-        /* Features Section */
+        /* FEATURES GRID */
         .features {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            padding: 30px 8% 60px 8%;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            padding: 20px 8% 50px 8%;
             max-width: 1200px;
             margin: 0 auto;
             width: 100%;
         }
 
         .feature-card {
-            padding: 30px;
-            transition: transform 0.3s ease, border-color 0.3s ease;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-6px);
-            border-color: var(--mc-diamond);
+            padding: 28px;
+            background: #000000;
         }
 
         .feature-card i {
             font-size: 2.2rem;
             color: var(--mc-diamond);
-            margin-bottom: 15px;
-            text-shadow: 0 0 15px rgba(0, 240, 255, 0.6);
+            margin-bottom: 14px;
         }
 
         .feature-card h3 {
             font-family: var(--font-pixel);
-            font-size: 1.4rem;
+            font-size: 1.35rem;
             margin-bottom: 10px;
-            color: #ffffff;
         }
 
         .feature-card p {
             font-size: 0.92rem;
             color: var(--text-muted);
-            line-height: 1.6;
+            line-height: 1.5;
         }
 
-        /* --- VERSIONEN SEITE --- */
+        /* --- VERSIONS PAGE --- */
         .versions-section {
-            max-width: 1000px;
+            max-width: 950px;
             margin: 40px auto;
             padding: 0 20px;
             width: 100%;
@@ -484,37 +521,37 @@
 
         .section-title {
             font-family: var(--font-pixel);
-            font-size: 2.8rem;
-            margin-bottom: 35px;
+            font-size: 2.6rem;
+            margin-bottom: 30px;
             text-align: center;
-            text-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
         }
 
         .version-card {
-            padding: 30px;
-            margin-bottom: 30px;
+            padding: 28px;
+            margin-bottom: 25px;
+            background: #000000;
         }
 
         .version-card.latest {
             border-color: var(--mc-diamond);
-            box-shadow: 0 0 30px rgba(0, 240, 255, 0.2);
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.2);
         }
 
         .version-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 10px;
             border-bottom: 1px dashed var(--card-border);
-            padding-bottom: 15px;
+            padding-bottom: 14px;
         }
 
         .version-title-wrapper {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
         }
 
         .version-card h3 {
@@ -530,16 +567,14 @@
             font-family: var(--font-pixel);
             font-size: 0.85rem;
             font-weight: 700;
-            border-radius: 2px;
-            box-shadow: 0 0 10px var(--mc-emerald);
         }
 
         .version-changelog {
             list-style: none;
-            margin-bottom: 25px;
+            margin-bottom: 22px;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
         }
 
         .version-changelog li {
@@ -547,8 +582,7 @@
             font-size: 0.95rem;
             display: flex;
             align-items: center;
-            gap: 12px;
-            line-height: 1.5;
+            gap: 10px;
         }
 
         .version-changelog li i {
@@ -557,127 +591,142 @@
 
         .version-downloads h4 {
             font-family: var(--font-pixel);
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             color: var(--text-main);
             margin-bottom: 12px;
         }
 
         footer {
             text-align: center;
-            padding: 25px 20px;
+            padding: 22px;
             border-top: 1px solid var(--card-border);
             color: var(--text-muted);
             font-family: var(--font-pixel);
-            font-size: 0.95rem;
-            background: rgba(5, 8, 17, 0.95);
+            font-size: 0.9rem;
+            background: #000000;
         }
 
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.3rem; }
-            .btn-mc-primary { font-size: 1.2rem; padding: 14px 28px; }
-            header { padding: 15px 4%; }
-            .nav-links { gap: 10px; }
+            .hud-monitor { display: none; }
+            header { padding: 12px 4%; }
         }
     </style>
 </head>
 <body>
 
-    <!-- HUD Overlay Effects -->
     <div class="scanlines"></div>
     <div class="bg-grid"></div>
     <div class="bg-glow"></div>
 
-    <!-- Animierte Minecraft Partikel -->
+    <!-- Pixel Particles -->
     <div class="pixel-particles">
-        <div class="particle" style="left: 10%;"></div>
-        <div class="particle" style="left: 25%;"></div>
-        <div class="particle" style="left: 40%;"></div>
-        <div class="particle" style="left: 60%;"></div>
+        <div class="particle" style="left: 15%;"></div>
+        <div class="particle" style="left: 35%;"></div>
+        <div class="particle" style="left: 55%;"></div>
         <div class="particle" style="left: 75%;"></div>
         <div class="particle" style="left: 90%;"></div>
     </div>
 
-    <!-- Header / HUD Bar -->
+    <!-- Header / HUD Top Bar -->
     <header>
-        <div class="brand">
+        <div class="brand" onclick="switchPage('home')" onmouseenter="playHover()">
             <img src="logo.png" alt="Zedix Launcher Logo" class="brand-logo-img">
             <div class="logo">ZEDIX <span class="text-gradient">LAUNCHER</span></div>
         </div>
 
-        <div class="hud-status-badge">
-            <span class="status-dot"></span>
-            SYSTEM ONLINE: v1.5.0
+        <!-- LIVE HUD MONITOR -->
+        <div class="hud-monitor">
+            <div class="hud-stat"><span class="status-dot"></span> STATUS: <span>ONLINE</span></div>
+            <div class="hud-stat">PING: <span id="ping-val">12ms</span></div>
+            <div class="hud-stat">PLAYERS: <span id="player-val">14,290</span></div>
         </div>
 
         <ul class="nav-links">
-            <li><a onclick="switchPage('home')">[ START ]</a></li>
-            <li><a onclick="switchPage('versions')">[ VERSIONEN ]</a></li>
-            <li><a href="https://github.com/Nicominecith/Zedix-Launcher" target="_blank"><i class="fab fa-github"></i> GITHUB</a></li>
+            <li><a onclick="switchPage('home')" onmouseenter="playHover()">[ HOME ]</a></li>
+            <li><a onclick="switchPage('versions')" onmouseenter="playHover()">[ VERSIONS ]</a></li>
+            <li><a href="https://github.com/Nicominecith/Zedix-Launcher" target="_blank" onmouseenter="playHover()"><i class="fab fa-github"></i> GITHUB</a></li>
         </ul>
     </header>
 
-    <!-- SEITE 1: Startseite -->
+    <!-- PAGE 1: HOME -->
     <div id="page-home" class="page-section active">
         <section class="hero">
-            <h1>MINECRAFT LAUNCHER FOR <br><span class="text-gradient">LINUX & WINDOWS</span></h1>
+            <h1>NEXT-GEN MINECRAFT LAUNCHER FOR <br><span class="text-gradient">LINUX & WINDOWS</span></h1>
             
             <p class="subtitle">
-                Erlebe Minecraft mit maximaler Performance, vollem Mod-Support und moderner Benutzeroberfläche. Open Source & blitzschnell.
+                Engineered for maximum FPS, lightweight memory usage, and seamless modpack installation. 100% free and open-source.
             </p>
             
-            <!-- ZENTRALER DOWNLOAD-BUTTON ZU DEN VERSIONEN -->
+            <!-- CENTRAL BUTTON LEADING TO VERSIONS -->
             <div class="center-cta-wrapper">
-                <button onclick="switchPage('versions')" class="btn-mc-primary">
-                    <i class="fas fa-download"></i> ZU DEN DOWNLOADS & VERSIONEN
+                <button onclick="switchPage('versions')" onmouseenter="playHover()" class="btn-mc-primary">
+                    <i class="fas fa-download"></i> GO TO DOWNLOADS & VERSIONS
                 </button>
             </div>
 
-            <!-- Notice Box mit HUD Style -->
+            <!-- Notice Box -->
             <div class="notice-box hud-card">
                 <i class="fas fa-bolt"></i>
                 <div>
                     <strong>UPDATE v1.5.0 IS LIVE!</strong><br>
-                    Jetzt neu: Direktes Auswählen von Zedix Client Packs beim Erstellen von neuen Instanzen.
+                    New Feature: Select your preferred Zedix Client Pack directly during new instance creation.
                 </div>
             </div>
 
-            <!-- Schnell-Download Grid -->
+            <!-- PRESET SHOWCASE WIDGET -->
+            <div class="preset-showcase hud-card">
+                <div class="preset-header">
+                    <span><i class="fas fa-sliders"></i> INSTANT CLIENT PRESETS</span>
+                    <small style="color: var(--mc-gold); font-size: 0.8rem;">CLICK TO PREVIEW</small>
+                </div>
+                <div class="preset-tabs">
+                    <div class="preset-tab active" onclick="selectPreset(this, 'pvp')" onmouseenter="playHover()">PvP Boost</div>
+                    <div class="preset-tab" onclick="selectPreset(this, 'shader')" onmouseenter="playHover()">Shader Ultra</div>
+                    <div class="preset-tab" onclick="selectPreset(this, 'vanilla')" onmouseenter="playHover()">Vanilla+</div>
+                </div>
+                <div id="preset-desc" class="preset-content">
+                    <strong>PvP Boost Pack:</strong> Pre-configured with Sodium, Lithium, and custom HUD crosshairs for competitive gameplay and maximum FPS.
+                </div>
+            </div>
+
+            <!-- Quick Download Section -->
             <div class="download-section">
                 <div class="os-group">
-                    <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/1.5.0/zedix-launcher-1.5.0-setup-Windows.exe" class="btn-os btn-win">
+                    <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/1.5.0/zedix-launcher-1.5.0-setup-Windows.exe" onclick="playPowerUp()" onmouseenter="playHover()" class="btn-os btn-win">
                         <i class="fab fa-windows"></i> Direct Windows Setup (.exe)
                     </a>
-                    <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/1.5.0/zedix-launcher-1.5.0-amd64-Linux.deb" class="btn-os">
+                    <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/1.5.0/zedix-launcher-1.5.0-amd64-Linux.deb" onclick="playPowerUp()" onmouseenter="playHover()" class="btn-os">
                         <i class="fab fa-linux"></i> Linux (.deb AMD64)
                     </a>
                 </div>
             </div>
         </section>
 
-        <!-- Features Section -->
+        <!-- Features Grid -->
         <section class="features">
             <div class="feature-card hud-card">
                 <i class="fas fa-gauge-high"></i>
-                <h3>FPS BOOST & PERFORMANCE</h3>
-                <p>Optimierter Java-Spawnbefehl und reduzierter RAM-Verbrauch für maximale Framerates im Spiel.</p>
+                <h3>FPS & PERFORMANCE</h3>
+                <p>Optimized JVM startup flags and minimal RAM overhead to deliver buttery smooth framerates.</p>
             </div>
             <div class="feature-card hud-card">
-                <i class="fas fa-cube"></i>
-                <h3>PACK & MOD MANAGEMENT</h3>
-                <p>Einfache Erstellung von Profilen mit integrierter Client Pack und Mod-Auswahl.</p>
+                <i class="fas fa-box-open"></i>
+                <h3>MOD & PACK MANAGER</h3>
+                <p>Seamlessly search, install, and update CurseForge mods and custom Zedix Client packs in one click.</p>
             </div>
             <div class="feature-card hud-card">
-                <i class="fas fa-shield-cat"></i>
+                <i class="fas fa-shield-halved"></i>
                 <h3>100% OPEN SOURCE</h3>
-                <p>Volle Kontrolle über deinen Quellcode. Keine Datenverfolgung, maximale Sicherheit auf Linux & Windows.</p>
+                <p>Transparent codebase hosted publicly on GitHub. Zero tracking, zero bloatware.</p>
             </div>
         </section>
     </div>
 
-    <!-- SEITE 2: Versionen & Downloads -->
+    <!-- PAGE 2: ALL VERSIONS -->
     <div id="page-versions" class="page-section">
         <section class="versions-section">
-            <h2 class="section-title">VERSIONEN & <span class="text-gradient">DOWNLOADS</span></h2>
+            <h2 class="section-title">LAUNCHER <span class="text-gradient">VERSIONS & DOWNLOADS</span></h2>
 
             <!-- Version 1.5.0 -->
             <div class="version-card hud-card latest">
@@ -690,24 +739,24 @@
                 </div>
                 
                 <ul class="version-changelog">
-                    <li><i class="fas fa-square-check"></i> <strong>Zedix Client Pack Integration:</strong> Schnellauswahl im Erstellungs-Menü.</li>
-                    <li><i class="fas fa-square-check"></i> <strong>Performance:</strong> Instanz-Initialisierung deutlich beschleunigt.</li>
-                    <li><i class="fas fa-square-check"></i> <strong>UI-Update:</strong> Schärfere HUD-Elemente und flüssigere Animationen.</li>
+                    <li><i class="fas fa-square-check"></i> <strong>Zedix Client Pack Selector:</strong> Choose integrated client packs upon instance creation.</li>
+                    <li><i class="fas fa-square-check"></i> <strong>Performance Boost:</strong> Accelerated game initialization and instance loading.</li>
+                    <li><i class="fas fa-square-check"></i> <strong>UI Polish:</strong> Sharper dark obsidian HUD elements and UI animations.</li>
                 </ul>
 
                 <div class="version-downloads">
-                    <h4>DOWNLOAD DATEIEN:</h4>
+                    <h4>DOWNLOAD FILES:</h4>
                     <div class="os-group" style="justify-content: flex-start;">
-                        <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/1.5.0/zedix-launcher-1.5.0-setup-Windows.exe" class="btn-os btn-win">
+                        <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/1.5.0/zedix-launcher-1.5.0-setup-Windows.exe" onclick="playPowerUp()" onmouseenter="playHover()" class="btn-os btn-win">
                             <i class="fab fa-windows"></i> Windows Setup (.exe)
                         </a>
-                        <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/1.5.0/zedix-launcher-1.5.0-amd64-Linux.deb" class="btn-os">
+                        <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/1.5.0/zedix-launcher-1.5.0-amd64-Linux.deb" onclick="playPowerUp()" onmouseenter="playHover()" class="btn-os">
                             <i class="fab fa-linux"></i> Linux (.deb / AMD64)
                         </a>
-                        <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/1.5.0/zedix-launcher-1.5.0-arm64-Linux.deb" class="btn-os">
+                        <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/1.5.0/zedix-launcher-1.5.0-arm64-Linux.deb" onclick="playPowerUp()" onmouseenter="playHover()" class="btn-os">
                             <i class="fab fa-linux"></i> Linux (.deb / ARM64)
                         </a>
-                        <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/1.5.0/zedix-launcher-1.5.0-x86_64-Linux.AppImage" class="btn-os">
+                        <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/1.5.0/zedix-launcher-1.5.0-x86_64-Linux.AppImage" onclick="playPowerUp()" onmouseenter="playHover()" class="btn-os">
                             <i class="fab fa-linux"></i> Linux (AppImage x86_64)
                         </a>
                     </div>
@@ -720,22 +769,53 @@
                     <div class="version-title-wrapper">
                         <h3>v1.0.0</h3>
                     </div>
-                    <span style="color: var(--text-muted); font-family: var(--font-pixel);">Legacy</span>
+                    <span style="color: var(--text-muted); font-family: var(--font-pixel);">Stable Release</span>
                 </div>
                 
                 <ul class="version-changelog">
-                    <li><i class="fas fa-square-check"></i> CurseForge Modpack-Suche & Direct-Install.</li>
-                    <li><i class="fas fa-square-check"></i> Discord Rich Presence Integration.</li>
+                    <li><i class="fas fa-square-check"></i> CurseForge modpack search & direct one-click installation.</li>
+                    <li><i class="fas fa-square-check"></i> Discord Rich Presence status integration.</li>
+                    <li><i class="fas fa-square-check"></i> Auto-updater framework integration.</li>
                 </ul>
 
                 <div class="version-downloads">
-                    <h4>DOWNLOAD DATEIEN:</h4>
+                    <h4>DOWNLOAD FILES:</h4>
                     <div class="os-group" style="justify-content: flex-start;">
-                        <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/update/zedix-launcher-1.0.0-setup-Windows.exe" class="btn-os">
+                        <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/update/zedix-launcher-1.0.0-setup-Windows.exe" onclick="playPowerUp()" onmouseenter="playHover()" class="btn-os">
                             <i class="fab fa-windows"></i> Windows (.exe)
                         </a>
-                        <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/update/zedix-launcher-1.0.0-amd64_Linux.deb" class="btn-os">
-                            <i class="fab fa-linux"></i> Linux (.deb)
+                        <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/update/zedix-launcher-1.0.0-amd64_Linux.deb" onclick="playPowerUp()" onmouseenter="playHover()" class="btn-os">
+                            <i class="fab fa-linux"></i> Linux (.deb AMD64)
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Version 0.65.1 -->
+            <div class="version-card hud-card">
+                <div class="version-header">
+                    <div class="version-title-wrapper">
+                        <h3>v0.65.1</h3>
+                    </div>
+                    <span style="color: var(--text-muted); font-family: var(--font-pixel);">Initial Release</span>
+                </div>
+                
+                <ul class="version-changelog">
+                    <li><i class="fas fa-square-check"></i> Initial release foundation for Linux and Windows systems.</li>
+                    <li><i class="fas fa-square-check"></i> Basic game instance launching and environment configuration.</li>
+                </ul>
+
+                <div class="version-downloads">
+                    <h4>DOWNLOAD FILES:</h4>
+                    <div class="os-group" style="justify-content: flex-start;">
+                        <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/Minecraft/zedix-launcher-0.65.1-setup-Windows.exe" onclick="playPowerUp()" onmouseenter="playHover()" class="btn-os">
+                            <i class="fab fa-windows"></i> Windows Setup (.exe)
+                        </a>
+                        <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/Minecraft/zedix-launcher-0.65.1-amd64-Linux.deb" onclick="playPowerUp()" onmouseenter="playHover()" class="btn-os">
+                            <i class="fab fa-linux"></i> Linux (.deb / AMD64)
+                        </a>
+                        <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/Minecraft/zedix-launcher-0.65.1-arm64-Linux.deb" onclick="playPowerUp()" onmouseenter="playHover()" class="btn-os">
+                            <i class="fab fa-linux"></i> Linux (.deb / ARM64)
                         </a>
                     </div>
                 </div>
@@ -745,25 +825,153 @@
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2026 ZEDIX LAUNCHER — CRAFTED FOR MINECRAFT PLAYERS</p>
+        <p>&copy; 2026 ZEDIX LAUNCHER — NOT AN OFFICIAL MINECRAFT PRODUCT. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT.</p>
     </footer>
 
-    <!-- JavaScript -->
+    <!-- JavaScript Sound Engine & Logic -->
     <script>
+        // Web Audio API Context Lazy Initializer
+        let audioCtx = null;
+
+        function getAudioContext() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            return audioCtx;
+        }
+
+        // SOUND 1: Subtle High Pitch Hover Tick
+        function playHover() {
+            try {
+                const ctx = getAudioContext();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+
+                osc.type = 'square';
+                osc.frequency.setValueAtTime(800, ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(1200, ctx.currentTime + 0.03);
+
+                gain.gain.setValueAtTime(0.04, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.03);
+
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+
+                osc.start();
+                osc.stop(ctx.currentTime + 0.03);
+            } catch(e) {}
+        }
+
+        // SOUND 2: Solid Retro Minecraft Pop Click
+        function playClick() {
+            try {
+                const ctx = getAudioContext();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+
+                osc.type = 'square';
+                osc.frequency.setValueAtTime(220, ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(50, ctx.currentTime + 0.07);
+
+                gain.gain.setValueAtTime(0.12, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.07);
+
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+
+                osc.start();
+                osc.stop(ctx.currentTime + 0.07);
+            } catch(e) {}
+        }
+
+        // SOUND 3: Preset Tab Synth Arpeggio
+        function playArp() {
+            try {
+                const ctx = getAudioContext();
+                const notes = [300, 450, 600];
+                notes.forEach((freq, idx) => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(freq, ctx.currentTime + (idx * 0.04));
+
+                    gain.gain.setValueAtTime(0.08, ctx.currentTime + (idx * 0.04));
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + (idx * 0.04) + 0.06);
+
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+
+                    osc.start(ctx.currentTime + (idx * 0.04));
+                    osc.stop(ctx.currentTime + (idx * 0.04) + 0.06);
+                });
+            } catch(e) {}
+        }
+
+        // SOUND 4: 8-Bit Powerup Level-Up Sound for Downloads
+        function playPowerUp() {
+            try {
+                const ctx = getAudioContext();
+                const notes = [261.63, 329.63, 392.00, 523.25]; // C4, E4, G4, C5
+                notes.forEach((freq, idx) => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+
+                    osc.type = 'square';
+                    osc.frequency.setValueAtTime(freq, ctx.currentTime + (idx * 0.05));
+
+                    gain.gain.setValueAtTime(0.1, ctx.currentTime + (idx * 0.05));
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + (idx * 0.05) + 0.08);
+
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+
+                    osc.start(ctx.currentTime + (idx * 0.05));
+                    osc.stop(ctx.currentTime + (idx * 0.05) + 0.08);
+                });
+            } catch(e) {}
+        }
+
+        // PAGE SWITCH LOGIC
         function switchPage(pageId) {
-            const activePage = document.querySelector('.page-section.active');
-            if (activePage) {
-                activePage.style.opacity = '0';
-                activePage.style.transform = 'translateY(-10px)';
-                
-                setTimeout(() => {
-                    activePage.classList.remove('active');
-                    const newPage = document.getElementById('page-' + pageId);
-                    newPage.classList.add('active');
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                }, 200);
+            playClick();
+            const pages = document.querySelectorAll('.page-section');
+            pages.forEach(p => {
+                p.classList.remove('active');
+            });
+            
+            const targetPage = document.getElementById('page-' + pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         }
+
+        // PRESET SELECTOR LOGIC
+        function selectPreset(element, type) {
+            playArp();
+            document.querySelectorAll('.preset-tab').forEach(t => t.classList.remove('active'));
+            element.classList.add('active');
+
+            const descBox = document.getElementById('preset-desc');
+            if (type === 'pvp') {
+                descBox.innerHTML = '<strong>PvP Boost Pack:</strong> Pre-configured with Sodium, Lithium, and custom HUD crosshairs for competitive gameplay and maximum FPS.';
+            } else if (type === 'shader') {
+                descBox.innerHTML = '<strong>Shader Ultra Pack:</strong> Built with Iris Shaders and pre-optimized PBR lighting profiles for breathtaking Minecraft graphics.';
+            } else if (type === 'vanilla') {
+                descBox.innerHTML = '<strong>Vanilla+ Pack:</strong> Keeps the authentic Minecraft gameplay intact while adding dynamic sound physics and performance patches.';
+            }
+        }
+
+        // DYNAMIC HUD STATS SIMULATOR
+        setInterval(() => {
+            const ping = Math.floor(Math.random() * 6) + 11;
+            const playerEl = document.getElementById('ping-val');
+            if (playerEl) playerEl.innerText = ping + 'ms';
+        }, 3000);
     </script>
 
 </body>
