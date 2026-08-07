@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zedix Launcher - Ultimate Minecraft Launcher</title>
+    <title>Zedix Launcher - Next-Gen Minecraft Launcher</title>
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="logo.png">
@@ -278,8 +278,8 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
-            padding: 60px 20px 30px 20px;
-            max-width: 950px;
+            padding: 50px 20px 20px 20px;
+            max-width: 1000px;
             margin: 0 auto;
         }
 
@@ -294,7 +294,7 @@
         .hero .subtitle {
             font-size: 1.05rem;
             color: var(--text-muted);
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             max-width: 720px;
             line-height: 1.6;
             background: rgba(13, 17, 26, 0.6);
@@ -308,7 +308,7 @@
         /* BORDER BEAM CTA BUTTON */
         .center-cta-wrapper {
             position: relative;
-            margin: 20px 0 40px 0;
+            margin: 10px 0 30px 0;
             padding: 2px;
             border-radius: 14px;
             overflow: hidden;
@@ -376,95 +376,135 @@
             transition: all 0.3s ease;
         }
 
-        .hud-card:hover {
-            border-color: rgba(0, 240, 255, 0.5);
-            box-shadow: 0 15px 40px rgba(0, 240, 255, 0.15);
-            transform: translateY(-3px);
-        }
-
-        /* NOTICE BOX */
-        .notice-box {
-            padding: 18px 24px;
-            margin-bottom: 30px;
-            max-width: 800px;
+        /* --- DYNAMIC SHOWCASE SECTION (NORISK STYLE) --- */
+        .showcase-section {
             width: 100%;
-            font-size: 0.95rem;
-            display: flex;
+            max-width: 1200px;
+            margin: 40px auto 70px auto;
+            padding: 0 20px;
+        }
+
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.3fr;
+            gap: 40px;
             align-items: center;
-            gap: 16px;
-            text-align: left;
-            border-left: 4px solid var(--mc-diamond);
-        }
-
-        .notice-box i {
-            font-size: 2rem;
-            color: var(--mc-gold);
-        }
-
-        .notice-box strong {
-            color: var(--mc-diamond);
-            font-family: var(--font-pixel);
-            font-size: 1.1rem;
-        }
-
-        /* PRESET SHOWCASE WIDGET */
-        .preset-showcase {
-            width: 100%;
-            max-width: 900px;
-            margin: 10px auto 40px auto;
-            padding: 28px;
-            text-align: left;
-        }
-
-        .preset-header {
-            font-family: var(--font-pixel);
-            font-size: 1.35rem;
-            color: var(--mc-diamond);
-            margin-bottom: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .preset-tabs {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 18px;
-        }
-
-        .preset-tab {
-            padding: 10px 20px;
-            background: rgba(0, 0, 0, 0.5);
+            padding: 40px;
+            background: rgba(10, 14, 23, 0.75);
             border: 1px solid var(--card-border);
-            border-radius: 8px;
+            border-radius: 20px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), inset 0 0 30px rgba(0, 240, 255, 0.05);
+        }
+
+        .showcase-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+        }
+
+        .showcase-tag {
             font-family: var(--font-pixel);
             font-size: 1rem;
+            color: var(--mc-diamond);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .showcase-title {
+            font-family: var(--font-pixel);
+            font-size: 2.8rem;
+            line-height: 1.15;
+            margin-bottom: 16px;
+            color: #ffffff;
+        }
+
+        .showcase-desc {
+            font-size: 0.98rem;
             color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 30px;
+            min-height: 85px;
+        }
+
+        /* Dynamic Pill Nav Buttons */
+        .showcase-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 8px 12px;
+            border-radius: 999px;
+            border: 1px solid var(--card-border);
+        }
+
+        .pill-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-family: var(--font-pixel);
+            font-size: 0.95rem;
+            padding: 8px 18px;
+            border-radius: 999px;
             cursor: pointer;
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pill-btn .dot {
+            width: 6px;
+            height: 6px;
+            background: var(--text-muted);
+            border-radius: 50%;
             transition: all 0.25s ease;
         }
 
-        .preset-tab:hover {
+        .pill-btn:hover {
             color: #ffffff;
-            border-color: var(--mc-diamond);
         }
 
-        .preset-tab.active {
+        .pill-btn.active {
+            background: rgba(0, 240, 255, 0.15);
+            color: var(--mc-diamond);
+            border: 1px solid var(--mc-diamond);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+        }
+
+        .pill-btn.active .dot {
             background: var(--mc-diamond);
-            color: #000000;
-            font-weight: bold;
-            border-color: #ffffff;
-            box-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
+            box-shadow: 0 0 8px var(--mc-diamond);
         }
 
-        .preset-content {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            line-height: 1.6;
-            background: rgba(0, 0, 0, 0.4);
-            padding: 20px;
-            border-radius: 10px;
-            border-left: 4px solid var(--mc-emerald);
+        /* Screenshot Preview Frame */
+        .showcase-frame {
+            position: relative;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 240, 255, 0.2);
+            background: #000000;
+            aspect-ratio: 16 / 9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .showcase-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.35s ease, transform 0.35s ease;
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .showcase-frame img.fading {
+            opacity: 0;
+            transform: scale(0.97);
         }
 
         /* DOWNLOAD BUTTONS */
@@ -474,6 +514,7 @@
             flex-direction: column;
             align-items: center;
             gap: 15px;
+            margin-top: 10px;
         }
 
         .os-group {
@@ -511,39 +552,6 @@
         .btn-os.btn-win {
             border-color: var(--mc-diamond);
             background: rgba(0, 119, 255, 0.2);
-        }
-
-        /* FEATURES GRID */
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 22px;
-            padding: 20px 8% 60px 8%;
-            max-width: 1200px;
-            margin: 0 auto;
-            width: 100%;
-        }
-
-        .feature-card {
-            padding: 32px;
-        }
-
-        .feature-card i {
-            font-size: 2.4rem;
-            color: var(--mc-diamond);
-            margin-bottom: 16px;
-        }
-
-        .feature-card h3 {
-            font-family: var(--font-pixel);
-            font-size: 1.4rem;
-            margin-bottom: 12px;
-        }
-
-        .feature-card p {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            line-height: 1.6;
         }
 
         /* --- VERSIONS PAGE --- */
@@ -642,7 +650,14 @@
             backdrop-filter: blur(10px);
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
+            .showcase-grid {
+                grid-template-columns: 1fr;
+                padding: 24px;
+            }
+            .showcase-title {
+                font-size: 2.2rem;
+            }
             .hero h1 { font-size: 2.4rem; }
             .hud-monitor { display: none; }
             header { padding: 14px 4%; }
@@ -701,33 +716,45 @@
                     <i class="fas fa-download"></i> GO TO DOWNLOADS & VERSIONS
                 </button>
             </div>
+        </section>
 
-            <!-- Notice Box -->
-            <div class="notice-box hud-card">
-                <i class="fas fa-bolt"></i>
-                <div>
-                    <strong>UPDATE v1.5.0 IS LIVE!</strong><br>
-                    New Feature: Select your preferred Zedix Client Pack directly during new instance creation.
+        <!-- DYNAMIC INTERACTIVE SHOWCASE SECTION (NORISK STYLE) -->
+        <section class="showcase-section" id="showcase">
+            <div class="showcase-grid">
+                <!-- Info Column -->
+                <div class="showcase-info">
+                    <span class="showcase-tag" id="sc-tag">HOME</span>
+                    <h2 class="showcase-title" id="sc-title">Your launcher.<br>At a glance.</h2>
+                    <p class="showcase-desc" id="sc-desc">
+                        Everything you need from the moment you open it. News, quick-launch, server status, and instance management all on one screen.
+                    </p>
+                    
+                    <!-- Navigation Pills -->
+                    <div class="showcase-pills">
+                        <button class="pill-btn active" onclick="updateShowcase('home')" onmouseenter="playHover()">
+                            <span class="dot"></span> Home
+                        </button>
+                        <button class="pill-btn" onclick="updateShowcase('mods')" onmouseenter="playHover()">
+                            <span class="dot"></span> Mods
+                        </button>
+                        <button class="pill-btn" onclick="updateShowcase('network')" onmouseenter="playHover()">
+                            <span class="dot"></span> Network
+                        </button>
+                        <button class="pill-btn" onclick="updateShowcase('settings')" onmouseenter="playHover()">
+                            <span class="dot"></span> Settings
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Interactive Screenshot Frame -->
+                <div class="showcase-frame">
+                    <img id="sc-img" src="zedixmenü.png" alt="Zedix Launcher Preview">
                 </div>
             </div>
+        </section>
 
-            <!-- PRESET SHOWCASE WIDGET -->
-            <div class="preset-showcase hud-card">
-                <div class="preset-header">
-                    <span><i class="fas fa-sliders"></i> INSTANT CLIENT PRESETS</span>
-                    <small style="color: var(--mc-gold); font-size: 0.85rem;">CLICK TO PREVIEW</small>
-                </div>
-                <div class="preset-tabs">
-                    <div class="preset-tab active" onclick="selectPreset(this, 'pvp')" onmouseenter="playHover()">PvP Boost</div>
-                    <div class="preset-tab" onclick="selectPreset(this, 'shader')" onmouseenter="playHover()">Shader Ultra</div>
-                    <div class="preset-tab" onclick="selectPreset(this, 'vanilla')" onmouseenter="playHover()">Vanilla+</div>
-                </div>
-                <div id="preset-desc" class="preset-content">
-                    <strong>PvP Boost Pack:</strong> Pre-configured with Sodium, Lithium, and custom HUD crosshairs for competitive gameplay and maximum FPS.
-                </div>
-            </div>
-
-            <!-- Quick Download Section -->
+        <!-- Quick Download Section -->
+        <section class="hero" style="padding-top: 0;">
             <div class="download-section">
                 <div class="os-group">
                     <a href="https://github.com/Nicominecith/Zedix-Launcher/releases/download/1.5.0/zedix-launcher-1.5.0-setup-Windows.exe" onclick="playPowerUp()" onmouseenter="playHover()" class="btn-os btn-win">
@@ -737,25 +764,6 @@
                         <i class="fab fa-linux"></i> Linux (.deb AMD64)
                     </a>
                 </div>
-            </div>
-        </section>
-
-        <!-- Features Grid -->
-        <section class="features">
-            <div class="feature-card hud-card">
-                <i class="fas fa-gauge-high"></i>
-                <h3>FPS & PERFORMANCE</h3>
-                <p>Optimized JVM startup flags and minimal RAM overhead to deliver buttery smooth framerates.</p>
-            </div>
-            <div class="feature-card hud-card">
-                <i class="fas fa-box-open"></i>
-                <h3>MOD & PACK MANAGER</h3>
-                <p>Seamlessly search, install, and update CurseForge mods and custom Zedix Client packs in one click.</p>
-            </div>
-            <div class="feature-card hud-card">
-                <i class="fas fa-shield-halved"></i>
-                <h3>100% OPEN SOURCE</h3>
-                <p>Transparent codebase hosted publicly on GitHub. Zero tracking, zero bloatware.</p>
             </div>
         </section>
     </div>
@@ -958,22 +966,76 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Preset Showcase Tab Switching
-        const presets = {
-            pvp: '<strong>PvP Boost Pack:</strong> Pre-configured with Sodium, Lithium, and custom HUD crosshairs for competitive gameplay and maximum FPS.',
-            shader: '<strong>Shader Ultra Pack:</strong> Loaded with Iris Shaders, Distant Horizons, and HD textures for breathtaking visual realism.',
-            vanilla: '<strong>Vanilla+ Pack:</strong> Quality-of-life enhancements, Zoomify, and performance patches while preserving original gameplay.'
+        // Dynamic Showcase Data
+        const showcaseData = {
+            home: {
+                tag: 'HOME',
+                title: 'Your launcher.<br>At a glance.',
+                desc: 'Direkte Übersicht aller deiner Minecraft-Instanzen (z. B. Fabulously Optimized, AxolotlClient, VerityPack), Microsoft-Account-Status, Umhang-Auswahl, Java Realms-News und integrierte Freundesliste.',
+                img: 'zedixmenü.png'
+            },
+            mods: {
+                tag: 'MODS & PACKS',
+                title: 'Explore & Install.<br>In one click.',
+                desc: 'Integriertes Mod- und Modpack-Browsing über Modrinth, CurseForge und FTB. Filtere nach Modloadern (Fabric, Forge, NeoForge, Quilt), Versionen und Kategorien wie PvP, Optimierung oder Abenteuer.',
+                img: 'zedixmods.png'
+            },
+            network: {
+                tag: 'NETWORK',
+                title: 'P2P Multiplayer.<br>Seamless connect.',
+                desc: 'Direkte Multiplayer-Konnektivität ohne komplizierte Server-Setups. Bietet automatischen NAT-Typ-Check, FRITZ!Box-Router-Erkennung, geschützte Public-IPs und P2P-Gruppen-IDs zum direkten gemeinsamen Spielen.',
+                img: 'zedixnetwork.png'
+            },
+            settings: {
+                tag: 'SETTINGS',
+                title: 'Total control.<br>Maximum performance.',
+                desc: 'Umfassende Konfiguration deines Launchers: Spracheinstellungen, Store-Pfade, automatische Zuweisung einer dedizierten GPU, Discord Rich Presence, Streaming-Modus zum Schutz privater Daten und Native-Library-Replacement.',
+                img: 'zedixsettings.png'
+            }
         };
 
-        function selectPreset(el, presetKey) {
-            playHover();
-            document.querySelectorAll('.preset-tab').forEach(tab => tab.classList.remove('active'));
-            el.classList.add('active');
-            const desc = document.getElementById('preset-desc');
-            if (desc && presets[presetKey]) {
-                desc.innerHTML = presets[presetKey];
-            }
+        const keyOrder = ['home', 'mods', 'network', 'settings'];
+
+        function updateShowcase(key) {
+            playClick();
+            const data = showcaseData[key];
+            if (!data) return;
+
+            // Update Pills State
+            const buttons = document.querySelectorAll('.showcase-pills .pill-btn');
+            buttons.forEach((btn, index) => {
+                if (keyOrder[index] === key) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            // Smooth Image Transition
+            const img = document.getElementById('sc-img');
+            img.classList.add('fading');
+
+            setTimeout(() => {
+                document.getElementById('sc-tag').innerText = data.tag;
+                document.getElementById('sc-title').innerHTML = data.title;
+                document.getElementById('sc-desc').innerText = data.desc;
+                img.src = data.img;
+                img.classList.remove('fading');
+            }, 200);
         }
+
+        // Scroll Auto-Switch Trigger
+        let scrollTriggered = false;
+        window.addEventListener('scroll', () => {
+            const showcaseEl = document.getElementById('showcase');
+            if (!showcaseEl) return;
+            
+            const rect = showcaseEl.getBoundingClientRect();
+            if (rect.top <= window.innerHeight * 0.6 && !scrollTriggered) {
+                scrollTriggered = true;
+                // Optional subtle sound or effect when scrolled into view
+            }
+        });
     </script>
 </body>
 </html>
