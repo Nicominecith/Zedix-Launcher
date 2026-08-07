@@ -30,7 +30,6 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            scroll-behavior: smooth;
         }
 
         body {
@@ -193,23 +192,38 @@
             list-style: none;
         }
 
-        .nav-links a {
+        .nav-btn {
             color: var(--text-muted);
-            text-decoration: none;
             font-family: var(--font-pixel);
             font-size: 0.95rem;
             padding: 8px 16px;
             border-radius: 8px;
             border: 1px solid transparent;
             background: rgba(0, 0, 0, 0.4);
+            cursor: pointer;
             transition: all 0.25s ease;
         }
 
-        .nav-links a:hover {
+        .nav-btn:hover, .nav-btn.active {
             color: #ffffff;
             border-color: var(--mc-cyan);
             box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
             background: rgba(0, 240, 255, 0.1);
+        }
+
+        /* --- DYNAMIC VIEW SECTIONS --- */
+        .page-view {
+            display: none;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            width: 100%;
+        }
+
+        .page-view.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
         }
 
         /* --- HERO SECTION --- */
@@ -218,7 +232,7 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
-            padding: 60px 20px 30px 20px;
+            padding: 50px 20px 20px 20px;
             max-width: 900px;
             margin: 0 auto;
         }
@@ -275,7 +289,6 @@
             color: #ffffff;
             font-family: var(--font-pixel);
             font-size: 1.25rem;
-            text-decoration: none;
             padding: 16px 36px;
             border-radius: 12px;
             border: none;
@@ -293,7 +306,7 @@
         .showcase-container {
             width: 100%;
             max-width: 1100px;
-            margin: 40px auto 60px auto;
+            margin: 20px auto 60px auto;
             padding: 0 20px;
         }
 
@@ -464,35 +477,36 @@
             gap: 10px;
         }
 
-        /* --- VERSIONS SECTION --- */
-        .versions-section {
+        /* --- VERSIONS VIEW --- */
+        .versions-container {
             max-width: 1100px;
-            margin: 20px auto 60px auto;
+            margin: 40px auto 60px auto;
             padding: 0 20px;
         }
 
         .section-header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
         }
 
         .section-header h2 {
             font-family: var(--font-pixel);
-            font-size: 2.2rem;
+            font-size: 2.8rem;
             color: var(--text-main);
+            margin-bottom: 8px;
         }
 
         .version-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
         }
 
         .version-card {
             background: var(--bg-card);
             border: 1px solid var(--card-border);
-            border-radius: 14px;
-            padding: 24px;
+            border-radius: 16px;
+            padding: 28px;
             backdrop-filter: blur(16px);
             transition: all 0.25s ease;
         }
@@ -516,40 +530,94 @@
 
         .version-title {
             font-family: var(--font-pixel);
-            font-size: 1.4rem;
-            margin-bottom: 8px;
+            font-size: 1.6rem;
+            margin-bottom: 10px;
         }
 
         .version-desc {
-            font-size: 0.88rem;
+            font-size: 0.95rem;
             color: var(--text-muted);
-            line-height: 1.5;
+            line-height: 1.6;
+            margin-bottom: 20px;
         }
 
-        /* --- DOWNLOAD BUTTONS SECTION --- */
-        .downloads-grid {
+        .version-features {
+            list-style: none;
             display: flex;
-            justify-content: center;
-            gap: 16px;
-            flex-wrap: wrap;
-            margin-bottom: 60px;
-            max-width: 1100px;
-            margin-left: auto;
-            margin-right: auto;
+            flex-direction: column;
+            gap: 8px;
+            font-size: 0.9rem;
+            color: var(--text-main);
+        }
+
+        .version-features li i {
+            color: var(--mc-cyan);
+            margin-right: 8px;
+        }
+
+        /* --- DOWNLOAD VIEW --- */
+        .download-container {
+            max-width: 1000px;
+            margin: 40px auto 60px auto;
             padding: 0 20px;
+            text-align: center;
+        }
+
+        .downloads-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 30px;
+        }
+
+        .dl-card {
+            background: var(--bg-card);
+            border: 1px solid var(--card-border);
+            border-radius: 18px;
+            padding: 32px 24px;
+            backdrop-filter: blur(20px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: all 0.25s ease;
+        }
+
+        .dl-card:hover {
+            border-color: var(--mc-cyan);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 240, 255, 0.2);
+        }
+
+        .dl-icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+        }
+
+        .dl-title {
+            font-family: var(--font-pixel);
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+
+        .dl-sub {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 24px;
         }
 
         .btn-os {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 10px;
-            padding: 16px 28px;
-            border-radius: 12px;
+            width: 100%;
+            padding: 14px 20px;
+            border-radius: 10px;
             font-family: var(--font-pixel);
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             text-decoration: none;
             border: 1px solid var(--card-border);
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0, 240, 255, 0.1);
             color: var(--text-main);
             transition: all 0.25s ease;
             cursor: pointer;
@@ -557,9 +625,8 @@
 
         .btn-os:hover {
             border-color: var(--mc-cyan);
-            background: rgba(0, 240, 255, 0.15);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 240, 255, 0.25);
+            background: rgba(0, 240, 255, 0.25);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
         }
 
         footer {
@@ -570,6 +637,7 @@
             font-family: var(--font-pixel);
             font-size: 0.9rem;
             background: rgba(5, 8, 14, 0.9);
+            margin-top: auto;
         }
 
         @media (max-width: 850px) {
@@ -594,7 +662,7 @@
 
     <!-- Header / Nav -->
     <header>
-        <div class="brand" onmouseenter="playHover()" onclick="playClick()">
+        <div class="brand" onmouseenter="playHover()" onclick="navigateTo('overview')">
             <img src="logo.png" alt="Zedix Logo" class="brand-img">
             <span class="logo">ZEDIX</span>
         </div>
@@ -611,119 +679,165 @@
         </div>
 
         <ul class="nav-links">
-            <li><a href="#showcase" onmouseenter="playHover()" onclick="playClick()"><i class="fa-solid fa-compass"></i> Overview</a></li>
-            <li><a href="#versions" onmouseenter="playHover()" onclick="playClick()"><i class="fa-solid fa-code-branch"></i> Versions</a></li>
-            <li><a href="#download" onmouseenter="playHover()" onclick="playClick()"><i class="fa-solid fa-download"></i> Download</a></li>
+            <li><button class="nav-btn active" id="nav-overview" onclick="navigateTo('overview')"><i class="fa-solid fa-compass"></i> Overview</button></li>
+            <li><button class="nav-btn" id="nav-versions" onclick="navigateTo('versions')"><i class="fa-solid fa-code-branch"></i> Versions</button></li>
+            <li><button class="nav-btn" id="nav-download" onclick="navigateTo('download')"><i class="fa-solid fa-download"></i> Download</button></li>
         </ul>
     </header>
 
-    <!-- Main Hero Section -->
-    <section class="hero">
-        <h1>NEXT-GEN MINECRAFT LAUNCHER</h1>
-        <p class="subtitle">Experience high performance, instant modpack deployment, and unified social integration in one sleek cyberpunk desktop launcher.</p>
+    <main>
+        <!-- PAGE 1: OVERVIEW PAGE -->
+        <div id="view-overview" class="page-view active">
+            <section class="hero">
+                <h1>NEXT-GEN MINECRAFT LAUNCHER</h1>
+                <p class="subtitle">Experience high performance, instant modpack deployment, and unified social integration in one sleek cyberpunk desktop launcher.</p>
 
-        <div class="cta-wrapper">
-            <a href="#download" class="btn-primary" onmouseenter="playHover()" onclick="playClick()">
-                <i class="fa-solid fa-bolt"></i> GET ZEDIX LAUNCHER
-            </a>
-        </div>
-    </section>
-
-    <!-- Showcase Section -->
-    <section class="showcase-container" id="showcase">
-        <div class="showcase-card">
-            <!-- Left Info Panel -->
-            <div class="content-panel">
-                <div class="tag-badge" id="tab-tag">Home</div>
-                <h2 class="showcase-title" id="tab-title">Your launcher.<br>At a glance.</h2>
-                <p class="showcase-description" id="tab-desc">
-                    Direct overview of all your Minecraft instances (e.g. Fabulously Optimized, AxolotlClient, VerityPack), Microsoft account status, cape selector, Java Realms news, and integrated friends list.
-                </p>
-
-                <!-- Navigation Pills -->
-                <div class="pill-nav">
-                    <button class="pill-btn active" onmouseenter="playHover()" onclick="switchTab('home', this)">
-                        <span class="dot"></span> Home
-                    </button>
-                    <button class="pill-btn" onmouseenter="playHover()" onclick="switchTab('mods', this)">
-                        <span class="dot"></span> Mods
-                    </button>
-                    <button class="pill-btn" onmouseenter="playHover()" onclick="switchTab('network', this)">
-                        <span class="dot"></span> Network
-                    </button>
-                    <button class="pill-btn" onmouseenter="playHover()" onclick="switchTab('settings', this)">
-                        <span class="dot"></span> Settings
+                <div class="cta-wrapper">
+                    <button class="btn-primary" onmouseenter="playHover()" onclick="navigateTo('download')">
+                        <i class="fa-solid fa-bolt"></i> GET ZEDIX LAUNCHER
                     </button>
                 </div>
-            </div>
+            </section>
 
-            <!-- Right Window Preview Frame -->
-            <div class="preview-window">
-                <div class="window-header">
-                    <div class="window-dots">
-                        <span class="dot-btn dot-close"></span>
-                        <span class="dot-btn dot-min"></span>
-                        <span class="dot-btn dot-max"></span>
+            <section class="showcase-container">
+                <div class="showcase-card">
+                    <div class="content-panel">
+                        <div class="tag-badge" id="tab-tag">Home</div>
+                        <h2 class="showcase-title" id="tab-title">Your launcher.<br>At a glance.</h2>
+                        <p class="showcase-description" id="tab-desc">
+                            Direct overview of all your Minecraft instances (e.g. Fabulously Optimized, AxolotlClient, VerityPack), Microsoft account status, cape selector, Java Realms news, and integrated friends list.
+                        </p>
+
+                        <div class="pill-nav">
+                            <button class="pill-btn active" onmouseenter="playHover()" onclick="switchTab('home', this)">
+                                <span class="dot"></span> Home
+                            </button>
+                            <button class="pill-btn" onmouseenter="playHover()" onclick="switchTab('mods', this)">
+                                <span class="dot"></span> Mods
+                            </button>
+                            <button class="pill-btn" onmouseenter="playHover()" onclick="switchTab('network', this)">
+                                <span class="dot"></span> Network
+                            </button>
+                            <button class="pill-btn" onmouseenter="playHover()" onclick="switchTab('settings', this)">
+                                <span class="dot"></span> Settings
+                            </button>
+                        </div>
                     </div>
-                    <span class="window-title" id="window-status">Zedix Launcher — Home</span>
-                    <div style="width: 38px;"></div>
-                </div>
 
-                <div class="window-body">
-                    <img id="preview-img" class="preview-img" src="zedixmenü.png" alt="Zedix Preview">
-                    <div class="preview-overlay">
-                        <i class="fa-solid fa-circle-play" style="color: var(--mc-cyan);"></i>
-                        <span id="preview-label">Instance Dashboard & News Feed</span>
+                    <div class="preview-window">
+                        <div class="window-header">
+                            <div class="window-dots">
+                                <span class="dot-btn dot-close"></span>
+                                <span class="dot-btn dot-min"></span>
+                                <span class="dot-btn dot-max"></span>
+                            </div>
+                            <span class="window-title" id="window-status">Zedix Launcher — Home</span>
+                            <div style="width: 38px;"></div>
+                        </div>
+
+                        <div class="window-body">
+                            <img id="preview-img" class="preview-img" src="zedixmenü.png" alt="Zedix Preview">
+                            <div class="preview-overlay">
+                                <i class="fa-solid fa-circle-play" style="color: var(--mc-cyan);"></i>
+                                <span id="preview-label">Instance Dashboard & News Feed</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </section>
         </div>
-    </section>
 
-    <!-- Versions Section -->
-    <section id="versions" class="versions-section">
-        <div class="section-header">
-            <h2>SUPPORTED VERSIONS & BUILDS</h2>
-            <p style="color: var(--text-muted);">Compatible with standard Minecraft releases and custom loaders</p>
-        </div>
-        <div class="version-grid">
-            <div class="version-card">
-                <span class="version-tag">LATEST RELEASE</span>
-                <h3 class="version-title">Minecraft 1.21.x</h3>
-                <p class="version-desc">Full Fabric, Forge and NeoForge integration with instant shader pack support and native RAM optimization.</p>
-            </div>
-            <div class="version-card">
-                <span class="version-tag">STABLE</span>
-                <h3 class="version-title">Minecraft 1.20.4</h3>
-                <p class="version-desc">Optimized for PvP clients, custom crosshairs, and low-latency multiplayer network profiles.</p>
-            </div>
-            <div class="version-card">
-                <span class="version-tag">RETRO & PVP</span>
-                <h3 class="version-title">Minecraft 1.8.9</h3>
-                <p class="version-desc">Built-in legacy fixes, hit delay patches, custom HUD modules, and smooth animation hooks.</p>
-            </div>
-        </div>
-    </section>
+        <!-- PAGE 2: VERSIONS PAGE -->
+        <div id="view-versions" class="page-view">
+            <section class="versions-container">
+                <div class="section-header">
+                    <h2>SUPPORTED MINECRAFT VERSIONS</h2>
+                    <p style="color: var(--text-muted);">Compatible with standard releases, mod loaders, and custom clients</p>
+                </div>
+                
+                <div class="version-grid">
+                    <div class="version-card">
+                        <span class="version-tag">LATEST RELEASE</span>
+                        <h3 class="version-title">Minecraft 1.21.x</h3>
+                        <p class="version-desc">Native support for Tricky Trials, NeoForge, Fabric 0.15+, and real-time shader pipelines.</p>
+                        <ul class="version-features">
+                            <li><i class="fa-solid fa-check"></i> Fabric & NeoForge Ready</li>
+                            <li><i class="fa-solid fa-check"></i> Sodium & Iris Pre-configured</li>
+                            <li><i class="fa-solid fa-check"></i> Auto JVM Optimization</li>
+                        </ul>
+                    </div>
 
-    <!-- Downloads Section -->
-    <section id="download" class="downloads-grid">
-        <a href="zedix-setup.exe" download class="btn-os" onmouseenter="playHover()" onclick="playClick()">
-            <i class="fa-brands fa-windows" style="color:#00aaff;"></i> Download for Windows (.exe)
-        </a>
-        <a href="zedix.AppImage" download class="btn-os" onmouseenter="playHover()" onclick="playClick()">
-            <i class="fa-brands fa-linux" style="color:#ffcc00;"></i> Download for Linux (.AppImage)
-        </a>
-        <a href="zedix.dmg" download class="btn-os" onmouseenter="playHover()" onclick="playClick()">
-            <i class="fa-brands fa-apple" style="color:#ffffff;"></i> Download for macOS (.dmg)
-        </a>
-    </section>
+                    <div class="version-card">
+                        <span class="version-tag">STABLE & SMP</span>
+                        <h3 class="version-title">Minecraft 1.20.4</h3>
+                        <p class="version-desc">Ideal for Survival Multiplayer servers, AxolotlClient, and custom tournament pack profiles.</p>
+                        <ul class="version-features">
+                            <li><i class="fa-solid fa-check"></i> Low Latency Network Hook</li>
+                            <li><i class="fa-solid fa-check"></i> Integrated Cape Switcher</li>
+                            <li><i class="fa-solid fa-check"></i> Custom Crosshairs</li>
+                        </ul>
+                    </div>
+
+                    <div class="version-card">
+                        <span class="version-tag">COMPETITIVE PVP</span>
+                        <h3 class="version-title">Minecraft 1.8.9</h3>
+                        <p class="version-desc">Engineered for competitive BedWars and PvP servers with custom hit-reg fixes and FPS uncapping.</p>
+                        <ul class="version-features">
+                            <li><i class="fa-solid fa-check"></i> Old Animations Patch</li>
+                            <li><i class="fa-solid fa-check"></i> Hit Delay Correction</li>
+                            <li><i class="fa-solid fa-check"></i> Ultra High FPS Boost</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- PAGE 3: DOWNLOAD PAGE -->
+        <div id="view-download" class="page-view">
+            <section class="download-container">
+                <div class="section-header">
+                    <h2>DOWNLOAD ZEDIX LAUNCHER</h2>
+                    <p style="color: var(--text-muted);">Choose your operating system and start playing in seconds</p>
+                </div>
+
+                <div class="downloads-grid">
+                    <div class="dl-card">
+                        <i class="fa-brands fa-windows dl-icon" style="color:#00aaff;"></i>
+                        <h3 class="dl-title">Windows</h3>
+                        <p class="dl-sub">Windows 10 / 11 (64-bit)</p>
+                        <a href="zedix-setup.exe" download class="btn-os" onmouseenter="playHover()" onclick="playClick()">
+                            <i class="fa-solid fa-download"></i> Download .exe
+                        </a>
+                    </div>
+
+                    <div class="dl-card">
+                        <i class="fa-brands fa-linux dl-icon" style="color:#ffcc00;"></i>
+                        <h3 class="dl-title">Linux</h3>
+                        <p class="dl-sub">Linux Mint, Ubuntu, Arch</p>
+                        <a href="zedix.AppImage" download class="btn-os" onmouseenter="playHover()" onclick="playClick()">
+                            <i class="fa-solid fa-download"></i> Download .AppImage
+                        </a>
+                    </div>
+
+                    <div class="dl-card">
+                        <i class="fa-brands fa-apple dl-icon" style="color:#ffffff;"></i>
+                        <h3 class="dl-title">macOS</h3>
+                        <p class="dl-sub">Intel & Apple Silicon (M1/M2/M3)</p>
+                        <a href="zedix.dmg" download class="btn-os" onmouseenter="playHover()" onclick="playClick()">
+                            <i class="fa-solid fa-download"></i> Download .dmg
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
 
     <!-- Footer -->
     <footer>
         <p>&copy; 2026 Zedix Launcher. Not affiliated with Mojang Studios or Microsoft.</p>
     </footer>
 
-    <!-- Interactive Script & Web Audio Synth -->
+    <!-- Interactive Script & Navigation Logic -->
     <script>
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
@@ -744,6 +858,36 @@
         function playHover() { playSound(520, 'sine', 0.05); }
         function playClick() { playSound(880, 'square', 0.08); }
 
+        /* --- PAGE SWITCHING / ROUTING LOGIC --- */
+        function navigateTo(pageId) {
+            playClick();
+
+            // Hide all pages
+            document.querySelectorAll('.page-view').forEach(view => {
+                view.classList.remove('active');
+            });
+
+            // Deactivate all nav buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Show selected page
+            const targetView = document.getElementById(`view-${pageId}`);
+            if (targetView) {
+                targetView.classList.add('active');
+            }
+
+            // Activate button
+            const activeBtn = document.getElementById(`nav-${pageId}`);
+            if (activeBtn) {
+                activeBtn.classList.add('active');
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        /* --- OVERVIEW TAB SWITCHING --- */
         const tabData = {
             home: {
                 tag: "Home",
