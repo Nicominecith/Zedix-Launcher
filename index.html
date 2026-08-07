@@ -14,7 +14,7 @@
     <style>
         :root {
             --bg-color: #05080e;
-            --bg-card: rgba(12, 17, 29, 0.7);
+            --bg-card: rgba(12, 17, 29, 0.75);
             --card-border: rgba(0, 240, 255, 0.2);
             --mc-cyan: #00f0ff;
             --mc-emerald: #55ff55;
@@ -555,9 +555,9 @@
             margin-right: 8px;
         }
 
-        /* --- DOWNLOAD VIEW --- */
+        /* --- DOWNLOAD VIEW ENHANCEMENTS --- */
         .download-container {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 40px auto 60px auto;
             padding: 0 20px;
             text-align: center;
@@ -565,44 +565,76 @@
 
         .downloads-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-            margin-top: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+            gap: 28px;
+            margin-top: 35px;
         }
 
         .dl-card {
             background: var(--bg-card);
             border: 1px solid var(--card-border);
-            border-radius: 18px;
-            padding: 32px 24px;
+            border-radius: 20px;
+            padding: 32px 26px;
             backdrop-filter: blur(20px);
             display: flex;
             flex-direction: column;
             align-items: center;
-            transition: all 0.25s ease;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .dl-card.featured {
+            border-color: var(--mc-cyan);
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.15);
+            background: linear-gradient(180deg, rgba(0, 240, 255, 0.08) 0%, rgba(12, 17, 29, 0.85) 100%);
         }
 
         .dl-card:hover {
             border-color: var(--mc-cyan);
-            transform: translateY(-5px);
-            box-shadow: 0 12px 30px rgba(0, 240, 255, 0.2);
+            transform: translateY(-6px);
+            box-shadow: 0 15px 35px rgba(0, 240, 255, 0.25);
         }
 
-        .dl-icon {
-            font-size: 3rem;
+        .version-badge {
+            font-family: var(--font-pixel);
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            padding: 4px 12px;
+            border-radius: 20px;
             margin-bottom: 16px;
+            text-transform: uppercase;
+        }
+
+        .version-badge.latest { background: rgba(0, 240, 255, 0.15); color: var(--mc-cyan); border: 1px solid var(--mc-cyan); }
+        .version-badge.stable { background: rgba(85, 255, 85, 0.15); color: var(--mc-emerald); border: 1px solid var(--mc-emerald); }
+        .version-badge.legacy { background: rgba(255, 170, 0, 0.15); color: var(--mc-gold); border: 1px solid var(--mc-gold); }
+
+        .dl-icon {
+            font-size: 3.2rem;
+            margin-bottom: 16px;
+            filter: drop-shadow(0 0 12px currentColor);
         }
 
         .dl-title {
             font-family: var(--font-pixel);
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             margin-bottom: 8px;
         }
 
         .dl-sub {
-            font-size: 0.85rem;
+            font-size: 0.88rem;
             color: var(--text-muted);
             margin-bottom: 24px;
+            line-height: 1.5;
+            min-height: 42px;
+        }
+
+        .dl-actions {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
         .btn-os {
@@ -611,22 +643,29 @@
             justify-content: center;
             gap: 10px;
             width: 100%;
-            padding: 14px 20px;
+            padding: 12px 18px;
             border-radius: 10px;
             font-family: var(--font-pixel);
-            font-size: 1.05rem;
+            font-size: 1rem;
             text-decoration: none;
             border: 1px solid var(--card-border);
-            background: rgba(0, 240, 255, 0.1);
+            background: rgba(0, 0, 0, 0.4);
             color: var(--text-main);
             transition: all 0.25s ease;
             cursor: pointer;
         }
 
+        .btn-os.primary {
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(0, 119, 255, 0.2));
+            border-color: var(--mc-cyan);
+            color: #ffffff;
+        }
+
         .btn-os:hover {
             border-color: var(--mc-cyan);
-            background: rgba(0, 240, 255, 0.25);
+            background: rgba(0, 240, 255, 0.3);
             box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+            transform: scale(1.02);
         }
 
         footer {
@@ -751,41 +790,41 @@
         <div id="view-versions" class="page-view">
             <section class="versions-container">
                 <div class="section-header">
-                    <h2>SUPPORTED MINECRAFT VERSIONS</h2>
-                    <p style="color: var(--text-muted);">Compatible with standard releases, mod loaders, and custom clients</p>
+                    <h2>SUPPORTED MINECRAFT & CLIENT VERSIONS</h2>
+                    <p style="color: var(--text-muted);">Fully optimized pipelines for standard releases, modpacks, and high-FPS PvP</p>
                 </div>
                 
                 <div class="version-grid">
                     <div class="version-card">
-                        <span class="version-tag">LATEST RELEASE</span>
-                        <h3 class="version-title">Minecraft 1.21.x</h3>
-                        <p class="version-desc">Native support for Tricky Trials, NeoForge, Fabric 0.15+, and real-time shader pipelines.</p>
+                        <span class="version-tag">LATEST ENGINE</span>
+                        <h3 class="version-title">Version 26.2</h3>
+                        <p class="version-desc">Next-gen rendering system with ultra-low latency inputs, updated Fabric 0.16+, and Iris shader integration.</p>
                         <ul class="version-features">
-                            <li><i class="fa-solid fa-check"></i> Fabric & NeoForge Ready</li>
+                            <li><i class="fa-solid fa-check"></i> High-FPS Render Hook</li>
                             <li><i class="fa-solid fa-check"></i> Sodium & Iris Pre-configured</li>
-                            <li><i class="fa-solid fa-check"></i> Auto JVM Optimization</li>
+                            <li><i class="fa-solid fa-check"></i> Dynamic Memory Management</li>
                         </ul>
                     </div>
 
                     <div class="version-card">
-                        <span class="version-tag">STABLE & SMP</span>
-                        <h3 class="version-title">Minecraft 1.20.4</h3>
-                        <p class="version-desc">Ideal for Survival Multiplayer servers, AxolotlClient, and custom tournament pack profiles.</p>
+                        <span class="version-tag">STABLE BUILD</span>
+                        <h3 class="version-title">Version 26.1.2</h3>
+                        <p class="version-desc">Proven survival and SMP performance build. Ideal for AxolotlClient, VerityPack, and multiplayer events.</p>
                         <ul class="version-features">
-                            <li><i class="fa-solid fa-check"></i> Low Latency Network Hook</li>
+                            <li><i class="fa-solid fa-check"></i> Low Latency Packet Handling</li>
                             <li><i class="fa-solid fa-check"></i> Integrated Cape Switcher</li>
-                            <li><i class="fa-solid fa-check"></i> Custom Crosshairs</li>
+                            <li><i class="fa-solid fa-check"></i> Custom Crosshairs & HUD</li>
                         </ul>
                     </div>
 
                     <div class="version-card">
                         <span class="version-tag">COMPETITIVE PVP</span>
                         <h3 class="version-title">Minecraft 1.8.9</h3>
-                        <p class="version-desc">Engineered for competitive BedWars and PvP servers with custom hit-reg fixes and FPS uncapping.</p>
+                        <p class="version-desc">Engineered for competitive BedWars & PvP servers with custom hit-reg fixes and FPS uncapping.</p>
                         <ul class="version-features">
                             <li><i class="fa-solid fa-check"></i> Old Animations Patch</li>
                             <li><i class="fa-solid fa-check"></i> Hit Delay Correction</li>
-                            <li><i class="fa-solid fa-check"></i> Ultra High FPS Boost</li>
+                            <li><i class="fa-solid fa-check"></i> Zero Input Lag Mode</li>
                         </ul>
                     </div>
                 </div>
@@ -797,35 +836,59 @@
             <section class="download-container">
                 <div class="section-header">
                     <h2>DOWNLOAD ZEDIX LAUNCHER</h2>
-                    <p style="color: var(--text-muted);">Choose your operating system and start playing in seconds</p>
+                    <p style="color: var(--text-muted);">Select your release version below to get direct setup files for Windows & Linux</p>
                 </div>
 
                 <div class="downloads-grid">
-                    <div class="dl-card">
-                        <i class="fa-brands fa-windows dl-icon" style="color:#00aaff;"></i>
-                        <h3 class="dl-title">Windows</h3>
-                        <p class="dl-sub">Windows 10 / 11 (64-bit)</p>
-                        <a href="zedix-setup.exe" download class="btn-os" onmouseenter="playHover()" onclick="playClick()">
-                            <i class="fa-solid fa-download"></i> Download .exe
-                        </a>
+                    <!-- VERSION 1.5.0 -->
+                    <div class="dl-card featured">
+                        <span class="version-badge latest">LATEST RELEASE</span>
+                        <i class="fa-solid fa-rocket dl-icon" style="color:var(--mc-cyan);"></i>
+                        <h3 class="dl-title">Version 1.5.0</h3>
+                        <p class="dl-sub">Full feature release with performance enhancements, instant modpack manager, and full 26.2 support.</p>
+                        
+                        <div class="dl-actions">
+                            <a href="downloads/Zedix-Launcher-1.5.0-Setup.exe" download class="btn-os primary" onmouseenter="playHover()" onclick="playClick()">
+                                <i class="fa-brands fa-windows"></i> Download .exe (Windows)
+                            </a>
+                            <a href="downloads/Zedix-Launcher-1.5.0.AppImage" download class="btn-os" onmouseenter="playHover()" onclick="playClick()">
+                                <i class="fa-brands fa-linux"></i> Download .AppImage (Linux)
+                            </a>
+                        </div>
                     </div>
 
+                    <!-- VERSION 1.0.0 -->
                     <div class="dl-card">
-                        <i class="fa-brands fa-linux dl-icon" style="color:#ffcc00;"></i>
-                        <h3 class="dl-title">Linux</h3>
-                        <p class="dl-sub">Linux Mint, Ubuntu, Arch</p>
-                        <a href="zedix.AppImage" download class="btn-os" onmouseenter="playHover()" onclick="playClick()">
-                            <i class="fa-solid fa-download"></i> Download .AppImage
-                        </a>
+                        <span class="version-badge stable">STABLE RELEASE</span>
+                        <i class="fa-solid fa-shield-halved dl-icon" style="color:var(--mc-emerald);"></i>
+                        <h3 class="dl-title">Version 1.0.0</h3>
+                        <p class="dl-sub">Proven baseline release. Highly stable architecture for daily multiplayer sessions and custom profiles.</p>
+                        
+                        <div class="dl-actions">
+                            <a href="downloads/Zedix-Launcher-1.0.0-Setup.exe" download class="btn-os primary" onmouseenter="playHover()" onclick="playClick()">
+                                <i class="fa-brands fa-windows"></i> Download .exe (Windows)
+                            </a>
+                            <a href="downloads/Zedix-Launcher-1.0.0.AppImage" download class="btn-os" onmouseenter="playHover()" onclick="playClick()">
+                                <i class="fa-brands fa-linux"></i> Download .AppImage (Linux)
+                            </a>
+                        </div>
                     </div>
 
+                    <!-- VERSION 0.65.0 -->
                     <div class="dl-card">
-                        <i class="fa-brands fa-apple dl-icon" style="color:#ffffff;"></i>
-                        <h3 class="dl-title">macOS</h3>
-                        <p class="dl-sub">Intel & Apple Silicon (M1/M2/M3)</p>
-                        <a href="zedix.dmg" download class="btn-os" onmouseenter="playHover()" onclick="playClick()">
-                            <i class="fa-solid fa-download"></i> Download .dmg
-                        </a>
+                        <span class="version-badge legacy">LEGACY / EARLY ACCESS</span>
+                        <i class="fa-solid fa-box-archive dl-icon" style="color:var(--mc-gold);"></i>
+                        <h3 class="dl-title">Version 0.65.0</h3>
+                        <p class="dl-sub">Classic early build. Lightweight footprint for legacy hardware and compatibility testing.</p>
+                        
+                        <div class="dl-actions">
+                            <a href="downloads/Zedix-Launcher-0.65.0-Setup.exe" download class="btn-os primary" onmouseenter="playHover()" onclick="playClick()">
+                                <i class="fa-brands fa-windows"></i> Download .exe (Windows)
+                            </a>
+                            <a href="downloads/Zedix-Launcher-0.65.0.AppImage" download class="btn-os" onmouseenter="playHover()" onclick="playClick()">
+                                <i class="fa-brands fa-linux"></i> Download .AppImage (Linux)
+                            </a>
+                        </div>
                     </div>
                 </div>
             </section>
