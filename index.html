@@ -5,40 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zedix Launcher – Schlanker Minecraft Launcher für Windows & Linux</title>
 
-    <meta name="description" content="Zedix Launcher ist ein schlanker, transparenter und ressourcenschonender Minecraft Client für Windows und Linux. Modpacks verwalten, Themes anpassen und maximale Performance.">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://zedix-launcher.netlify.app/">
-
-    <!-- Open Graph / Facebook / Discord -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://zedix-launcher.netlify.app/">
-    <meta property="og:title" content="Zedix Launcher – Schlanker Minecraft Launcher">
-    <meta property="og:description" content="Ressourcenschonender Minecraft Client für Windows & Linux mit Mod-Manager & Theme Store.">
-    <meta property="og:image" content="https://zedix-launcher.netlify.app/logo.png">
-
-    <!-- Twitter/X Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Zedix Launcher – Schlanker Minecraft Launcher">
-    <meta name="twitter:description" content="Ressourcenschonender Minecraft Client für Windows & Linux mit Mod-Manager & Theme Store.">
-    <meta name="twitter:image" content="https://zedix-launcher.netlify.app/logo.png">
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "Zedix Launcher",
-      "operatingSystem": "Windows, Linux",
-      "applicationCategory": "GameApplication",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "EUR"
-      },
-      "description": "Ein schlanker, transparenter Minecraft Launcher für Windows und Linux."
-    }
-    </script>
-
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data:; script-src 'self' 'unsafe-inline'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data:; script-src 'self' 'unsafe-inline'; connect-src 'self'; frame-src https://discord.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
     <meta name="referrer" content="strict-origin-when-cross-origin">
 
     <link rel="icon" type="image/png" href="logo.png">
@@ -80,31 +47,6 @@
 
         html { scroll-behavior: smooth; }
 
-        /* ===== Keyframe-Bibliothek ===== */
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeInLeft { from { opacity: 0; transform: translateX(-24px); } to { opacity: 1; transform: translateX(0); } }
-        @keyframes fadeInRight { from { opacity: 0; transform: translateX(24px); } to { opacity: 1; transform: translateX(0); } }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes scaleIn { from { opacity: 0; transform: scale(0.88); } to { opacity: 1; transform: scale(1); } }
-        @keyframes popIn { 0% { opacity: 0; transform: scale(0.5); } 70% { opacity: 1; transform: scale(1.08); } 100% { transform: scale(1); } }
-        @keyframes floatY { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-        @keyframes floatBlob { 0%, 100% { transform: translate(0,0) scale(1); } 33% { transform: translate(30px,-40px) scale(1.08); } 66% { transform: translate(-24px,26px) scale(0.94); } }
-        @keyframes pulseGlow { 0%, 100% { box-shadow: 0 0 0 4px rgba(166,136,214,0.08); } 50% { box-shadow: 0 0 0 10px rgba(166,136,214,0.16); } }
-        @keyframes spinSlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
-        @keyframes barFill { from { width: 0; } }
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
-        @keyframes wiggle { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(-4deg); } 75% { transform: rotate(4deg); } }
-        @keyframes underlineGrow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
-        @keyframes gradientPan { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-
-        .reveal { opacity: 0; }
-        .reveal.in-view { animation: fadeInUp 0.7s cubic-bezier(.22,.9,.32,1) forwards; }
-        .reveal.in-view.fade-left { animation-name: fadeInLeft; }
-        .reveal.in-view.fade-right { animation-name: fadeInRight; }
-        .reveal.in-view.pop { animation-name: popIn; }
-
         body {
             background-color: var(--bg);
             background-image:
@@ -116,25 +58,7 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            position: relative;
-            overflow-x: hidden;
         }
-
-        /* Schwebende Ambient-Blobs im Hintergrund — rein dekorativ, animiert */
-        .bg-blob {
-            position: fixed;
-            border-radius: 50%;
-            filter: blur(70px);
-            opacity: 0.16;
-            pointer-events: none;
-            z-index: 0;
-            animation: floatBlob 22s ease-in-out infinite;
-        }
-        .bg-blob.b1 { width: 420px; height: 420px; background: var(--amethyst); top: -120px; left: -100px; animation-duration: 26s; }
-        .bg-blob.b2 { width: 360px; height: 360px; background: var(--copper); bottom: -100px; right: -80px; animation-duration: 30s; animation-delay: -6s; }
-        .bg-blob.b3 { width: 260px; height: 260px; background: var(--xp-green); top: 40%; right: 10%; animation-duration: 20s; animation-delay: -3s; }
-
-        header, main, footer { position: relative; z-index: 1; }
 
         a { color: inherit; }
 
@@ -150,11 +74,7 @@
             z-index: 50;
             background: var(--bg-inset);
             border-bottom: 2px solid var(--border);
-            animation: fadeInDown 0.5s ease both;
-            transition: box-shadow 0.25s ease;
         }
-
-        header.scrolled { box-shadow: 0 8px 24px rgba(0,0,0,0.35); }
 
         .nav-container {
             max-width: 1180px;
@@ -181,38 +101,7 @@
             object-fit: contain;
             border-radius: var(--r-sm);
             border: 1px solid var(--border-strong);
-            transition: transform 0.4s cubic-bezier(.34,1.56,.64,1), border-color 0.2s ease;
         }
-
-        .brand:hover .brand-logo { transform: rotate(-14deg) scale(1.12); border-color: var(--amethyst); }
-
-        .brand-tag { animation: pulseGlow 3s ease-in-out infinite; }
-
-        .nav-toggle {
-            display: none;
-            flex-direction: column;
-            justify-content: center;
-            gap: 5px;
-            width: 34px;
-            height: 34px;
-            background: var(--bg-elevated);
-            border: 1px solid var(--border-strong);
-            border-radius: var(--r-sm);
-            cursor: pointer;
-        }
-
-        .nav-toggle span {
-            display: block;
-            height: 2px;
-            width: 18px;
-            margin: 0 auto;
-            background: var(--ink);
-            transition: transform 0.3s ease, opacity 0.3s ease;
-        }
-
-        .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-        .nav-toggle.open span:nth-child(2) { opacity: 0; }
-        .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
         .brand-name {
             font-family: var(--font-display);
@@ -239,17 +128,7 @@
             flex-wrap: wrap;
         }
 
-        .nav-links li {
-            opacity: 0;
-            animation: fadeInDown 0.5s ease forwards;
-        }
-        .nav-links li:nth-child(1) { animation-delay: 0.05s; }
-        .nav-links li:nth-child(2) { animation-delay: 0.12s; }
-        .nav-links li:nth-child(3) { animation-delay: 0.19s; }
-        .nav-links li:nth-child(4) { animation-delay: 0.26s; }
-
         .nav-links a {
-            position: relative;
             display: inline-block;
             color: var(--ink-muted);
             text-decoration: none;
@@ -258,29 +137,14 @@
             font-weight: 500;
             padding: 8px 12px;
             border: 1px solid transparent;
-            transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+            transition: color 0.1s ease, border-color 0.1s ease, background 0.1s ease;
             cursor: pointer;
-        }
-
-        .nav-links a::after {
-            content: "";
-            position: absolute;
-            left: 12px; right: 12px; bottom: 3px;
-            height: 2px;
-            background: var(--amethyst);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.25s ease;
         }
 
         .nav-links a:hover {
             color: var(--ink);
             background: var(--bg-elevated);
-            transform: translateY(-1px);
         }
-
-        .nav-links a:hover::after,
-        .nav-links a.active::after { transform: scaleX(1); }
 
         .nav-links a.active {
             color: var(--ink);
@@ -301,17 +165,24 @@
             font-size: 0.82rem;
             font-weight: 500;
             text-decoration: none;
-            transition: all 0.15s ease;
+            transition: all 0.1s ease;
         }
 
         .btn-github:hover {
             border-color: var(--amethyst);
             color: var(--amethyst);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(166,136,214,0.18);
         }
 
-        .btn-github:hover i { animation: wiggle 0.5s ease; }
+        @media (max-width: 640px) {
+            .nav-container { padding: 10px 14px; gap: 8px; }
+            .brand-name { font-size: 0.92rem; }
+            .brand-tag { display: none; }
+            .nav-links { width: 100%; overflow-x: auto; flex-wrap: nowrap; justify-content: flex-start; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+            .nav-links::-webkit-scrollbar { display: none; }
+            .nav-links a { flex-shrink: 0; font-size: 0.74rem; padding: 7px 10px; }
+            .btn-github span { display: none; }
+            .btn-github { padding: 8px 10px; }
+        }
 
         main {
             flex: 1;
@@ -321,8 +192,16 @@
             padding: 56px 24px 90px 24px;
         }
 
+        @media (max-width: 640px) {
+            main { padding: 32px 16px 64px 16px; }
+        }
+
+        @media (min-width: 641px) and (max-width: 900px) {
+            main { padding: 44px 20px 76px 20px; }
+        }
+
         .tab-content { display: none; }
-        .tab-content.active { display: block; animation: fadeInUp 0.4s ease both; }
+        .tab-content.active { display: block; }
 
         /* Hero — links Text, rechts Crafting-Grid als Signatur-Element */
         .hero {
@@ -348,11 +227,7 @@
             padding: 4px 10px;
             border-radius: var(--r-sm);
             margin-bottom: 22px;
-            opacity: 0;
-            animation: fadeInUp 0.6s ease 0.05s forwards;
         }
-
-        .hero-eyebrow i { animation: floatY 2.4s ease-in-out infinite; display: inline-block; }
 
         .hero h1 {
             font-family: var(--font-display);
@@ -362,19 +237,20 @@
             letter-spacing: -0.02em;
             margin-bottom: 20px;
             color: var(--ink);
-            opacity: 0;
-            animation: fadeInUp 0.7s ease 0.15s forwards;
+        }
+
+        @media (max-width: 640px) {
+            .hero h1 { font-size: 2.1rem; }
+            .hero p { font-size: 0.95rem; }
+        }
+
+        @media (min-width: 641px) and (max-width: 900px) {
+            .hero h1 { font-size: 2.5rem; }
         }
 
         .hero h1 em {
             font-style: normal;
             color: var(--amethyst);
-            background: linear-gradient(90deg, var(--amethyst), var(--copper-bright), var(--amethyst));
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: gradientPan 6s ease-in-out infinite;
         }
 
         .hero p {
@@ -382,8 +258,6 @@
             color: var(--ink-muted);
             margin-bottom: 32px;
             max-width: 46ch;
-            opacity: 0;
-            animation: fadeInUp 0.7s ease 0.28s forwards;
         }
 
         .hero-actions {
@@ -392,13 +266,9 @@
             gap: 14px;
             flex-wrap: wrap;
             margin-bottom: 16px;
-            opacity: 0;
-            animation: fadeInUp 0.7s ease 0.4s forwards;
         }
 
         .btn-primary {
-            position: relative;
-            overflow: hidden;
             display: inline-flex;
             align-items: center;
             gap: 10px;
@@ -411,29 +281,13 @@
             font-size: 0.98rem;
             text-decoration: none;
             border: 1px solid var(--amethyst);
-            transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+            transition: background 0.1s ease, transform 0.1s ease;
         }
-
-        .btn-primary::before {
-            content: "";
-            position: absolute;
-            top: 0; left: -60%;
-            width: 40%; height: 100%;
-            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.45), transparent);
-            transform: skewX(-20deg);
-            transition: left 0.6s ease;
-        }
-
-        .btn-primary:hover::before { left: 130%; }
 
         .btn-primary:hover {
             background: #b89ce0;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 24px rgba(166,136,214,0.28);
+            transform: translateY(-1px);
         }
-
-        .btn-primary i { transition: transform 0.25s ease; }
-        .btn-primary:hover i { transform: translateY(2px); animation: floatY 1s ease-in-out infinite; }
 
         .btn-secondary {
             display: inline-flex;
@@ -448,13 +302,12 @@
             font-weight: 600;
             font-size: 0.98rem;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.1s ease;
         }
 
         .btn-secondary:hover {
             border-color: var(--amethyst);
             color: var(--amethyst);
-            transform: translateY(-2px);
         }
 
         .verify-link {
@@ -471,26 +324,17 @@
             cursor: pointer;
             text-decoration: none;
             width: fit-content;
-            opacity: 0;
-            animation: fadeInUp 0.7s ease 0.5s forwards;
-            transition: background 0.2s ease, transform 0.2s ease;
         }
 
         .verify-link:hover {
             background: rgba(169, 194, 63, 0.15);
-            transform: translateX(3px);
         }
-
-        .verify-link i { transition: transform 0.3s ease; }
-        .verify-link:hover i { transform: rotate(-8deg) scale(1.15); }
 
         .os-info {
             margin-top: 14px;
             font-family: var(--font-mono);
             font-size: 0.78rem;
             color: var(--ink-faint);
-            opacity: 0;
-            animation: fadeIn 0.7s ease 0.6s forwards;
         }
 
         /* Crafting-Grid Signatur */
@@ -499,8 +343,6 @@
             align-items: center;
             justify-content: center;
             gap: 22px;
-            opacity: 0;
-            animation: scaleIn 0.7s ease 0.3s forwards;
         }
 
         .craft-grid {
@@ -514,6 +356,12 @@
             border-radius: var(--r-sm);
         }
 
+        @media (max-width: 640px) {
+            .craft-grid { grid-template-columns: repeat(3, 34px); grid-template-rows: repeat(3, 34px); }
+            .craft-output { width: 46px; height: 46px; font-size: 1.15rem; }
+            .craft-widget { gap: 12px; }
+        }
+
         .craft-slot {
             background: var(--bg-elevated);
             border: 1px solid var(--border);
@@ -523,33 +371,48 @@
             font-size: 1.05rem;
             color: var(--ink-faint);
             opacity: 0;
-            animation: popIn 0.45s ease forwards;
-            transition: transform 0.2s ease, border-color 0.2s ease;
+            transform: scale(0.6);
+            animation: craft-pop 0.4s ease forwards;
         }
 
-        .craft-slot:hover { transform: scale(1.12) rotate(-3deg); border-color: var(--amethyst); z-index: 2; }
+        .craft-slot.filled {
+            color: var(--ink);
+            border-color: var(--border-strong);
+            animation: craft-pop 0.4s ease forwards, craft-glow 2.4s ease-in-out 0.6s infinite;
+        }
 
-        .craft-slot:nth-child(1) { animation-delay: 0.5s; }
-        .craft-slot:nth-child(2) { animation-delay: 0.56s; }
-        .craft-slot:nth-child(3) { animation-delay: 0.62s; }
-        .craft-slot:nth-child(4) { animation-delay: 0.68s; }
-        .craft-slot:nth-child(5) { animation-delay: 0.74s; }
-        .craft-slot:nth-child(6) { animation-delay: 0.8s; }
-        .craft-slot:nth-child(7) { animation-delay: 0.86s; }
-        .craft-slot:nth-child(8) { animation-delay: 0.92s; }
-        .craft-slot:nth-child(9) { animation-delay: 0.98s; }
-
-        .craft-slot.filled { color: var(--ink); border-color: var(--border-strong); }
-        .craft-slot.filled.perf i, .craft-slot.filled.mods i, .craft-slot.filled.sec i { animation: floatY 2.6s ease-in-out infinite; display: inline-block; }
         .craft-slot.perf { color: var(--copper-bright); }
         .craft-slot.mods { color: var(--amethyst); }
         .craft-slot.sec { color: var(--xp-green); }
 
+        .craft-slot:nth-child(1) { animation-delay: 0s, 0.6s; }
+        .craft-slot:nth-child(2) { animation-delay: 0.05s, 0.65s; }
+        .craft-slot:nth-child(3) { animation-delay: 0.1s, 0.7s; }
+        .craft-slot:nth-child(4) { animation-delay: 0.15s, 0.75s; }
+        .craft-slot:nth-child(5) { animation-delay: 0.2s, 0.8s; }
+        .craft-slot:nth-child(6) { animation-delay: 0.25s, 0.85s; }
+        .craft-slot:nth-child(7) { animation-delay: 0.3s, 0.9s; }
+        .craft-slot:nth-child(8) { animation-delay: 0.35s, 0.95s; }
+        .craft-slot:nth-child(9) { animation-delay: 0.4s, 1s; }
+
+        @keyframes craft-pop {
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes craft-glow {
+            0%, 100% { box-shadow: none; }
+            50% { box-shadow: 0 0 10px -2px currentColor; }
+        }
+
         .craft-arrow {
             color: var(--ink-faint);
             font-size: 1.3rem;
-            opacity: 0;
-            animation: fadeIn 0.5s ease 1.05s forwards, floatY 2s ease-in-out 1.6s infinite;
+            animation: craft-arrow-shift 1.6s ease-in-out infinite;
+        }
+
+        @keyframes craft-arrow-shift {
+            0%, 100% { transform: translateX(0); opacity: 0.6; }
+            50% { transform: translateX(5px); opacity: 1; }
         }
 
         .craft-output {
@@ -564,20 +427,203 @@
             font-size: 1.4rem;
             color: var(--amethyst);
             box-shadow: 0 0 0 4px rgba(166, 136, 214, 0.08);
-            opacity: 0;
-            animation: popIn 0.5s ease 1.15s forwards, pulseGlow 2.5s ease-in-out 1.7s infinite;
+            animation: craft-output-pulse 2.4s ease-in-out infinite;
         }
 
-        /* Showcase */
+        @keyframes craft-output-pulse {
+            0%, 100% { box-shadow: 0 0 0 4px rgba(166, 136, 214, 0.08); transform: scale(1); }
+            50% { box-shadow: 0 0 0 8px rgba(166, 136, 214, 0.14); transform: scale(1.04); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .craft-slot, .craft-arrow, .craft-output {
+                animation: none !important;
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        /* Discord & Community-Grid */
+        .community-section {
+            display: grid;
+            grid-template-columns: minmax(280px, 380px) 1fr;
+            gap: 20px;
+            margin-top: 22px;
+            align-items: start;
+        }
+
+        @media (max-width: 900px) {
+            .community-section { grid-template-columns: 1fr; }
+        }
+
+        .discord-card {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: var(--r-md);
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            align-items: flex-start;
+            width: 100%;
+        }
+
+        .discord-card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .discord-card-header i { color: #5865F2; font-size: 1.2rem; }
+
+        .discord-embed-wrap {
+            width: 100%;
+            max-width: 350px;
+        }
+
+        .discord-card iframe {
+            border-radius: var(--r-sm);
+            border: 1px solid var(--border);
+            width: 100%;
+            max-width: 350px;
+            height: 500px;
+            display: block;
+        }
+
+        @media (max-width: 480px) {
+            .discord-card iframe { height: 420px; }
+        }
+
+        .facts-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: var(--r-md);
+            overflow: hidden;
+        }
+
+        @media (max-width: 480px) {
+            .facts-grid { grid-template-columns: 1fr; }
+        }
+
+        .fact-card {
+            background: var(--bg-elevated);
+            padding: 20px 22px;
+        }
+
+        .fact-card .fact-value {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--amethyst);
+        }
+
+        .fact-card .fact-label {
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            color: var(--ink-faint);
+            margin-top: 4px;
+        }
+
+        /* FAQ */
+        .faq-section { margin-top: 90px; }
+
+        .faq-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--r-md); overflow: hidden; }
+
+        .faq-item { background: var(--bg-elevated); }
+
+        .faq-question {
+            width: 100%;
+            text-align: left;
+            background: none;
+            border: none;
+            color: var(--ink);
+            font-family: var(--font-display);
+            font-size: 0.95rem;
+            font-weight: 600;
+            padding: 18px 22px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+
+        .faq-question i { color: var(--amethyst); transition: transform 0.15s ease; flex-shrink: 0; }
+        .faq-item.open .faq-question i { transform: rotate(45deg); }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease;
+        }
+
+        .faq-item.open .faq-answer { max-height: 220px; }
+
+        .faq-answer p {
+            padding: 0 22px 18px 22px;
+            color: var(--ink-muted);
+            font-size: 0.88rem;
+            line-height: 1.6;
+        }
+
+        /* Roadmap */
+        .roadmap-section { margin-top: 90px; }
+
+        .roadmap-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+        }
+
+        .roadmap-card { background: var(--bg-elevated); padding: 22px 24px; }
+
+        .roadmap-status {
+            display: inline-block;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: var(--r-sm);
+            margin-bottom: 10px;
+        }
+
+        .roadmap-status.planned { background: rgba(166, 136, 214, 0.1); color: var(--amethyst); border: 1px solid rgba(166, 136, 214, 0.3); }
+        .roadmap-status.progress { background: rgba(201, 120, 79, 0.1); color: var(--copper-bright); border: 1px solid rgba(201, 120, 79, 0.3); }
+
+        .roadmap-card h4 { font-family: var(--font-display); font-size: 0.95rem; font-weight: 700; margin-bottom: 6px; }
+        .roadmap-card p { color: var(--ink-muted); font-size: 0.85rem; line-height: 1.5; }
+
+        /* Section-Titel wiederverwendbar */
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            margin-bottom: 18px;
+        }
+
+        @media (max-width: 640px) {
+            .section-title { font-size: 1.25rem; }
+        }
+
+        /* Features & Grids allgemein responsiv */
+        @media (max-width: 640px) {
+            .features-grid, .security-grid, .roadmap-grid, .facts-grid { grid-template-columns: 1fr; }
+            .feature-card { padding: 22px 18px; }
+        }
         .showcase-wrapper {
             background: var(--bg-elevated);
             border: 1px solid var(--border);
             border-radius: var(--r-md);
             overflow: hidden;
-            transition: box-shadow 0.3s ease, border-color 0.3s ease;
         }
-
-        .showcase-wrapper:hover { border-color: var(--border-strong); box-shadow: 0 14px 34px rgba(0,0,0,0.28); }
 
         .showcase-header {
             background: var(--bg-inset);
@@ -609,16 +655,13 @@
             font-size: 0.8rem;
             font-weight: 500;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.1s ease;
         }
-
-        .sc-tab:hover { color: var(--ink); transform: translateY(-1px); }
 
         .sc-tab.active {
             background: var(--bg);
             color: var(--ink);
             border-color: var(--border-strong);
-            animation: scaleIn 0.25s ease;
         }
 
         .showcase-body {
@@ -642,17 +685,12 @@
             font-size: 1.3rem;
             font-weight: 700;
             margin-bottom: 12px;
-            transition: opacity 0.2s ease;
         }
 
         .showcase-details p {
             color: var(--ink-muted);
             font-size: 0.92rem;
-            transition: opacity 0.2s ease;
         }
-
-        .showcase-details.swap h3,
-        .showcase-details.swap p { animation: fadeInLeft 0.35s ease; }
 
         .showcase-media {
             background: var(--bg-inset);
@@ -662,9 +700,7 @@
             overflow: hidden;
         }
 
-        .showcase-media img { width: 100%; height: 100%; object-fit: cover; display: block; transition: opacity 0.25s ease, transform 4s ease; }
-        .showcase-media:hover img { transform: scale(1.04); }
-        .showcase-media img.swap-fade { animation: fadeIn 0.35s ease; }
+        .showcase-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
         /* Performance-Vergleich */
         .perf-section {
@@ -717,28 +753,13 @@
 
         .perf-bar-fill {
             height: 100%;
-            width: 0;
             background: var(--border-strong);
             border-radius: var(--r-sm);
-            transition: width 1.1s cubic-bezier(.22,.9,.32,1);
         }
 
         .perf-bar-fill.hl {
             background: linear-gradient(90deg, var(--amethyst-dim), var(--amethyst));
-            background-size: 200% 100%;
         }
-
-        .perf-bar-fill.hl.in-view { animation: gradientPan 3s ease-in-out infinite 1.2s; }
-
-        .perf-row {
-            opacity: 0;
-        }
-        .perf-row.in-view { animation: fadeInLeft 0.5s ease forwards; }
-        .perf-row:nth-child(1) { animation-delay: 0s; }
-        .perf-row:nth-child(2) { animation-delay: 0.1s; }
-        .perf-row:nth-child(3) { animation-delay: 0.2s; }
-        .perf-row:nth-child(4) { animation-delay: 0.3s; }
-        .perf-row:nth-child(5) { animation-delay: 0.4s; }
 
         .perf-footnote {
             font-family: var(--font-mono);
@@ -784,18 +805,7 @@
             padding: 30px 26px;
             display: flex;
             gap: 18px;
-            opacity: 0;
-            transition: background 0.2s ease, transform 0.2s ease;
         }
-
-        .feature-card.in-view { animation: fadeInUp 0.6s ease forwards; }
-        .feature-card:nth-child(1).in-view { animation-delay: 0s; }
-        .feature-card:nth-child(2).in-view { animation-delay: 0.1s; }
-        .feature-card:nth-child(3).in-view { animation-delay: 0.2s; }
-        .feature-card:nth-child(4).in-view { animation-delay: 0.3s; }
-
-        .feature-card:hover { background: var(--bg-inset); transform: translateY(-3px); }
-        .feature-card:hover .feature-slot { animation: wiggle 0.5s ease; }
 
         .feature-slot {
             flex-shrink: 0;
@@ -854,18 +864,9 @@
             border-radius: var(--r-md);
             padding: 28px;
             margin-bottom: 20px;
-            opacity: 0;
-            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
         }
 
-        .release-card.in-view { animation: fadeInUp 0.6s ease forwards; }
-        .release-card:nth-of-type(1).in-view { animation-delay: 0s; }
-        .release-card:nth-of-type(2).in-view { animation-delay: 0.12s; }
-        .release-card:nth-of-type(3).in-view { animation-delay: 0.24s; }
-
-        .release-card:hover { transform: translateY(-3px); box-shadow: 0 14px 30px rgba(0,0,0,0.25); }
         .release-card.latest { border-color: var(--amethyst-dim); }
-        .release-card.latest:hover { border-color: var(--amethyst); }
 
         .release-header {
             display: flex;
@@ -908,21 +909,9 @@
             display: flex;
             align-items: flex-start;
             gap: 10px;
-            opacity: 0;
-            transition: color 0.15s ease, transform 0.15s ease;
         }
 
-        .changelog-list.in-view li { animation: fadeInLeft 0.4s ease forwards; }
-        .changelog-list.in-view li:nth-child(1) { animation-delay: 0.05s; }
-        .changelog-list.in-view li:nth-child(2) { animation-delay: 0.1s; }
-        .changelog-list.in-view li:nth-child(3) { animation-delay: 0.15s; }
-        .changelog-list.in-view li:nth-child(4) { animation-delay: 0.2s; }
-        .changelog-list.in-view li:nth-child(5) { animation-delay: 0.25s; }
-        .changelog-list.in-view li:nth-child(6) { animation-delay: 0.3s; }
-
-        .changelog-list li:hover { color: var(--ink); transform: translateX(3px); }
-        .changelog-list li i { color: var(--amethyst); margin-top: 4px; font-size: 0.75rem; transition: transform 0.2s ease; }
-        .changelog-list li:hover i { transform: scale(1.3); }
+        .changelog-list li i { color: var(--amethyst); margin-top: 4px; font-size: 0.75rem; }
 
         .download-grid {
             display: grid;
@@ -943,12 +932,12 @@
             text-decoration: none;
             font-size: 0.85rem;
             font-family: var(--font-mono);
-            transition: background 0.15s ease, padding-left 0.15s ease;
+            transition: background 0.1s ease;
         }
 
-        .dl-link:hover { background: var(--bg-elevated); color: var(--amethyst); padding-left: 20px; }
-        .dl-link i { color: var(--ink-faint); transition: transform 0.2s ease, color 0.2s ease; }
-        .dl-link:hover i { color: var(--amethyst); animation: floatY 0.8s ease-in-out infinite; }
+        .dl-link:hover { background: var(--bg-elevated); color: var(--amethyst); }
+        .dl-link i { color: var(--ink-faint); }
+        .dl-link:hover i { color: var(--amethyst); }
 
         /* Security-Seite */
         .security-intro {
@@ -961,8 +950,6 @@
             display: flex;
             gap: 18px;
             align-items: flex-start;
-            opacity: 0;
-            animation: fadeInUp 0.6s ease forwards;
         }
 
         .security-intro .sec-icon {
@@ -977,7 +964,6 @@
             align-items: center;
             justify-content: center;
             font-size: 1.1rem;
-            animation: pulseGlow 3s ease-in-out infinite;
         }
 
         .security-intro h3 {
@@ -998,19 +984,7 @@
             margin-bottom: 22px;
         }
 
-        .security-card {
-            background: var(--bg-elevated);
-            padding: 22px 24px;
-            opacity: 0;
-            transition: background 0.2s ease, transform 0.2s ease;
-        }
-
-        .security-card.in-view { animation: fadeInUp 0.6s ease forwards; }
-        .security-card:nth-child(1).in-view { animation-delay: 0s; }
-        .security-card:nth-child(2).in-view { animation-delay: 0.1s; }
-        .security-card:nth-child(3).in-view { animation-delay: 0.2s; }
-        .security-card:nth-child(4).in-view { animation-delay: 0.3s; }
-        .security-card:hover { background: var(--bg-inset); transform: translateY(-3px); }
+        .security-card { background: var(--bg-elevated); padding: 22px 24px; }
 
         .security-card h4 {
             display: flex;
@@ -1022,10 +996,9 @@
             margin-bottom: 10px;
         }
 
-        .security-card h4 i { color: var(--amethyst); font-size: 0.85rem; transition: transform 0.2s ease; }
-        .security-card:hover h4 i { transform: rotate(-10deg) scale(1.15); }
+        .security-card h4 i { color: var(--amethyst); font-size: 0.85rem; }
         .security-card p { color: var(--ink-muted); font-size: 0.86rem; line-height: 1.55; }
-        .security-card a { color: var(--amethyst); transition: color 0.2s ease; }
+        .security-card a { color: var(--amethyst); }
         .security-card a:hover { color: var(--copper-bright); }
 
         .terminal {
@@ -1034,10 +1007,7 @@
             border-radius: var(--r-md);
             margin-bottom: 22px;
             overflow: hidden;
-            opacity: 0;
         }
-
-        .terminal.in-view { animation: fadeInUp 0.6s ease forwards; }
 
         .terminal-bar {
             display: flex;
@@ -1050,11 +1020,7 @@
         .terminal-bar span {
             width: 9px; height: 9px; border-radius: 50%;
             background: var(--border-strong);
-            animation: blink 2.4s ease-in-out infinite;
         }
-        .terminal-bar span:nth-child(1) { animation-delay: 0s; }
-        .terminal-bar span:nth-child(2) { animation-delay: 0.3s; }
-        .terminal-bar span:nth-child(3) { animation-delay: 0.6s; }
 
         .terminal-bar .label {
             width: auto; height: auto; border-radius: 0;
@@ -1115,21 +1081,15 @@
             display: flex;
             gap: 14px;
             align-items: flex-start;
-            opacity: 0;
-            transition: border-color 0.2s ease;
         }
 
-        .note-box.in-view { animation: fadeInUp 0.6s ease forwards; }
-        .note-box:hover { border-color: rgba(201, 120, 79, 0.55); }
-        .note-box i { color: var(--copper-bright); margin-top: 2px; animation: floatY 2.4s ease-in-out infinite; }
+        .note-box i { color: var(--copper-bright); margin-top: 2px; }
 
         footer {
             border-top: 1px solid var(--border);
             background: var(--bg-inset);
             padding: 32px 24px;
             margin-top: auto;
-            opacity: 0;
-            animation: fadeIn 0.8s ease 0.3s forwards;
         }
 
         .footer-container {
@@ -1146,106 +1106,12 @@
         }
 
         .footer-disclaimer { max-width: 560px; line-height: 1.5; }
-
-        /* ============ RESPONSIVE: TABLET ============ */
-        @media (max-width: 1024px) {
-            main { padding: 44px 20px 70px 20px; }
-            .hero h1 { font-size: 2.5rem; }
-            .perf-copy h2 { font-size: 1.8rem; }
-        }
-
-        /* ============ RESPONSIVE: MOBILE NAV ============ */
-        @media (max-width: 768px) {
-            .nav-container { padding: 12px 16px; }
-            .nav-toggle { display: flex; }
-
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                flex-direction: column;
-                align-items: stretch;
-                background: var(--bg-inset);
-                border-bottom: 2px solid var(--border);
-                padding: 8px 16px 16px;
-                gap: 2px;
-            }
-
-            .nav-links.open { display: flex; }
-
-            .nav-links li { width: 100%; }
-            .nav-links a { width: 100%; padding: 12px 14px; }
-            .nav-links a::after { display: none; }
-            .btn-github { justify-content: center; }
-
-            .hero { gap: 36px; padding-bottom: 50px; }
-            .hero h1 { font-size: 2.1rem; }
-            .hero p { font-size: 0.98rem; }
-            .hero-actions { flex-direction: column; align-items: stretch; }
-            .hero-actions .btn-primary,
-            .hero-actions .btn-secondary { justify-content: center; width: 100%; }
-
-            .craft-widget { transform: scale(0.88); }
-
-            .showcase-tabs { width: 100%; }
-            .sc-tab { flex: 1 1 auto; text-align: center; }
-            .showcase-media { min-height: 220px; }
-
-            .perf-panel { padding: 20px; }
-            .perf-copy h2 { font-size: 1.6rem; }
-
-            .features-grid { margin-top: 60px; }
-            .feature-card { padding: 24px 20px; }
-
-            .page-header h2 { font-size: 1.55rem; }
-
-            .release-header { align-items: flex-start; flex-direction: column; }
-            .download-grid { grid-template-columns: 1fr; }
-
-            .footer-container { flex-direction: column; align-items: flex-start; text-align: left; }
-        }
-
-        /* ============ RESPONSIVE: SMALL PHONE ============ */
-        @media (max-width: 480px) {
-            .nav-container { padding: 10px 14px; }
-            .brand-name { font-size: 0.95rem; }
-            .brand-tag { display: none; }
-
-            main { padding: 30px 14px 56px 14px; }
-
-            .hero-eyebrow { font-size: 0.7rem; }
-            .hero h1 { font-size: 1.7rem; }
-            .hero p { font-size: 0.92rem; margin-bottom: 24px; }
-
-            .craft-widget { transform: scale(0.72); margin: 0 -20px; }
-
-            .showcase-header { padding: 10px 12px; }
-            .showcase-details { padding: 20px; }
-            .showcase-details h3 { font-size: 1.1rem; }
-
-            .perf-copy h2 { font-size: 1.35rem; }
-            .perf-row-label { font-size: 0.82rem; }
-
-            .feature-card { flex-direction: column; gap: 12px; }
-
-            .page-header h2 { font-size: 1.3rem; }
-            .release-card { padding: 20px; }
-            .security-card { padding: 18px; }
-
-            .bg-blob { display: none; }
-        }
     </style>
 </head>
 <body>
 
-    <div class="bg-blob b1"></div>
-    <div class="bg-blob b2"></div>
-    <div class="bg-blob b3"></div>
-
     <!-- Navigation -->
-    <header id="site-header">
+    <header>
         <div class="nav-container">
             <a href="#" class="brand" onclick="switchTab('home'); return false;">
                 <img src="logo.png" alt="Zedix Launcher Logo" class="brand-logo">
@@ -1253,17 +1119,13 @@
                 <span class="brand-tag">v2.5.0</span>
             </a>
 
-            <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Menü öffnen" aria-expanded="false">
-                <span></span><span></span><span></span>
-            </button>
-
-            <ul class="nav-links" id="nav-links">
-                <li><a id="nav-home" class="active" onclick="switchTab('home'); closeMobileNav();">Übersicht</a></li>
-                <li><a id="nav-versions" onclick="switchTab('versions'); closeMobileNav();">Downloads &amp; Versionen</a></li>
-                <li><a id="nav-security" onclick="switchTab('security'); closeMobileNav();">Sicherheit &amp; Antivirus</a></li>
+            <ul class="nav-links">
+                <li><a id="nav-home" class="active" onclick="switchTab('home')">Übersicht</a></li>
+                <li><a id="nav-versions" onclick="switchTab('versions')">Downloads &amp; Versionen</a></li>
+                <li><a id="nav-security" onclick="switchTab('security')">Sicherheit &amp; Antivirus</a></li>
                 <li>
                     <a href="https://github.com/Nicominecith/Zedix-Launcher" target="_blank" rel="noopener noreferrer" class="btn-github">
-                        <i class="fab fa-github"></i> GitHub
+                        <i class="fab fa-github"></i> <span>GitHub</span>
                     </a>
                 </li>
             </ul>
@@ -1334,6 +1196,35 @@
                     <div class="showcase-media">
                         <img id="sc-img" src="zedixmenü.png" alt="Zedix Launcher Vorschau" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                         <div style="display:none; color:var(--ink-faint); font-size:0.9rem; padding: 20px; font-family: var(--font-mono);">[Screenshot zedixmenü.png]</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Discord Community -->
+            <div class="community-section">
+                <div class="discord-card">
+                    <div class="discord-card-header"><i class="fab fa-discord"></i> Community &amp; Support</div>
+                    <div class="discord-embed-wrap">
+                        <iframe src="https://discord.com/widget?id=693503395079782430&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+                    </div>
+                </div>
+
+                <div class="facts-grid">
+                    <div class="fact-card">
+                        <div class="fact-value">2.5.0</div>
+                        <div class="fact-label">AKTUELLE VERSION</div>
+                    </div>
+                    <div class="fact-card">
+                        <div class="fact-value">2</div>
+                        <div class="fact-label">UNTERSTÜTZTE OS-FAMILIEN</div>
+                    </div>
+                    <div class="fact-card">
+                        <div class="fact-value">100%</div>
+                        <div class="fact-label">OPEN SOURCE</div>
+                    </div>
+                    <div class="fact-card">
+                        <div class="fact-value">0€</div>
+                        <div class="fact-label">KOSTENLOS &amp; WERBEFREI</div>
                     </div>
                 </div>
             </div>
@@ -1410,7 +1301,129 @@
                         <p>Präzise und gezielte Abfragen nach neuen Launcher-Updates für schnelles, unkompliziertes Aktualisieren.</p>
                     </div>
                 </div>
+                <div class="feature-card">
+                    <div class="feature-slot"><i class="fas fa-server"></i></div>
+                    <div>
+                        <h4>Server-Verwaltung</h4>
+                        <p>Speichere und verwalte deine Lieblingsserver mit Ping-Anzeige, Favoriten und Schnellverbindung.</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-slot"><i class="fas fa-users"></i></div>
+                    <div>
+                        <h4>Multi-Account-Support</h4>
+                        <p>Wechsle nahtlos zwischen mehreren Microsoft-Konten, ohne dich jedes Mal neu anmelden zu müssen.</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-slot"><i class="fas fa-cloud-arrow-down"></i></div>
+                    <div>
+                        <h4>Modpack-Import</h4>
+                        <p>Importiere Modpacks direkt von Modrinth oder CurseForge oder als lokale .zip-Datei per Drag &amp; Drop.</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-slot"><i class="fas fa-layer-group"></i></div>
+                    <div>
+                        <h4>Instanz-Isolation</h4>
+                        <p>Jede Instanz läuft mit eigenen Mods, Configs und Ressourcenpaketen — völlig getrennt voneinander.</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-slot"><i class="fas fa-terminal"></i></div>
+                    <div>
+                        <h4>Live-Log-Konsole</h4>
+                        <p>Verfolge Spiel-Logs in Echtzeit direkt im Launcher, inklusive Filter- und Suchfunktion bei Abstürzen.</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-slot"><i class="fas fa-mug-hot"></i></div>
+                    <div>
+                        <h4>Automatische Java-Verwaltung</h4>
+                        <p>Der Launcher erkennt und installiert automatisch die passende Java-Version für jede Minecraft-Version.</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-slot"><i class="fas fa-download"></i></div>
+                    <div>
+                        <h4>Paralleler Download-Manager</h4>
+                        <p>Mehrere Dateien werden gleichzeitig heruntergeladen, um Wartezeiten beim ersten Start zu minimieren.</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-slot"><i class="fas fa-language"></i></div>
+                    <div>
+                        <h4>Mehrsprachig</h4>
+                        <p>Die Oberfläche ist auf Deutsch und Englisch verfügbar, weitere Sprachen sind in Planung.</p>
+                    </div>
+                </div>
             </div>
+
+            <!-- FAQ -->
+            <section class="faq-section">
+                <h2 class="section-title">Häufige Fragen</h2>
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFaq(this)">
+                            Ist Zedix Launcher wirklich kostenlos?
+                            <i class="fas fa-plus"></i>
+                        </button>
+                        <div class="faq-answer"><p>Ja, der Launcher ist vollständig kostenlos und wird es auch bleiben. Es gibt keine Werbung, kein Tracking und keine versteckten Kosten.</p></div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFaq(this)">
+                            Funktioniert der Launcher auch auf macOS?
+                            <i class="fas fa-plus"></i>
+                        </button>
+                        <div class="faq-answer"><p>Aktuell wird nur Windows und Linux offiziell unterstützt. Eine macOS-Version ist auf unserer Roadmap, aber noch nicht terminiert.</p></div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFaq(this)">
+                            Warum warnt Windows SmartScreen beim Öffnen der .exe?
+                            <i class="fas fa-plus"></i>
+                        </button>
+                        <div class="faq-answer"><p>Die Datei ist unsigniert und hat daher noch keine Reputation bei Microsoft aufgebaut. Prüfe die Datei im Zweifel über VirusTotal und vergleiche die Prüfsumme.</p></div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFaq(this)">
+                            Kann ich meine bestehenden Modpacks importieren?
+                            <i class="fas fa-plus"></i>
+                        </button>
+                        <div class="faq-answer"><p>Ja, du kannst Modpacks direkt von Modrinth und CurseForge importieren oder eine lokale .zip-Datei per Drag &amp; Drop hinzufügen.</p></div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFaq(this)">
+                            Wo finde ich Hilfe bei Problemen?
+                            <i class="fas fa-plus"></i>
+                        </button>
+                        <div class="faq-answer"><p>Am schnellsten hilft dir unsere Discord-Community weiter. Alternativ kannst du ein Issue direkt im GitHub-Repository eröffnen.</p></div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFaq(this)">
+                            Wie kann ich zum Projekt beitragen?
+                            <i class="fas fa-plus"></i>
+                        </button>
+                        <div class="faq-answer"><p>Der Quellcode ist öffentlich auf GitHub. Pull Requests, Bug-Reports und Feature-Vorschläge sind jederzeit willkommen.</p></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Roadmap -->
+            <section class="roadmap-section">
+                <h2 class="section-title">Was als Nächstes kommt</h2>
+                <div class="roadmap-grid">
+                    <div class="roadmap-card">
+                        <span class="roadmap-status progress">IN ARBEIT</span>
+                        <h4>macOS-Unterstützung</h4>
+                        <p>Ein nativer Build für Apple Silicon und Intel-Macs befindet sich in Entwicklung.</p>
+                    </div>
+                    <div class="roadmap-card">
+                        <span class="roadmap-status planned">GEPLANT</span>
+                        <h4>Cloud-Sync für Profile</h4>
+                        <p>Instanzen und Einstellungen optional geräteübergreifend synchronisieren.</p>
+                    </div>
+                </div>
+            </section>
         </div>
 
         <!-- PAGE 2: VERSIONS -->
@@ -1572,11 +1585,38 @@
                     <span></span><span></span><span></span>
                     <span class="label">checksums — v2.5.0</span>
                 </div>
-                <p style="padding: 16px;">
-                    Die SHA-256-Prüfsummen für jede Release-Datei findest du direkt bei den
-                    <a href="https://github.com/Nicominecith/Zedix-Launcher/releases" target="_blank" rel="noopener noreferrer">GitHub Releases <i class="fas fa-arrow-up-right-from-square" style="font-size: 0.7rem;"></i></a>
-                    zur jeweiligen Version.
-                </p>
+                <table class="hash-table">
+                    <thead>
+                        <tr><th>Datei</th><th>SHA-256</th><th>Scan</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="file-name">zedix-launcher-2.5.0-setup_Windows.exe</td>
+                            <td>HIER_SHA256_HASH_EINFÜGEN</td>
+                            <td><a class="vt-badge" href="#" target="_blank" rel="noopener noreferrer"><i class="fas fa-check"></i> VT-Link</a></td>
+                        </tr>
+                        <tr>
+                            <td class="file-name">zedix-launcher-2.5.0-amd64-Linux.deb</td>
+                            <td>HIER_SHA256_HASH_EINFÜGEN</td>
+                            <td><a class="vt-badge" href="#" target="_blank" rel="noopener noreferrer"><i class="fas fa-check"></i> VT-Link</a></td>
+                        </tr>
+                        <tr>
+                            <td class="file-name">zedix-launcher-2.5.0-arm64-Linux.deb</td>
+                            <td>HIER_SHA256_HASH_EINFÜGEN</td>
+                            <td><a class="vt-badge" href="#" target="_blank" rel="noopener noreferrer"><i class="fas fa-check"></i> VT-Link</a></td>
+                        </tr>
+                        <tr>
+                            <td class="file-name">zedix-launcher-2.5.0-x86_64-Linux.AppImage</td>
+                            <td>HIER_SHA256_HASH_EINFÜGEN</td>
+                            <td><a class="vt-badge" href="#" target="_blank" rel="noopener noreferrer"><i class="fas fa-check"></i> VT-Link</a></td>
+                        </tr>
+                        <tr>
+                            <td class="file-name">zedix-launcher-2.5.0-arm64-Linux.AppImage</td>
+                            <td>HIER_SHA256_HASH_EINFÜGEN</td>
+                            <td><a class="vt-badge" href="#" target="_blank" rel="noopener noreferrer"><i class="fas fa-check"></i> VT-Link</a></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
             <div class="note-box">
@@ -1610,24 +1650,10 @@
             const targetTab = document.getElementById('tab-' + tabId);
             const targetNav = document.getElementById('nav-' + tabId);
 
-            if (targetTab) {
-                // Re-trigger CSS-Animation bei jedem Tab-Wechsel
-                targetTab.style.animation = 'none';
-                targetTab.offsetHeight; /* reflow erzwingen */
-                targetTab.style.animation = '';
-                targetTab.classList.add('active');
-                revealInCurrentTab();
-            }
+            if (targetTab) targetTab.classList.add('active');
             if (targetNav) targetNav.classList.add('active');
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function closeMobileNav() {
-            const nav = document.getElementById('nav-links');
-            const toggle = document.getElementById('nav-toggle');
-            if (nav) nav.classList.remove('open');
-            if (toggle) { toggle.classList.remove('open'); toggle.setAttribute('aria-expanded', 'false'); }
         }
 
         const showcaseData = {
@@ -1659,22 +1685,17 @@
 
             const data = showcaseData[key];
             if (data) {
-                const details = document.querySelector('.showcase-details');
-                const titleEl = document.getElementById('sc-title');
-                const descEl = document.getElementById('sc-desc');
-                const imgEl = document.getElementById('sc-img');
-
-                details.classList.remove('swap');
-                imgEl.classList.remove('swap-fade');
-                void details.offsetWidth; /* reflow erzwingen für Re-Trigger */
-
-                titleEl.innerText = data.title;
-                descEl.innerText = data.desc;
-                imgEl.src = data.img;
-
-                details.classList.add('swap');
-                imgEl.classList.add('swap-fade');
+                document.getElementById('sc-title').innerText = data.title;
+                document.getElementById('sc-desc').innerText = data.desc;
+                document.getElementById('sc-img').src = data.img;
             }
+        }
+
+        function toggleFaq(btn) {
+            const item = btn.closest('.faq-item');
+            const wasOpen = item.classList.contains('open');
+            document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+            if (!wasOpen) item.classList.add('open');
         }
 
         window.addEventListener('DOMContentLoaded', () => {
@@ -1683,66 +1704,6 @@
                 btn.href = "https://github.com/Nicominecith/Zedix-Launcher/releases/download/2.5.0/zedix-launcher-2.5.0-amd64-Linux.deb";
                 btn.innerHTML = '<i class="fab fa-linux"></i> Für Linux herunterladen (.deb)';
             }
-
-            /* Hamburger-Menü für Handy/Tablet */
-            const navToggle = document.getElementById('nav-toggle');
-            const navLinks = document.getElementById('nav-links');
-            if (navToggle && navLinks) {
-                navToggle.addEventListener('click', () => {
-                    const isOpen = navLinks.classList.toggle('open');
-                    navToggle.classList.toggle('open', isOpen);
-                    navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-                });
-            }
-
-            /* Header bekommt Schatten sobald gescrollt wird */
-            const header = document.getElementById('site-header');
-            window.addEventListener('scroll', () => {
-                if (header) header.classList.toggle('scrolled', window.scrollY > 8);
-            }, { passive: true });
-
-            /* Perf-Balken merken sich ihre Ziel-Breite aus dem Inline-Style */
-            document.querySelectorAll('.perf-bar-fill').forEach(bar => {
-                bar.dataset.target = bar.style.width || '0%';
-                bar.style.width = '0%';
-            });
-
-            /* Scroll-Reveal: Karten, Zeilen und Panels blenden animiert ein, sobald sie sichtbar werden */
-            const revealSelectors = [
-                '.feature-card', '.security-card', '.release-card',
-                '.perf-row', '.terminal', '.note-box', '.changelog-list',
-                '.security-intro'
-            ];
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (!entry.isIntersecting) return;
-                    entry.target.classList.add('in-view');
-
-                    // Perf-Balken erst füllen, sobald sichtbar
-                    if (entry.target.classList.contains('perf-row')) {
-                        const fill = entry.target.querySelector('.perf-bar-fill');
-                        if (fill && fill.dataset.target) {
-                            requestAnimationFrame(() => {
-                                fill.style.width = fill.dataset.target;
-                                fill.classList.add('in-view');
-                            });
-                        }
-                    }
-                    observer.unobserve(entry.target);
-                });
-            }, { threshold: 0.15 });
-
-            function revealInCurrentTab() {
-                const activeTab = document.querySelector('.tab-content.active');
-                if (!activeTab) return;
-                revealSelectors.forEach(sel => {
-                    activeTab.querySelectorAll(sel + ':not(.in-view)').forEach(el => observer.observe(el));
-                });
-            }
-            window.revealInCurrentTab = revealInCurrentTab;
-
-            revealInCurrentTab();
         });
     </script>
 </body>
